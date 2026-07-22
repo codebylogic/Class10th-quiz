@@ -3,7 +3,17 @@ let chapterMeta = {
     subtitle: "लोड हो रहा है...",
     description: "कृपया प्रतीक्षा करें..."
 };
-
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then((registration) => {
+                console.log('Service Worker रजिस्टर्ड हो गया! Scope:', registration.scope);
+            })
+            .catch((error) => {
+                console.log('Service Worker रजिस्ट्रेशन फेल हुआ:', error);
+            });
+    });
+}
 let rawQuestions = [];
 let questions = [];
 let currentQuestion = 0;
