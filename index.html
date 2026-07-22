@@ -6,11 +6,13 @@
     <title>BSEB Class 10th Quiz Portal</title>
     
     <!-- PWA Meta Tags -->
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#4f46e5">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="./icon.png">
+    
+    
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#4f46e5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="./icon-192.png">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -304,11 +306,14 @@ window.onload = function() {
     
     // PWA सर्विस वर्कर रजिस्ट्रेशन
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-        .then((reg) => console.log("PWA Service Worker Registered: ", reg.scope))
-        .catch(err => console.log("Service Worker Registration Failed: ", err));
-    }
-};
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((reg) => console.log('Service Worker Registered: ', reg.scope))
+      .catch((err) => console.log('Service Worker Registration Failed: ', err));
+  });
+}
+
+
 
 function renderSubjects() {
     gridContainer.innerHTML = '';

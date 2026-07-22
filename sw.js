@@ -1,6 +1,4 @@
-const CACHE_NAME = 'bseb-quiz-v1'; // नए प्रोजेक्ट का पहला वर्ज़न
-
-// 🌟 GitHub Pages की नई रिपोजिटरी 'Class10th-quiz' का बेस पाथ
+const CACHE_NAME = 'bseb-quiz-v2'; // वर्ज़न अपडेट करें
 const BASE_PATH = '/Class10th-quiz';
 const OFFLINE_URL = `${BASE_PATH}/offline.html`;
 
