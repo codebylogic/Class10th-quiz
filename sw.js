@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bseb-quiz-v5'; // 🌟 वर्जन बढ़ा दिया (v4 से v5)
+const CACHE_NAME = 'bseb-quiz-v6'; // 🌟 वर्जन बढ़ा दिया (v4 से v5)
 const OFFLINE_URL = '/Class-10th-maha-quiz-/offline.html';
 const ASSETS_TO_CACHE = [
   '/Class-10th-maha-quiz-/index.html',
