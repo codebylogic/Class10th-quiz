@@ -12,8 +12,7 @@ const ASSETS_TO_CACHE = [
   `${BASE_PATH}/script.js`,
   `${BASE_PATH}/manifest.json`,
   OFFLINE_URL,
-  `${BASE_PATH}/icon-192.png`,
-  `${BASE_PATH}/icon-512.png`
+  `${BASE_PATH}/icon-192.png`
 ];
 
 // 1. इंस्टॉल इवेंट (Cache Assets)
