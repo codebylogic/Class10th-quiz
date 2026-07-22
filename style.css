@@ -88,7 +88,7 @@ body {
 .items-center { align-items: center; }
 .justify-center { justify-content: center; }
 .justify-between { justify-content: space-between; }
-.text-center { text-align: center; }
+.text-center { text-align: text-center; }
 .hidden { display: none !important; }
 .overflow-y-auto { overflow-y: auto; }
 
@@ -185,7 +185,7 @@ body {
     gap: 10px; 
     padding: 16px 0; 
     flex: 1; 
-    overflow-y_auto; 
+    overflow-y: auto; 
 }
 
 .q-circle { 
