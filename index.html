@@ -81,18 +81,156 @@
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 flex flex-col justify-start relative">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
         
-        <!-- HEADER DESCRIPTION SECTION -->
-        <section class="space-y-4 text-center max-w-3xl mx-auto pt-6 pb-6 relative z-10">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20 uppercase tracking-wide">
-                📚 Active Quiz Modules Live
-            </span>
-            <h2 id="dashboard-title" class="text-3xl md:text-4xl font-black tracking-tight text-white leading-tight">
-                Choose a <span class="bg-gradient-to-r from-emerald-400 via-teal-400 to-violet-500 bg-clip-text text-transparent">Subject</span> to Begin
-            </h2>
-            <p id="dashboard-desc" class="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
-                अपनी पसंद का विषय चुनें, फिर उपलब्ध चैप्टर्स या सेक्शन्स में से किसी भी टेस्ट फ़ाइल को तुरंत रन करने के लिए उस पर क्लिक करें।
-            </p>
-        </section>
+<!-- HEADER DESCRIPTION SECTION WITH INLINE ANIMATION FIX -->
+<style>
+    /* GitHub Animation Base Stage */
+    .github-stage {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+        width: clamp(320px, 70vw, 650px) !important;
+        height: clamp(70px, 15vw, 100px) !important;
+        margin: 0.5rem auto 1rem auto !important;
+        overflow: visible !important;
+    }
+
+    /* Animated Logo Container */
+    .github-logo {
+        width: clamp(48px, 9vw, 68px) !important;
+        height: clamp(48px, 9vw, 68px) !important;
+        background-color: #ffffff !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 40px rgba(168, 85, 247, 0.3) !important;
+        position: absolute !important;
+        z-index: 10 !important;
+        overflow: hidden !important;
+
+        animation: logoSync 10s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+    }
+
+    /* Logo PNG Image */
+    .github-logo img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: 50% !important;
+    }
+
+    /* Name Wrapper */
+    .github-name-wrapper {
+        position: absolute !important;
+        left: clamp(65px, 12vw, 90px) !important;
+        display: flex !important;
+        align-items: center !important;
+        height: 100% !important;
+    }
+
+    /* Animated Typing Text */
+    .github-name {
+        font-size: clamp(1.4rem, 3.2vw, 2.4rem) !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.05em !important;
+        color: #ffffff !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        border-right: 3px solid #38bdf8 !important;
+        padding-left: 12px !important;
+        
+        animation: nameSync 10s cubic-bezier(0.4, 0, 0.2, 1) infinite, cursorBlink 0.75s step-end infinite !important;
+    }
+
+    @keyframes cursorBlink {
+        from, to { border-color: transparent; }
+        50% { border-color: #38bdf8; }
+    }
+
+    @keyframes logoSync {
+        0% {
+            opacity: 0;
+            transform: translateY(40px) scale(0.3);
+            left: calc(50% - clamp(24px, 4.5vw, 34px));
+        }
+        15% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            left: calc(50% - clamp(24px, 4.5vw, 34px));
+        }
+        30% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            left: 0;
+        }
+        65% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            left: 0;
+        }
+        85% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            left: calc(50% - clamp(24px, 4.5vw, 34px));
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(40px) scale(0.3);
+            left: calc(50% - clamp(24px, 4.5vw, 34px));
+        }
+    }
+
+    @keyframes nameSync {
+        0%, 20% {
+            opacity: 0;
+            width: 0;
+        }
+        20.1% {
+            opacity: 1;
+            width: 0;
+        }
+        35% {
+            opacity: 1;
+            width: 15ch;
+        }
+        65% {
+            opacity: 1;
+            width: 15ch;
+        }
+        85% {
+            opacity: 1;
+            width: 0;
+        }
+        85.1%, 100% {
+            opacity: 0;
+            width: 0;
+        }
+    }
+</style>
+
+<section class="space-y-3 text-center max-w-3xl mx-auto pt-4 pb-4 relative z-10">
+    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20 uppercase tracking-wide">
+        📚 Active Quiz Modules Live
+    </span>
+
+    <div class="github-stage">
+        <div class="github-logo">
+            <img src="codebylogic.png" alt="Code By Logic Logo">
+        </div>
+        <div class="github-name-wrapper">
+            <div class="github-name">CODE BY LOGIC</div>
+        </div>
+    </div>
+
+    <h2 id="dashboard-title" class="text-2xl md:text-3xl font-black tracking-tight text-white leading-tight">
+        Choose a <span class="bg-gradient-to-r from-emerald-400 via-teal-400 to-violet-500 bg-clip-text text-transparent">Subject</span> to Begin
+    </h2>
+    <p id="dashboard-desc" class="text-slate-400 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
+        अपनी पसंद का विषय चुनें, फिर उपलब्ध चैप्टर्स या सेक्शन्स में से किसी भी टेस्ट फ़ाइल को तुरंत रन करने के लिए उस पर क्लिक करें।
+    </p>
+</section>
+
 
         <hr class="border-slate-900 mb-8">
 
