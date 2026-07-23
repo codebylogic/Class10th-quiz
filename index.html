@@ -263,9 +263,9 @@
         &copy; 2026 Quiz App Portal. Designed for High Performance UI.
     </footer>
 
- <script>
+<script>
 // ==========================================
-// 🚀 बिहार बोर्ड कक्षा 10वीं (भारती भवन एवं संपूर्ण पाठ्यक्रम - Modular Engine Route)
+// 🚀 बिहार बोर्ड कक्षा 10वीं (Modular Engine Route)
 // ==========================================
 const quizData = [
     {
@@ -442,26 +442,31 @@ const devModal = document.getElementById('dev-modal');
 let currentViewState = { stage: "subjects", subjectIndex: null };
 
 window.onload = function() {
-    renderSubjects();
+    // बैक हिस्ट्री इनिशियलाइज़ करना
+    history.replaceState({ stage: "subjects" }, "", "#subjects");
+    renderSubjects(true);
     
     // PWA सर्विस वर्कर रजिस्ट्रेशन
     if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then((reg) => console.log('Service Worker Registered: ', reg.scope))
-      .catch((err) => console.log('Service Worker Registration Failed: ', err));
-  });
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then((reg) => console.log('Service Worker Registered: ', reg.scope))
+                .catch((err) => console.log('Service Worker Registration Failed: ', err));
+        });
+    }
 }
 
-}
-
-function renderSubjects() {
+function renderSubjects(isBackAction = false) {
     gridContainer.innerHTML = '';
     gridContainer.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl w-full mx-auto animate-fade-in";
     mainTitle.innerHTML = `Choose a <span class="bg-gradient-to-r from-emerald-400 via-teal-400 to-violet-500 bg-clip-text text-transparent">Subject</span> to Begin`;
     mainDesc.innerText = "अपनी पसंद का विषय चुनें, फिर उपलब्ध चैप्टर्स या सेक्शन्स में से किसी भी टेस्ट फ़ाइल को तुरंत रन करने के लिए उस पर क्लिक करें।";
     backBtn.classList.add('hidden');
     currentViewState = { stage: "subjects", subjectIndex: null };
+
+    if (!isBackAction) {
+        history.pushState({ stage: "subjects" }, "", "#subjects");
+    }
 
     quizData.forEach((sub, subIndex) => {
         const card = document.createElement('div');
@@ -492,11 +497,11 @@ function handleSubjectClick(subIndex) {
     if (sub.sections) {
         renderSections(subIndex);
     } else {
-        renderChapters(sub.chapters, sub.subjectName, "subjects");
+        renderChapters(sub.chapters, sub.subjectName, "subjects", subIndex);
     }
 }
 
-function renderSections(subIndex) {
+function renderSections(subIndex, isBackAction = false) {
     const currentSub = quizData[subIndex];
     gridContainer.innerHTML = '';
     gridContainer.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl w-full mx-auto animate-fade-in";
@@ -505,6 +510,10 @@ function renderSections(subIndex) {
     mainDesc.innerText = "अपना पसंदीदा सेक्शन चुनें जिसके टेस्ट आप देना चाहते हैं।";
     backBtn.classList.remove('hidden');
     currentViewState = { stage: "sections", subjectIndex: subIndex };
+
+    if (!isBackAction) {
+        history.pushState({ stage: "sections", subjectIndex: subIndex }, "", `#sections-${subIndex}`);
+    }
 
     currentSub.sections.forEach((sec, secIndex) => {
         const card = document.createElement('div');
@@ -530,10 +539,10 @@ function renderSections(subIndex) {
 
 function renderSectionChapters(subIndex, secIndex) {
     const sec = quizData[subIndex].sections[secIndex];
-    renderChapters(sec.chapters, sec.sectionName, "sections", subIndex);
+    renderChapters(sec.chapters, sec.sectionName, "sections", subIndex, secIndex);
 }
 
-function renderChapters(chaptersList, titleName, backToStage, subIndex = null) {
+function renderChapters(chaptersList, titleName, backToStage, subIndex = null, secIndex = null, isBackAction = false) {
     gridContainer.innerHTML = '';
     gridContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-3 max-w-3xl w-full mx-auto animate-fade-in";
     
@@ -541,7 +550,11 @@ function renderChapters(chaptersList, titleName, backToStage, subIndex = null) {
     mainDesc.innerText = "चैप्टर का चुनाव करें। क्लिक करते ही उस चैप्टर का लाइव टेस्ट लोड हो जाएगा।";
     backBtn.classList.remove('hidden');
     
-    currentViewState = { stage: "chapters", backTo: backToStage, subjectIndex: subIndex };
+    currentViewState = { stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex };
+
+    if (!isBackAction) {
+        history.pushState({ stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex }, "", "#chapters");
+    }
 
     chaptersList.forEach((chap) => {
         const card = document.createElement('div');
@@ -561,18 +574,14 @@ function renderChapters(chaptersList, titleName, backToStage, subIndex = null) {
     });
 }
 
-// Universal Quiz Runner Function
 function runQuizFile(jsonFilePath) {
     const targetUrl = `./data/${jsonFilePath}`;
     
-    // फ़ाइल उपलब्ध है या नहीं, यह चेक करने के लिए
     fetch(targetUrl, { method: 'HEAD' })
     .then(response => {
         if (response.ok) {
-            // फ़ाइल मिलने पर universal quiz player (quiz.html) पर रिडायरेक्ट करें
             window.location.href = `quiz.html?file=${jsonFilePath}`;
         } else {
-            // फ़ाइल न मिलने पर वर्क-इन-प्रोग्रेस पॉप-अप दिखाएं
             showDevModal();
         }
     })
@@ -590,12 +599,31 @@ function closeDevModal() {
 }
 
 function resetToSubjects() {
-    if (currentViewState.stage === "chapters" && currentViewState.backTo === "sections") {
-        renderSections(currentViewState.subjectIndex);
-    } else {
-        renderSubjects();
-    }
+    history.back();
 }
+
+// 📱 सिस्टम बैक बटन (Popstate Event Listener)
+window.addEventListener('popstate', function(event) {
+    const state = event.state;
+    if (state) {
+        if (state.stage === "subjects") {
+            renderSubjects(true);
+        } else if (state.stage === "sections") {
+            renderSections(state.subjectIndex, true);
+        } else if (state.stage === "chapters") {
+            if (state.backTo === "sections") {
+                const sec = quizData[state.subjectIndex].sections[state.secIndex];
+                renderChapters(sec.chapters, sec.sectionName, "sections", state.subjectIndex, state.secIndex, true);
+            } else {
+                const sub = quizData[state.subjectIndex];
+                renderChapters(sub.chapters, sub.subjectName, "subjects", state.subjectIndex, null, true);
+            }
+        }
+    } else {
+        renderSubjects(true);
+    }
+});
+
  </script>
 </body>
 </html>
