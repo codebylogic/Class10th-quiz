@@ -100,6 +100,7 @@ function renderQuestion() {
     const q = questions[currentQuestion];
     const progress = ((currentQuestion) / questions.length) * 100;
 
+    // विकल्प जनरेट करना
     let optionsHtml = '';
     q.o.forEach((opt, index) => {
         optionsHtml += `
@@ -110,7 +111,19 @@ function renderQuestion() {
         `;
     });
 
+    // ओवरव्यू ग्रिड जनरेट करना (3rd ब्लॉक के लिए)
+    let gridHtml = '';
+    for(let i = 0; i < questions.length; i++) {
+        let stateClass = 'state-default';
+        if(questionStates[i] === 'correct') stateClass = 'state-correct';
+        if(questionStates[i] === 'wrong') stateClass = 'state-wrong';
+        if(questionStates[i] === 'skipped') stateClass = 'state-skipped';
+        
+        gridHtml += `<button onclick="jumpToQuestion(${i})" class="q-circle ${stateClass}">${i + 1}</button>`;
+    }
+
     appDiv.innerHTML = `
+        <!-- HEADER BAR -->
         <div class="quiz-header">
             <div class="flex justify-between items-center" style="margin-bottom: 12px; padding-right: 50px;">
                 <span style="font-size: 0.85rem; font-weight: bold; color: #38bdf8; letter-spacing: 0.5px;">प्रश्न ${currentQuestion + 1} / ${questions.length}</span>
@@ -119,28 +132,52 @@ function renderQuestion() {
             <div class="progress-bar-bg">
                 <div class="progress-bar-fill" style="width: ${progress}%"></div>
             </div>
-            <div class="profile-icon" onclick="openOverview()" title="प्रश्नावली नेविगेशन">
+            <!-- मोबाइल के लिए ओवरव्यू बटन -->
+            <div class="profile-icon mobile-only-icon" onclick="openOverview()" title="प्रश्नावली नेविगेशन">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
             </div>
         </div>
 
-        <div class="flex-1 overflow-y-auto p-8 fade-in flex flex-col" style="padding: 28px 32px;">
-            <h2 style="font-size: 1.35rem; font-weight: 600; margin-bottom: 24px; line-height: 1.5; color: #f1f5f9;">${q.q}</h2>
-            <div id="options-container" class="flex-1 flex flex-col justify-center">
-                ${optionsHtml}
+        <!-- 3-BLOCK LAYOUT MAIN CONTAINER -->
+        <div class="quiz-3block-layout fade-in">
+            
+            <!-- BLOCK 1: LEFT SIDE (QUESTION) -->
+            <div class="block-left">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: #38bdf8; font-weight: 800; letter-spacing: 1px;">प्रश्न विवरण</span>
+                <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 12px; line-height: 1.5; color: #f1f5f9;">${q.q}</h2>
             </div>
-        </div>
 
-        <div class="flex justify-between items-center" style="padding: 20px 32px; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.1); min-height: 80px;">
-            <div>
-                <button id="skip-btn" onclick="skipQuestion()" class="btn-action btn-skip">स्किप करें</button>
+            <!-- BLOCK 2: MIDDLE (OPTIONS & ACTION BUTTONS) -->
+            <div class="block-middle">
+                <div id="options-container" class="flex-1 flex flex-col justify-center">
+                    ${optionsHtml}
+                </div>
+                
+                <div class="action-buttons-wrapper">
+                    <button id="skip-btn" onclick="skipQuestion()" class="btn-action btn-skip">स्किप करें</button>
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden btn-action btn-next">
+                        ${currentQuestion === questions.length - 1 ? 'परिणाम देखें' : 'अगला प्रश्न'}
+                    </button>
+                </div>
             </div>
-            <button id="next-btn" onclick="nextQuestion()" class="hidden btn-action btn-next">
-                ${currentQuestion === questions.length - 1 ? 'परिणाम देखें' : 'अगला प्रश्न'}
-            </button>
+
+            <!-- BLOCK 3: RIGHT SIDE (OVERVIEW PANEL) -->
+            <div class="block-right">
+                <h3 style="font-size: 1.05rem; font-weight: bold; margin-bottom: 12px; text-align: center; color: #f8fafc;">
+                    प्रश्नावली ओवरव्यू
+                </h3>
+                <div class="grid-container" style="max-height: 320px;">
+                    ${gridHtml}
+                </div>
+                <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                    <button onclick="renderResultScreen()" class="btn-action btn-next" style="width: 100%; font-size: 0.85rem;">सबमिट करें</button>
+                </div>
+            </div>
+
         </div>
     `;
 }
+
 
 function checkAnswer(selectedIndex, btnElement) {
     if (answered) return;
