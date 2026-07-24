@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSEB Class 10th Quiz Portal - स्मार्ट अध्ययन पोर्टल</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            950: '#090d16',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base & Scrollbar Styles */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #090d16; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        .animate-fade-in {
+            animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* GitHub Stage Header Animation */
+        .github-stage {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative !important;
+            width: clamp(300px, 70vw, 600px) !important;
+            height: clamp(60px, 12vw, 90px) !important;
+            margin: 0.5rem auto 1rem auto !important;
+            overflow: visible !important;
+        }
+
+        .github-logo {
+            width: clamp(48px, 8vw, 64px) !important;
+            height: clamp(48px, 8vw, 64px) !important;
+            background-color: #ffffff !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5), 0 0 40px rgba(168, 85, 247, 0.3) !important;
+            position: absolute !important;
+            z-index: 10 !important;
+            overflow: hidden !important;
+            animation: logoSync 10s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+        }
+
+        .github-logo img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            border-radius: 50% !important;
+        }
+
+        .github-name-wrapper {
+            position: absolute !important;
+            left: clamp(60px, 11vw, 85px) !important;
+            display: flex !important;
+            align-items: center !important;
+            height: 100% !important;
+        }
+
+        .github-name {
+            font-size: clamp(1.3rem, 3vw, 2.2rem) !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.05em !important;
+            color: #ffffff !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            border-right: 3px solid #38bdf8 !important;
+            padding-left: 12px !important;
+            animation: nameSync 10s cubic-bezier(0.4, 0, 0.2, 1) infinite, cursorBlink 0.75s step-end infinite !important;
+        }
+
+        @keyframes cursorBlink {
+            from, to { border-color: transparent; }
+            50% { border-color: #38bdf8; }
+        }
+
+        @keyframes logoSync {
+            0% { opacity: 0; transform: translateY(40px) scale(0.3); left: calc(50% - clamp(24px, 4vw, 32px)); }
+            15% { opacity: 1; transform: translateY(0) scale(1); left: calc(50% - clamp(24px, 4vw, 32px)); }
+            30% { opacity: 1; transform: translateY(0) scale(1); left: 0; }
+            65% { opacity: 1; transform: translateY(0) scale(1); left: 0; }
+            85% { opacity: 1; transform: translateY(0) scale(1); left: calc(50% - clamp(24px, 4vw, 32px)); }
+            100% { opacity: 0; transform: translateY(40px) scale(0.3); left: calc(50% - clamp(24px, 4vw, 32px)); }
+        }
+
+        @keyframes nameSync {
+            0%, 20% { opacity: 0; width: 0; }
+            20.1% { opacity: 1; width: 0; }
+            35%, 65% { opacity: 1; width: 15ch; }
+            85%, 100% { opacity: 0; width: 0; }
+        }
+
+        /* Quiz Engine UI Styles (Source 3) */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 900px;
+            height: 88vh;
+            min-height: 600px;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin: auto;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #38bdf8;
+        }
+
+        .correct {
+            background: rgba(34, 197, 94, 0.25) !important;
+            border-color: #22c55e !important;
+            color: #4ade80 !important;
+        }
+
+        .wrong {
+            background: rgba(239, 68, 68, 0.25) !important;
+            border-color: #ef4444 !important;
+            color: #f87171 !important;
+        }
+
+        .disabled-option { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+        }
+
+        .fade-in { 
+            animation: fadeIn 0.4s ease-in-out; 
+        }
+
+        .quiz-header { 
+            padding: 24px 32px 16px 32px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            background: rgba(15, 23, 42, 0.4); 
+            position: relative; 
+        }
+
+        .progress-bar-bg { 
+            width: 100%; 
+            background-color: rgba(255, 255, 255, 0.1); 
+            border-radius: 9999px; 
+            height: 10px; 
+            overflow: hidden; 
+        }
+
+        .progress-bar-fill { 
+            background: linear-gradient(to right, #06b6d4, #3b82f6); 
+            height: 10px; 
+            border-radius: 9999px; 
+            transition: width 0.4s ease-out; 
+        }
+
+        .profile-icon { 
+            position: absolute; 
+            top: 20px; 
+            right: 32px; 
+            cursor: pointer; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            background: rgba(255, 255, 255, 0.1); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: 0.2s; 
+        }
+
+        .profile-icon:hover { 
+            background: rgba(255, 255, 255, 0.2); 
+        }
+
+        .btn-start { 
+            padding: 16px 40px; 
+            background: linear-gradient(135deg, #0284c7, #2563eb); 
+            color: white; 
+            font-weight: bold; 
+            font-size: 1.25rem; 
+            border: none; 
+            border-radius: 9999px; 
+            cursor: pointer; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
+            transition: transform 0.2s; 
+        }
+
+        .btn-start:hover { 
+            transform: scale(1.05); 
+        }
+
+        .btn-action { 
+            padding: 12px 28px; 
+            font-weight: bold; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            border: none; 
+            font-size: 0.95rem; 
+        }
+
+        .btn-next { 
+            background-color: #38bdf8; 
+            color: #0f172a; 
+        }
+
+        .btn-skip { 
+            background-color: rgba(255, 255, 255, 0.1); 
+            color: #cbd5e1; 
+        }
+
+        .overview-panel { 
+            position: absolute; 
+            inset: 0; 
+            background: #0f172a; 
+            z-index: 50; 
+            display: flex; 
+            flex-direction: column; 
+            padding: 24px; 
+        }
+
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); 
+            gap: 10px; 
+            padding: 16px 0; 
+            flex: 1; 
+            overflow-y: auto; 
+        }
+
+        .q-circle { 
+            width: 42px; 
+            height: 42px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: bold; 
+            cursor: pointer; 
+            border: none; 
+            font-size: 0.85rem; 
+        }
+
+        .state-default { background: rgba(255, 255, 255, 0.1); }
+        .state-correct { background: #22c55e !important; }
+        .state-wrong { background: #ef4444 !important; }
+        .state-skipped { background: #eab308 !important; color: #000 !important; }
+
+        .circular-chart { 
+            display: block; 
+            margin: 0 auto; 
+            max-width: 80%; 
+            max-height: 220px; 
+            transform: rotate(-90deg); 
+        }
+
+        .circle-bg { 
+            fill: none; 
+            stroke: rgba(255, 255, 255, 0.1); 
+            stroke-width: 3.8; 
+        }
+
+        .circle { 
+            fill: none; 
+            stroke-width: 2.8; 
+            stroke-linecap: round; 
+        }
+
+        .stats-box { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 16px; 
+            padding: 16px; 
+            margin-bottom: 24px; 
+            width: 100%; 
+            max-width: 480px; 
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden antialiased bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 text-slate-100">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="goHome()">
+                <div class="bg-gradient-to-tr from-brand-500 via-indigo-600 to-purple-600 p-2.5 rounded-2xl shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-400 bg-clip-text text-transparent">BSEB SMART QUIZ</h1>
+                    <p class="text-[10px] text-indigo-400 font-semibold uppercase tracking-widest">स्मार्ट डिजिटल लर्निंग प्लेटफॉर्म</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <button id="back-btn" onclick="handleNavigationBack()" class="hidden px-4 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 hover:text-white rounded-xl transition flex items-center space-x-1 shadow-md">
+                    <span>⬅ मुख्य पृष्ठ / वापस</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- DASHBOARD VIEW CONTAINER -->
+    <main id="portal-dashboard" class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 flex flex-col justify-start relative">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- HERO & APP TAGLINE SECTION -->
+        <section class="space-y-4 text-center max-w-3xl mx-auto pt-2 pb-4 relative z-10">
+            <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-cyan-400 border border-indigo-500/20 uppercase tracking-widest shadow-sm">
+                🚀 कक्षा 10वीं बोर्ड परीक्षा सफलता पोर्टल
+            </span>
+
+            <div class="github-stage">
+                <div class="github-logo">
+                    <img src="codebylogic.png" alt="Code By Logic Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%236366f1'/><text x='50%' y='55%' font-size='30' fill='white' text-anchor='middle' dominant-baseline='middle'>CBL</text></svg>'">
+                </div>
+                <div class="github-name-wrapper">
+                    <div class="github-name">CODE BY LOGIC</div>
+                </div>
+            </div>
+
+            <h2 id="dashboard-title" class="text-2xl md:text-4xl font-black tracking-tight text-white leading-snug">
+                स्मार्ट अभ्यास, <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent">उत्कृष्ट परिणाम</span>
+            </h2>
+            <p id="dashboard-desc" class="text-slate-300 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
+                बिहार बोर्ड कक्षा 10वीं के सभी विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त और भरोसेमंद डिजिटल साथी।
+            </p>
+
+            <!-- STATS COUNTER BAR -->
+            <div id="quick-stats" class="pt-2 grid grid-cols-3 gap-2 max-w-md mx-auto text-center">
+                <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-2">
+                    <p class="text-lg font-bold text-cyan-400">100%</p>
+                    <p class="text-[10px] text-slate-400">पाठ्यक्रम कवरेज</p>
+                </div>
+                <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-2">
+                    <p class="text-lg font-bold text-emerald-400">मुफ़्त</p>
+                    <p class="text-[10px] text-slate-400">अनलिमिटेड टेस्ट</p>
+                </div>
+                <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-2">
+                    <p class="text-lg font-bold text-indigo-400">लाइव</p>
+                    <p class="text-[10px] text-slate-400">स्कोर रिपोर्ट</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-800/80 my-4">
+
+        <!-- DYNAMIC CARDS GRID CONTAINER -->
+        <div id="quiz-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl w-full mx-auto relative z-10 animate-fade-in">
+            <!-- Dynamic Subject / Chapter cards load here -->
+        </div>
+    </main>
+
+    <!-- QUIZ ENGINE INTERFACE CONTAINER (Source 2 / 3 Container) -->
+    <main id="quiz-engine-view" class="flex-grow w-full max-w-4xl mx-auto px-4 py-4 hidden flex items-center justify-center">
+        <div id="app" class="glass-panel w-full"></div>
+    </main>
+
+    <!-- DEVELOPMENT POPUP MODAL -->
+    <div id="dev-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center space-y-5 shadow-2xl animate-fade-in">
+            <div class="w-16 h-16 mx-auto rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-2xl animate-pulse">
+                ⚙️
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-xl font-extrabold text-white">सामग्री तैयार हो रही है!</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    इस अध्याय के प्रश्नपत्र पर कार्य जारी है, यह शीघ्र ही लाइव कर दिया जाएगा। कृपया अन्य उपलब्ध क्विज़ का अभ्यास करें।
+                </p>
+            </div>
+            <button onclick="closeDevModal()" class="w-full py-2.5 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 font-bold text-xs text-white rounded-xl transition shadow-lg shadow-indigo-600/20">
+                ठीक है, वापस जाएँ
+            </button>
+        </div>
+    </div>
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="border-t border-slate-900 py-4 text-center text-slate-500 text-[11px] font-medium tracking-wide bg-slate-950/50">
+        &copy; 2026 BSEB Smart Quiz Portal | Code By Logic - सर्वाधिकार सुरक्षित।
+    </footer>
+
+    <!-- SCRIPT SECTION (Source 1 + Source 4 Integrated) -->
+    <script>
+    // ==========================================
+    // 🚀 बिहार बोर्ड कक्षा 10वीं - QUIZ DATA ENGINE
+    // ==========================================
+    const quizData = [
+        {
+            subjectName: "HINDI (हिंदी)",
+            icon: "📔",
+            description: "कक्षा 10वीं बिहार बोर्ड हिंदी (गोधूलि भाग-2) गद्यखंड एवं काव्यखंड के संपूर्ण ऑब्जेक्टिव टेस्ट सेट।",
+            sections: [
+                {
+                    sectionName: "गद्यखंड (Prose)",
+                    icon: "📖",
+                    chapters: [
+                        { name: "पाठ 01 (श्रम विभाजन और जाति प्रथा)", file: "HINDI/PROSE/01.json" },
+                        { name: "पाठ 02 (विष के दांत)", file: "HINDI/PROSE/02.json" },
+                        { name: "पाठ 03 (भारत से हम क्या सीखें)", file: "HINDI/PROSE/03.json" },
+                        { name: "पाठ 04 (नाखून क्यों बढ़ते हैं)", file: "HINDI/PROSE/04.json" },
+                        { name: "पाठ 05 (नागरी लिपि)", file: "HINDI/PROSE/05.json" },
+                        { name: "पाठ 06 (बहादुर)", file: "HINDI/PROSE/06.json" },
+                        { name: "पाठ 07 (परंपरा का मूल्यांकन)", file: "HINDI/PROSE/07.json" },
+                        { name: "पाठ 08 (जीत-जीत मैं निरखत हूँ)", file: "HINDI/PROSE/08.json" },
+                        { name: "पाठ 09 (अविन्यों)", file: "HINDI/PROSE/09.json" },
+                        { name: "पाठ 10 (मछली)", file: "HINDI/PROSE/10.json" },
+                        { name: "पाठ 11 (नौबतखाने में इबादत)", file: "HINDI/PROSE/11.json" },
+                        { name: "पाठ 12 (शिक्षा और संस्कृति)", file: "HINDI/PROSE/12.json" }
+                    ]
+                },
+                {
+                    sectionName: "काव्यखंड (Poetry)",
+                    icon: "✍️",
+                    chapters: [
+                        { name: "पाठ 01 (राम नाम बिनु बिरथे जगि जन्मा)", file: "HINDI/POETRY/01.json" },
+                        { name: "पाठ 02 (प्रेम अयनि श्री राधिका)", file: "HINDI/POETRY/02.json" },
+                        { name: "पाठ 03 (अति सूधो सनेह को मारगु है)", file: "HINDI/POETRY/03.json" },
+                        { name: "पाठ 04 (स्वदेशी)", file: "HINDI/POETRY/04.json" },
+                        { name: "पाठ 05 (भारतमाता)", file: "HINDI/POETRY/05.json" },
+                        { name: "पाठ 06 (जनतंत्र का जन्म)", file: "HINDI/POETRY/06.json" },
+                        { name: "पाठ 07 (हिरोशिमा)", file: "HINDI/POETRY/07.json" },
+                        { name: "पाठ 08 (एक वृक्ष की हत्या)", file: "HINDI/POETRY/08.json" },
+                        { name: "पाठ 09 (हमारी नींद)", file: "HINDI/POETRY/09.json" },
+                        { name: "पाठ 10 (अक्षर-ज्ञान)", file: "HINDI/POETRY/10.json" },
+                        { name: "पाठ 11 (लौटकर आऊँगा फिर)", file: "HINDI/POETRY/11.json" },
+                        { name: "पाठ 12 (मेरे बिना तुम प्रभु)", file: "HINDI/POETRY/12.json" }
+                    ]
+                }
+            ]
+        },
+        {
+            subjectName: "SCIENCE (विज्ञान)",
+            icon: "🧪",
+            description: "भौतिकी (भारती भवन), रसायनशास्त्र और जीवविज्ञान के संपूर्ण परीक्षा-उपयोगी वस्तुनिष्ठ प्रश्न।",
+            sections: [
+                {
+                    sectionName: "PHYSICS (भौतिक विज्ञान)",
+                    icon: "⚡",
+                    chapters: [
+                        { name: "अध्याय 01 (प्रकाश का परावर्तन)", file: "SCIENCE/PHYSICS/01.json" },
+                        { name: "अध्याय 02 (प्रकाश का अपवर्तन)", file: "SCIENCE/PHYSICS/02.json" },
+                        { name: "अध्याय 03 (मानव नेत्र और रंगबिरंगा संसार)", file: "SCIENCE/PHYSICS/03.json" },
+                        { name: "अध्याय 04 (विद्युत धारा)", file: "SCIENCE/PHYSICS/04.json" },
+                        { name: "अध्याय 05 (विद्युत धारा का चुंबकीय प्रभाव)", file: "SCIENCE/PHYSICS/05.json" },
+                        { name: "अध्याय 06 (ऊर्जा के स्रोत)", file: "SCIENCE/PHYSICS/06.json" }
+                    ]
+                },
+                {
+                    sectionName: "CHEMISTRY (रसायन विज्ञान)",
+                    icon: "⚗️",
+                    chapters: [
+                        { name: "अध्याय 01 (रासायनिक अभिक्रियाएं एवं समीकरण)", file: "SCIENCE/CHEMISTRY/01.json" },
+                        { name: "अध्याय 02 (अम्ल, क्षारक एवं लवण)", file: "SCIENCE/CHEMISTRY/02.json" },
+                        { name: "अध्याय 03 (धातु एवं अधातु)", file: "SCIENCE/CHEMISTRY/03.json" },
+                        { name: "अध्याय 04 (कार्बन एवं इसके यौगिक)", file: "SCIENCE/CHEMISTRY/04.json" },
+                        { name: "अध्याय 05 (तत्वों का आवर्त वर्गीकरण)", file: "SCIENCE/CHEMISTRY/05.json" },
+                        { name: "अध्याय 06 (प्राकृतिक संसाधनों का प्रबंधन)", file: "SCIENCE/CHEMISTRY/06.json" }
+                    ]
+                },
+                {
+                    sectionName: "BIOLOGY (जीव विज्ञान)",
+                    icon: "🧬",
+                    chapters: [
+                        { name: "अध्याय 01 (जैव प्रक्रम / पोषण)", file: "SCIENCE/BIOLOGY/01.json" },
+                        { name: "अध्याय 02 (श्वसन)", file: "SCIENCE/BIOLOGY/02.json" },
+                        { name: "अध्याय 03 (परिवहन)", file: "SCIENCE/BIOLOGY/03.json" },
+                        { name: "अध्याय 04 (उत्सर्जन)", file: "SCIENCE/BIOLOGY/04.json" },
+                        { name: "अध्याय 05 (नियंत्रण और समन्वय)", file: "SCIENCE/BIOLOGY/05.json" },
+                        { name: "अध्याय 06 (जीव जनन कैसे करते हैं)", file: "SCIENCE/BIOLOGY/06.json" },
+                        { name: "अध्याय 07 (आनुवंशिकता एवं जैव विकास)", file: "SCIENCE/BIOLOGY/07.json" },
+                        { name: "अध्याय 08 (हमारा पर्यावरण)", file: "SCIENCE/BIOLOGY/08.json" }
+                    ]
+                }
+            ]
+        },
+        {
+            subjectName: "SOCIAL SCIENCE (सामाजिक विज्ञान)",
+            icon: "🌍",
+            description: "इतिहास, भूगोल, राजनीति विज्ञान, अर्थशास्त्र एवं आपदा प्रबंधन के वस्तुनिष्ठ मॉक टेस्ट।",
+            sections: [
+                {
+                    sectionName: "HISTORY (इतिहास)",
+                    icon: "📜",
+                    chapters: [
+                        { name: "पाठ 01 (यूरोप में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/01.json" },
+                        { name: "पाठ 02 (समाजवाद एवं साम्यवाद)", file: "SOCIAL_SCIENCE/HISTORY/02.json" },
+                        { name: "पाठ 03 (हिन्द-चीन में राष्ट्रवादी आंदोलन)", file: "SOCIAL_SCIENCE/HISTORY/03.json" },
+                        { name: "पाठ 04 (भारत में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/04.json" },
+                        { name: "पाठ 05 (अर्थव्यवस्था और आजीविका)", file: "SOCIAL_SCIENCE/HISTORY/05.json" },
+                        { name: "पाठ 06 (शहरीकरण एवं शहरी जीवन)", file: "SOCIAL_SCIENCE/HISTORY/06.json" },
+                        { name: "पाठ 07 (व्यापार और भूमंडलीकरण)", file: "SOCIAL_SCIENCE/HISTORY/07.json" },
+                        { name: "पाठ 08 (प्रेस-संस्कृति और राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/08.json" }
+                    ]
+                },
+                {
+                    sectionName: "GEOGRAPHY (भूगोल)",
+                    icon: "🗺️",
+                    chapters: [
+                        { name: "इकाई 1: भारत : संसाधन एवं उपयोग", file: "SOCIAL_SCIENCE/GEOGRAPHY/010.json" },
+                        { name: "इकाई 1(क): प्राकृतिक संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/011.json" },
+                        { name: "इकाई 1(ख): जल संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/012.json" },
+                        { name: "इकाई 1(ग): वन एवं वन्य प्राणी संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/013.json" },
+                        { name: "इकाई 1(घ): खनिज संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/014.json" },
+                        { name: "इकाई 1(ङ): शक्ति (ऊर्जा) संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/015.json" },
+                        { name: "इकाई 2: कृषि", file: "SOCIAL_SCIENCE/GEOGRAPHY/020.json" },
+                        { name: "इकाई 3: निर्माण उद्योग", file: "SOCIAL_SCIENCE/GEOGRAPHY/030.json" },
+                        { name: "इकाई 4: परिवहन, संचार एवं व्यापार", file: "SOCIAL_SCIENCE/GEOGRAPHY/040.json" },
+                        { name: "इकाई 5: बिहार : कृषि एवं वन संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/051.json" },
+                        { name: "इकाई 5(क): बिहार : खनिज एवं ऊर्जा संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/052.json" },
+                        { name: "इकाई 5(ख): बिहार : उद्योग एवं परिवहन", file: "SOCIAL_SCIENCE/GEOGRAPHY/053.json" },
+                        { name: "इकाई 5(ग): बिहार : जनसंख्या एवं नगरीकरण", file: "SOCIAL_SCIENCE/GEOGRAPHY/054.json" },
+                        { name: "इकाई 6: मानचित्र अध्ययन", file: "SOCIAL_SCIENCE/GEOGRAPHY/060.json" }
+                    ]
+                },
+                {
+                    sectionName: "POLITICAL SCIENCE (राजनीति विज्ञान)",
+                    icon: "⚖️",
+                    chapters: [
+                        { name: "पाठ 01 (लोकतंत्र में द्वंद्व/साझेदारी)", file: "SOCIAL_SCIENCE/POLITICS/01.json" },
+                        { name: "पाठ 02 (सत्ता में साझेदारी की कार्यप्रणाली)", file: "SOCIAL_SCIENCE/POLITICS/02.json" },
+                        { name: "पाठ 03 (लोकतंत्र की प्रतिस्पर्धा एवं संघर्ष)", file: "SOCIAL_SCIENCE/POLITICS/03.json" },
+                        { name: "पाठ 04 (लोकतंत्र की उपलब्धियां)", file: "SOCIAL_SCIENCE/POLITICS/04.json" },
+                        { name: "पाठ 05 (लोकतंत्र की चुनौतियां)", file: "SOCIAL_SCIENCE/POLITICS/05.json" }
+                    ]
+                },
+                {
+                    sectionName: "ECONOMICS (अर्थशास्त्र)",
+                    icon: "💰",
+                    chapters: [
+                        { name: "पाठ 01 (अर्थव्यवस्था एवं इसके विकास का इतिहास)", file: "SOCIAL_SCIENCE/ECONOMICS/01.json" },
+                        { name: "पाठ 02 (राज्य एवं राष्ट्र की आय)", file: "SOCIAL_SCIENCE/ECONOMICS/02.json" },
+                        { name: "पाठ 03 (मुद्रा, बचत एवं साख)", file: "SOCIAL_SCIENCE/ECONOMICS/03.json" },
+                        { name: "पाठ 04 (हमारी वित्तीय संस्थाएं)", file: "SOCIAL_SCIENCE/ECONOMICS/04.json" },
+                        { name: "पाठ 05 (रोजगार एवं सेवाएँ)", file: "SOCIAL_SCIENCE/ECONOMICS/05.json" },
+                        { name: "पाठ 06 (वैश्वीकरण)", file: "SOCIAL_SCIENCE/ECONOMICS/06.json" },
+                        { name: "पाठ 07 (उपभोक्ता जागरण एवं संरक्षण)", file: "SOCIAL_SCIENCE/ECONOMICS/07.json" }
+                    ]
+                },
+                {
+                    sectionName: "DISASTER MANAGEMENT (आपदा प्रबंधन)",
+                    icon: "🚨",
+                    chapters: [
+                        { name: "पाठ 01 (प्राकृतिक आपदा : एक परिचय)", file: "SOCIAL_SCIENCE/DISASTER/01.json" },
+                        { name: "पाठ 02 (प्राकृतिक आपदा एवं प्रबंधन : बाढ़ और सुखाड़)", file: "SOCIAL_SCIENCE/DISASTER/02.json" },
+                        { name: "पाठ 03 (भूकंप एवं सुनामी)", file: "SOCIAL_SCIENCE/DISASTER/03.json" },
+                        { name: "पाठ 04 (जीवन रक्षक आकस्मिक प्रबंधन)", file: "SOCIAL_SCIENCE/DISASTER/04.json" }
+                    ]
+                }
+            ]
+        }
+    ];
+
+    // DOM Elements
+    const gridContainer = document.getElementById('quiz-grid');
+    const mainTitle = document.getElementById('dashboard-title');
+    const mainDesc = document.getElementById('dashboard-desc');
+    const backBtn = document.getElementById('back-btn');
+    const devModal = document.getElementById('dev-modal');
+    const quickStats = document.getElementById('quick-stats');
+
+    const portalDashboard = document.getElementById('portal-dashboard');
+    const quizEngineView = document.getElementById('quiz-engine-view');
+    const appDiv = document.getElementById('app');
+
+    // Navigation State
+    let currentViewState = { stage: "subjects", subjectIndex: null, secIndex: null };
+
+    // Quiz State Variables
+    let chapterMeta = { title: "BSEB क्विज़ पोर्टल", subtitle: "लोड हो रहा है...", description: "कृपया प्रतीक्षा करें..." };
+    let rawQuestions = [];
+    let questions = [];
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+    let questionStates = [];
+
+    window.onload = function() {
+        history.replaceState({ stage: "subjects" }, "", "#subjects");
+        renderSubjects(true);
+        
+        // Check if URL has direct file param
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataFile = urlParams.get('file');
+        if (dataFile) {
+            loadAndStartQuiz(dataFile);
+        }
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((reg) => console.log('Service Worker Registered:', reg.scope))
+                    .catch((err) => console.log('Service Worker Reg Failed:', err));
+            });
+        }
+    };
+
+    function showDashboardView() {
+        portalDashboard.classList.remove('hidden');
+        quizEngineView.classList.add('hidden');
+    }
+
+    function showQuizEngineView() {
+        portalDashboard.classList.add('hidden');
+        quizEngineView.classList.remove('hidden');
+    }
+
+    function goHome() {
+        showDashboardView();
+        renderSubjects();
+    }
+
+    function renderSubjects(isBackAction = false) {
+        showDashboardView();
+        gridContainer.innerHTML = '';
+        gridContainer.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl w-full mx-auto animate-fade-in";
+        
+        mainTitle.innerHTML = `स्मार्ट अभ्यास, <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent">उत्कृष्ट परिणाम</span>`;
+        mainDesc.innerText = "बिहार बोर्ड कक्षा 10वीं के सभी विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त डिजिटल साथी।";
+        quickStats.classList.remove('hidden');
+        backBtn.classList.add('hidden');
+        currentViewState = { stage: "subjects", subjectIndex: null };
+
+        if (!isBackAction) {
+            history.pushState({ stage: "subjects" }, "", "#subjects");
+        }
+
+        quizData.forEach((sub, subIndex) => {
+            const card = document.createElement('div');
+            card.className = "p-5 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col justify-between hover:border-indigo-500/60 hover:bg-slate-900/90 transition-all duration-300 cursor-pointer group transform hover:-translate-y-1 active:translate-y-0 shadow-lg shadow-black/30";
+            card.setAttribute('onclick', `handleSubjectClick(${subIndex})`);
+            
+            let countText = sub.sections ? `${sub.sections.length} सेक्शंस` : `${sub.chapters.length} चैप्टर्स`;
+
+            card.innerHTML = `
+                <div class="space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-300 text-2xl group-hover:scale-110 group-hover:bg-indigo-500/20 transition-all duration-300 shadow-md">
+                        ${sub.icon}
+                    </div>
+                    <h3 class="text-base font-bold text-slate-100 group-hover:text-cyan-300 transition-colors duration-200">${sub.subjectName}</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed line-clamp-2">${sub.description}</p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 mt-4 flex items-center justify-between text-[11px] font-bold tracking-wider text-cyan-400 uppercase">
+                    <span>${countText}</span>
+                    <span class="transform group-hover:translate-x-1.5 transition-transform">खोलें ➔</span>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+    }
+
+    function handleSubjectClick(subIndex) {
+        const sub = quizData[subIndex];
+        if (sub.sections) {
+            renderSections(subIndex);
+        } else {
+            renderChapters(sub.chapters, sub.subjectName, "subjects", subIndex);
+        }
+    }
+
+    function renderSections(subIndex, isBackAction = false) {
+        showDashboardView();
+        gridContainer.innerHTML = '';
+        gridContainer.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl w-full mx-auto animate-fade-in";
+        
+        const currentSub = quizData[subIndex];
+        mainTitle.innerHTML = `<span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">${currentSub.subjectName}</span> के मुख्य सेक्शंस`;
+        mainDesc.innerText = "अपनी तैयारी को आसान बनाने के लिए नीचे दिए गए सेक्शन में से चुनाव करें।";
+        quickStats.classList.add('hidden');
+        backBtn.classList.remove('hidden');
+        currentViewState = { stage: "sections", subjectIndex: subIndex };
+
+        if (!isBackAction) {
+            history.pushState({ stage: "sections", subjectIndex: subIndex }, "", `#sections-${subIndex}`);
+        }
+
+        currentSub.sections.forEach((sec, secIndex) => {
+            const card = document.createElement('div');
+            card.className = "p-5 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col justify-between hover:border-cyan-500/60 hover:bg-slate-900/90 transition-all duration-300 cursor-pointer group transform hover:-translate-y-1 active:translate-y-0 shadow-lg shadow-black/30";
+            card.setAttribute('onclick', `renderSectionChapters(${subIndex}, ${secIndex})`);
+            
+            card.innerHTML = `
+                <div class="space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-300 text-2xl group-hover:scale-110 transition-all duration-300 shadow-md">
+                        ${sec.icon || '📁'}
+                    </div>
+                    <h3 class="text-base font-bold text-slate-100 group-hover:text-cyan-300 transition-colors duration-200">${sec.sectionName}</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">बिहार बोर्ड स्पेशल महत्वपूर्ण प्रश्न संग्रह।</p>
+                </div>
+                <div class="pt-4 border-t border-slate-800/80 mt-4 flex items-center justify-between text-[11px] font-bold tracking-wider text-cyan-400 uppercase">
+                    <span>${sec.chapters.length} चैप्टर्स</span>
+                    <span class="transform group-hover:translate-x-1.5 transition-transform">देखें ➔</span>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+    }
+
+    function renderSectionChapters(subIndex, secIndex) {
+        const sec = quizData[subIndex].sections[secIndex];
+        renderChapters(sec.chapters, sec.sectionName, "sections", subIndex, secIndex);
+    }
+
+    function renderChapters(chaptersList, titleName, backToStage, subIndex = null, secIndex = null, isBackAction = false) {
+        showDashboardView();
+        gridContainer.innerHTML = '';
+        gridContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl w-full mx-auto animate-fade-in";
+        
+        mainTitle.innerHTML = `<span class="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">${titleName}</span> - अध्यायवार क्विज़`;
+        mainDesc.innerText = "जिस अध्याय का टेस्ट देना चाहते हैं, उस पर क्लिक करके तुरंत टेस्ट शुरू करें।";
+        quickStats.classList.add('hidden');
+        backBtn.classList.remove('hidden');
+        
+        currentViewState = { stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex };
+
+        if (!isBackAction) {
+            history.pushState({ stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex }, "", "#chapters");
+        }
+
+        chaptersList.forEach((chap) => {
+            const card = document.createElement('div');
+            card.className = "p-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex items-center justify-between hover:border-emerald-500/60 hover:bg-slate-900/90 transition-all duration-200 cursor-pointer group shadow-md";
+            card.setAttribute('onclick', `runQuizFile('${chap.file}')`);
+            
+            card.innerHTML = `
+                <div class="space-y-1 pr-4">
+                    <h3 class="text-[10px] font-black text-emerald-400/90 uppercase tracking-wider">ऑनलाइन लाइव टेस्ट</h3>
+                    <p class="text-sm font-bold text-slate-100 group-hover:text-emerald-300 transition-colors duration-200">${chap.name}</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-slate-950 flex items-center justify-center font-bold text-sm transition-all duration-300 shrink-0 shadow-inner">
+                    ▶
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+    }
+
+    function runQuizFile(jsonFilePath) {
+        const targetUrl = `./data/${jsonFilePath}`;
+        
+        fetch(targetUrl, { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+                loadAndStartQuiz(jsonFilePath);
+            } else {
+                showDevModal();
+            }
+        })
+        .catch(() => {
+            showDevModal();
+        });
+    }
+
+    function showDevModal() { devModal.classList.remove('hidden'); }
+    function closeDevModal() { devModal.classList.add('hidden'); }
+
+    function handleNavigationBack() {
+        if (currentViewState.stage === "chapters") {
+            if (currentViewState.backTo === "sections") {
+                renderSections(currentViewState.subjectIndex, true);
+            } else {
+                renderSubjects(true);
+            }
+        } else if (currentViewState.stage === "sections" || !quizEngineView.classList.contains('hidden')) {
+            renderSubjects(true);
+        } else {
+            renderSubjects(true);
+        }
+    }
+
+    // ==========================================
+    // 🧠 QUIZ ENGINE CORE FUNCTIONS (Source 4 Integrated)
+    // ==========================================
+    function loadAndStartQuiz(filePath) {
+        showQuizEngineView();
+        backBtn.classList.remove('hidden');
+        appDiv.innerHTML = `
+            <div class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in">
+                <div class="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p class="text-cyan-300 font-semibold text-sm">क्विज़ प्रश्नपत्र लोड हो रहा है...</p>
+            </div>
+        `;
+
+        fetch(`./data/${filePath}`)
+            .then(res => res.json())
+            .then(data => {
+                chapterMeta.title = data.title || "BSEB क्विज़";
+                chapterMeta.subtitle = data.subtitle || "";
+                chapterMeta.description = data.description || "";
+                rawQuestions = data.questions || [];
+                
+                renderStartScreen();
+            })
+            .catch(err => {
+                appDiv.innerHTML = `<div class="p-8 text-center text-red-400 font-semibold">त्रुटि: डेटा फ़ाइल लोड नहीं हो सकी!</div>`;
+                console.error("Data load error:", err);
+            });
+    }
+
+    function shuffleQuestionsAndOptions(array) {
+        const shuffled = JSON.parse(JSON.stringify(array));
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        shuffled.forEach(item => {
+            const correctAnswerText = item.o[item.a];
+            for (let i = item.o.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [item.o[i], item.o[j]] = [item.o[j], item.o[i]];
+            }
+            item.a = item.o.indexOf(correctAnswerText);
+        });
+        return shuffled;
+    }
+
+    function renderStartScreen() {
+        appDiv.innerHTML = `
+            <div class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in h-full">
+                <div style="width: 88px; height: 88px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; border: 1px solid rgba(56, 189, 248, 0.3);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                </div>
+                <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; color: #f8fafc;">${chapterMeta.title}</h1>
+                <h2 style="font-size: 1.35rem; color: #38bdf8; font-weight: 600; margin-bottom: 16px;">${chapterMeta.subtitle}</h2>
+                <p style="color: #94a3b8; margin-bottom: 32px; max-width: 620px; font-size: 1.05rem; line-height: 1.6;">${chapterMeta.description}</p>
+                <button onclick="startQuiz()" class="btn-start">क्विज़ प्रारंभ करें</button>
+            </div>
+        `;
+    }
+
+    function startQuiz() {
+        if(!rawQuestions || rawQuestions.length === 0) {
+            alert("कोई प्रश्न उपलब्ध नहीं है!");
+            return;
+        }
+        questions = shuffleQuestionsAndOptions(rawQuestions);
+        currentQuestion = 0;
+        score = 0;
+        questionStates = new Array(questions.length).fill('default');
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        answered = false;
+        const q = questions[currentQuestion];
+        const progress = ((currentQuestion) / questions.length) * 100;
+
+        let optionsHtml = '';
+        q.o.forEach((opt, index) => {
+            optionsHtml += `
+                <button onclick="checkAnswer(${index}, this)" class="option-btn">
+                    <span>${opt}</span>
+                    <span class="icon-container hidden"></span>
+                </button>
+            `;
+        });
+
+        appDiv.innerHTML = `
+            <div class="quiz-header">
+                <div class="flex justify-between items-center" style="margin-bottom: 12px; padding-right: 50px;">
+                    <span style="font-size: 0.85rem; font-weight: bold; color: #38bdf8; letter-spacing: 0.5px;">प्रश्न ${currentQuestion + 1} / ${questions.length}</span>
+                    <span style="font-size: 0.85rem; font-weight: bold; color: #e2e8f0; background: rgba(255,255,255,0.1); padding: 4px 14px; border-radius: 9999px;">स्कोर: ${score}</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: ${progress}%"></div>
+                </div>
+                <div class="profile-icon" onclick="openOverview()" title="प्रश्नावली नेविगेशन">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-8 fade-in flex flex-col" style="padding: 28px 32px;">
+                <h2 style="font-size: 1.35rem; font-weight: 600; margin-bottom: 24px; line-height: 1.5; color: #f1f5f9;">${q.q}</h2>
+                <div id="options-container" class="flex-1 flex flex-col justify-center">
+                    ${optionsHtml}
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center" style="padding: 20px 32px; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.1); min-height: 80px;">
+                <div>
+                    <button id="skip-btn" onclick="skipQuestion()" class="btn-action btn-skip">स्किप करें</button>
+                </div>
+                <button id="next-btn" onclick="nextQuestion()" class="hidden btn-action btn-next">
+                    ${currentQuestion === questions.length - 1 ? 'परिणाम देखें' : 'अगला प्रश्न'}
+                </button>
+            </div>
+        `;
+    }
+
+    function checkAnswer(selectedIndex, btnElement) {
+        if (answered) return;
+        answered = true;
+
+        const q = questions[currentQuestion];
+        const allBtns = document.querySelectorAll('.option-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const skipBtn = document.getElementById('skip-btn');
+
+        if(skipBtn) skipBtn.classList.add('hidden');
+
+        allBtns.forEach((btn, index) => {
+            btn.classList.add('disabled-option');
+            btn.disabled = true;
+            const iconContainer = btn.querySelector('.icon-container');
+            if(iconContainer) iconContainer.classList.remove('hidden');
+
+            if (index === q.a) {
+                btn.classList.add('correct');
+                btn.classList.remove('disabled-option');
+                if(iconContainer) iconContainer.innerHTML = `<svg style="color: #4ade80; width: 22px; height: 22px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+            }
+            
+            if (index === selectedIndex && selectedIndex !== q.a) {
+                btn.classList.add('wrong');
+                btn.classList.remove('disabled-option');
+                if(iconContainer) iconContainer.innerHTML = `<svg style="color: #f87171; width: 22px; height: 22px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
+            } 
+        });
+
+        if (selectedIndex === q.a) {
+            score++;
+            questionStates[currentQuestion] = 'correct';
+        } else {
+            questionStates[currentQuestion] = 'wrong';
+        }
+
+        if(nextBtn) {
+            nextBtn.classList.remove('hidden');
+            nextBtn.classList.add('fade-in');
+        }
+    }
+
+    function skipQuestion() {
+        questionStates[currentQuestion] = 'skipped';
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            renderQuestion();
+        } else {
+            renderResultScreen();
+        }
+    }
+
+    function openOverview() {
+        let gridHtml = '';
+        for(let i = 0; i < questions.length; i++) {
+            let stateClass = 'state-default';
+            if(questionStates[i] === 'correct') stateClass = 'state-correct';
+            if(questionStates[i] === 'wrong') stateClass = 'state-wrong';
+            if(questionStates[i] === 'skipped') stateClass = 'state-skipped';
+            
+            gridHtml += `<button onclick="jumpToQuestion(${i})" class="q-circle ${stateClass}">${i + 1}</button>`;
+        }
+
+        const overviewDiv = document.createElement('div');
+        overviewDiv.id = 'overview-overlay';
+        overviewDiv.className = 'overview-panel fade-in';
+        overviewDiv.innerHTML = `
+            <h3 style="font-size: 1.35rem; font-weight: bold; margin-bottom: 16px; text-align: center; color: #f8fafc;">प्रश्नावली ओवरव्यू (कुल ${questions.length} प्रश्न)</h3>
+            <div class="grid-container">
+                ${gridHtml}
+            </div>
+            <div class="flex justify-center" style="padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <button onclick="closeOverview()" class="btn-action btn-skip" style="margin: 0 8px;">वापस जाएँ</button>
+                <button onclick="submitQuizFromOverview()" class="btn-action btn-next" style="margin: 0 8px;">सबमिट करें</button>
+            </div>
+        `;
+        appDiv.appendChild(overviewDiv);
+    }
+
+    function closeOverview() {
+        const overlay = document.getElementById('overview-overlay');
+        if(overlay) overlay.remove();
+    }
+
+    function jumpToQuestion(index) {
+        currentQuestion = index;
+        closeOverview();
+        renderQuestion();
+    }
+
+    function submitQuizFromOverview() {
+        closeOverview();
+        renderResultScreen();
+    }
+
+    function renderResultScreen() {
+        const percentage = Math.round((score / questions.length) * 100);
+        let message = "";
+        
+        if (percentage === 100) { message = "उत्कृष्ट! आपने इस अध्याय में पूरे अंक प्राप्त किए हैं!"; }
+        else if (percentage >= 80) { message = "शानदार प्रदर्शन! आपकी तैयारी बहुत अच्छी है।"; }
+        else if (percentage >= 50) { message = "अच्छा प्रयास! पाठ को एक बार और दोहराएँ।"; }
+        else { message = "अभ्यास जारी रखें! पाठ्यपुस्तक को ध्यान से पढ़ें और पुनः प्रयास करें।"; }
+
+        const strokeDasharray = `${percentage}, 100`;
+        const colorClass = percentage >= 80 ? '#22c55e' : percentage >= 50 ? '#eab308' : '#ef4444';
+
+        let correctCount = 0;
+        let wrongCount = 0;
+        let skippedCount = 0;
+
+        questionStates.forEach(st => {
+            if(st === 'correct') correctCount++;
+            else if(st === 'wrong') wrongCount++;
+            else if(st === 'skipped') skippedCount++;
+        });
+
+        appDiv.innerHTML = `
+            <div class="flex-1 flex flex-col items-center justify-center p-8 text-center fade-in overflow-y-auto" style="padding: 32px;">
+                <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; color: #f8fafc;">${chapterMeta.title}</h2>
+                <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 20px;">${chapterMeta.subtitle} (कुल प्रश्न: ${questions.length})</p>
+                
+                <h3 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 20px; color: #38bdf8;">क्विज़ पूर्ण हुई!</h3>
+
+                <div style="position: relative; width: 180px; height: 180px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center;">
+                    <svg viewBox="0 0 36 36" class="circular-chart" style="width: 100%; height: 100%;">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        <path class="circle" stroke="${colorClass}" stroke-dasharray="${strokeDasharray}" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <div style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <span style="font-size: 2.25rem; font-weight: 900; color: #38bdf8;">${percentage}%</span>
+                    </div>
+                </div>
+
+                <div class="stats-box">
+                    <div class="flex justify-between items-center text-center">
+                        <div>
+                            <p style="font-size: 0.8rem; color: #94a3b8; font-weight: bold; margin-bottom: 4px;">कुल प्रश्न</p>
+                            <p style="font-size: 1.4rem; font-weight: 800; color: #f8fafc;">${questions.length}</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.8rem; color: #94a3b8; font-weight: bold; margin-bottom: 4px;">सही उत्तर</p>
+                            <p style="font-size: 1.4rem; font-weight: 800; color: #4ade80;">${correctCount}</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.8rem; color: #94a3b8; font-weight: bold; margin-bottom: 4px;">गलत उत्तर</p>
+                            <p style="font-size: 1.4rem; font-weight: 800; color: #f87171;">${wrongCount}</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.8rem; color: #94a3b8; font-weight: bold; margin-bottom: 4px;">छोड़े गए</p>
+                            <p style="font-size: 1.4rem; font-weight: 800; color: #facc15;">${skippedCount}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-size: 1.05rem; color: #cbd5e1; margin-bottom: 28px; max-width: 450px; line-height: 1.5;">${message}</p>
+                
+                <div class="flex space-x-4">
+                    <button onclick="startQuiz()" class="btn-action" style="padding: 12px 30px; border-radius: 12px; font-size: 1rem; background: #22c55e; color: white;">
+                        पुनः प्रयास करें
+                    </button>
+                    <button onclick="goHome()" class="btn-action" style="padding: 12px 30px; border-radius: 12px; font-size: 1rem; background: rgba(255,255,255,0.15); color: white;">
+                        मुख्य पृष्ठ पर जाएँ
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    // Window Popstate Back Navigation
+    window.addEventListener('popstate', function(event) {
+        const state = event.state;
+        if (state) {
+            if (state.stage === "subjects") {
+                renderSubjects(true);
+            } else if (state.stage === "sections") {
+                renderSections(state.subjectIndex, true);
+            } else if (state.stage === "chapters") {
+                if (state.backTo === "sections") {
+                    const sec = quizData[state.subjectIndex].sections[state.secIndex];
+                    renderChapters(sec.chapters, sec.sectionName, "sections", state.subjectIndex, state.secIndex, true);
+                } else {
+                    const sub = quizData[state.subjectIndex];
+                    renderChapters(sub.chapters, sub.subjectName, "subjects", state.subjectIndex, null, true);
+                }
+            }
+        } else {
+            renderSubjects(true);
+        }
+    });
+    </script>
+</body>
+</html>
