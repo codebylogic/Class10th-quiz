@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSEB Class 10th Quiz Portal - Ultimate Glassmorphism Edition</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                            950: '#090d16',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #070913;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.18) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.12) 0px, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #f8fafc;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card-interactive {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card-interactive:hover {
+            background: rgba(30, 41, 59, 0.65);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 20px 35px -10px rgba(99, 102, 241, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-nav {
+            background: rgba(9, 13, 22, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.2s ease;
+        }
+
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* Option Buttons */
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(10px);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.5);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .correct {
+            background: rgba(34, 197, 94, 0.2) !important;
+            border-color: #22c55e !important;
+            color: #4ade80 !important;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.3) !important;
+        }
+
+        .wrong {
+            background: rgba(239, 68, 68, 0.2) !important;
+            border-color: #ef4444 !important;
+            color: #f87171 !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3) !important;
+        }
+
+        .disabled-option {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(9, 13, 22, 0.5); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.5); }
+
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* GitHub Stage Animation */
+        .github-stage {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative !important;
+            width: clamp(300px, 60vw, 550px) !important;
+            height: clamp(60px, 12vw, 85px) !important;
+            margin: 0.5rem auto 1rem auto !important;
+            overflow: visible !important;
+        }
+
+        .github-logo {
+            width: clamp(44px, 8vw, 60px) !important;
+            height: clamp(44px, 8vw, 60px) !important;
+            background-color: #ffffff !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.6), 0 0 45px rgba(168, 85, 247, 0.4) !important;
+            position: absolute !important;
+            z-index: 10 !important;
+            overflow: hidden !important;
+            animation: logoSync 10s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+        }
+
+        .github-logo img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            border-radius: 50% !important;
+        }
+
+        .github-name-wrapper {
+            position: absolute !important;
+            left: clamp(60px, 10vw, 80px) !important;
+            display: flex !important;
+            align-items: center !important;
+            height: 100% !important;
+        }
+
+        .github-name {
+            font-size: clamp(1.2rem, 2.8vw, 2.1rem) !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.05em !important;
+            color: #ffffff !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            border-right: 3px solid #818cf8 !important;
+            padding-left: 10px !important;
+            animation: nameSync 10s cubic-bezier(0.4, 0, 0.2, 1) infinite, cursorBlink 0.75s step-end infinite !important;
+        }
+
+        @keyframes cursorBlink {
+            from, to { border-color: transparent; }
+            50% { border-color: #818cf8; }
+        }
+
+        @keyframes logoSync {
+            0% { opacity: 0; transform: translateY(30px) scale(0.3); left: calc(50% - clamp(22px, 4vw, 30px)); }
+            15% { opacity: 1; transform: translateY(0) scale(1); left: calc(50% - clamp(22px, 4vw, 30px)); }
+            30% { opacity: 1; transform: translateY(0) scale(1); left: 0; }
+            65% { opacity: 1; transform: translateY(0) scale(1); left: 0; }
+            85% { opacity: 1; transform: translateY(0) scale(1); left: calc(50% - clamp(22px, 4vw, 30px)); }
+            100% { opacity: 0; transform: translateY(30px) scale(0.3); left: calc(50% - clamp(22px, 4vw, 30px)); }
+        }
+
+        @keyframes nameSync {
+            0%, 20% { opacity: 0; width: 0; }
+            20.1% { opacity: 1; width: 0; }
+            35% { opacity: 1; width: 15ch; }
+            65% { opacity: 1; width: 15ch; }
+            85% { opacity: 1; width: 0; }
+            85.1%, 100% { opacity: 0; width: 0; }
+        }
+
+        /* Question Circle Indicator Grid */
+        .q-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f8fafc;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+        .q-circle:hover { transform: scale(1.08); }
+        .state-default { background: rgba(255, 255, 255, 0.06); }
+        .state-correct { background: rgba(34, 197, 94, 0.85) !important; border-color: #22c55e !important; box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
+        .state-wrong { background: rgba(239, 68, 68, 0.85) !important; border-color: #ef4444 !important; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+        .state-skipped { background: rgba(234, 179, 8, 0.85) !important; border-color: #eab308 !important; color: #000 !important; }
+
+        /* Progress Circle */
+        .circular-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            max-height: 220px;
+            transform: rotate(-90deg);
+        }
+        .circle-bg { fill: none; stroke: rgba(255, 255, 255, 0.08); stroke-width: 3.8; }
+        .circle { fill: none; stroke-width: 3.2; stroke-linecap: round; transition: stroke-dasharray 1s ease-in-out; }
+    </style>
+</head>
+
+<body class="h-full flex flex-col justify-between overflow-x-hidden antialiased">
+
+    <!-- TOP GLASS NAVIGATION BAR -->
+    <header class="glass-nav sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+            <div class="flex items-center space-x-3.5 cursor-pointer group" onclick="switchView('dashboard')">
+                <div class="bg-gradient-to-tr from-brand-600 via-indigo-500 to-purple-500 p-2.5 rounded-2xl shadow-lg shadow-indigo-500/30 group-hover:scale-105 group-hover:shadow-indigo-500/50 transition-all duration-300">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-tight bg-gradient-to-r from-white via-indigo-100 to-indigo-300 bg-clip-text text-transparent">QUIZ PORTAL</h1>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-1">
+                        <span>BSEB Class 10th</span>
+                        <span class="w-1 h-1 rounded-full bg-brand-400 inline-block"></span>
+                        <span class="text-indigo-400">Pro Glass Edition</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button id="nav-back-btn" onclick="handleHeaderBack()" class="hidden px-4 py-2 glass-button text-xs font-bold text-slate-200 hover:text-white rounded-xl flex items-center gap-1.5 shadow-md">
+                    <i data-lucide="arrow-left" class="w-4 h-4 text-indigo-400"></i>
+                    <span>वापस जाएँ</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN WRAPPER CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex flex-col justify-start relative z-10">
+        
+        <!-- DASHBOARD VIEW -->
+        <div id="dashboard-view" class="w-full space-y-6">
+            
+            <!-- HEADER DESCRIPTION / BRANDING SECTION -->
+            <section class="space-y-3 text-center max-w-3xl mx-auto pt-2 pb-2 relative z-10">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-300 border border-brand-500/20 backdrop-blur-md shadow-inner">
+                    <span class="flex h-2 w-2 relative">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span>बिहार बोर्ड कक्षा 10वीं - ऑनलाइन टेस्ट सीरीज़</span>
+                </div>
+
+                <div class="github-stage">
+                    <div class="github-logo">
+                        <img src="codebylogic.png" alt="Code By Logic Logo" onerror="this.src='https://ui-avatars.com/api/?name=Code+By+Logic&background=6366f1&color=fff&bold=true'">
+                    </div>
+                    <div class="github-name-wrapper">
+                        <div class="github-name">CODE BY LOGIC</div>
+                    </div>
+                </div>
+
+                <h2 id="dashboard-title" class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white leading-tight">
+                    Choose a <span class="bg-gradient-to-r from-emerald-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">Subject</span> to Begin
+                </h2>
+                <p id="dashboard-desc" class="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+                    अपनी पसंद का विषय चुनें, फिर उपलब्ध सेक्शन्स या चैप्टर्स में से किसी भी मॉडल टेस्ट का ऑनलाइन अभ्यास करें।
+                </p>
+            </section>
+
+            <!-- DYNAMIC GRID CONTAINER -->
+            <div id="quiz-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl w-full mx-auto animate-fade-in">
+                <!-- Dynamic cards populated by JS -->
+            </div>
+        </div>
+
+        <!-- QUIZ ENGINE VIEW -->
+        <div id="quiz-view" class="hidden w-full max-w-5xl mx-auto my-auto animate-fade-in">
+            <div id="app-quiz-container" class="glass-card rounded-3xl overflow-hidden min-h-[580px] flex flex-col relative border border-slate-700/50">
+                <!-- Dynamic Quiz Content renders here via JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- DEVELOPMENT / ERROR MODAL -->
+    <div id="dev-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="max-w-md w-full glass-card border border-indigo-500/30 rounded-3xl p-6 sm:p-8 text-center space-y-5 shadow-2xl animate-fade-in">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 animate-pulse">
+                <i data-lucide="wrench" class="w-8 h-8"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-xl font-black text-white">प्रोजेक्ट पर कार्य जारी है!</h3>
+                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                    इस टेस्ट फ़ाइल की सामग्री अपडेट हो रही है। हमारे डेवलपर जल्द ही इसे उपलब्ध कराएंगे। कृपया अन्य उपलब्ध टेस्ट का अभ्यास करें।
+                </p>
+            </div>
+            <button onclick="closeDevModal()" class="w-full py-3 bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 font-bold text-xs sm:text-sm text-white rounded-xl transition shadow-lg shadow-indigo-600/30">
+                ठीक है, वापस जाएँ
+            </button>
+        </div>
+    </div>
+
+    <!-- OVERVIEW OVERLAY MODAL (Mobile Friendly) -->
+    <div id="overview-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-xl z-50 hidden flex flex-col p-6 animate-fade-in">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <i data-lucide="layout-grid" class="w-5 h-5 text-indigo-400"></i>
+                <span>प्रश्नावली नेविगेशन ओवरव्यू</span>
+            </h3>
+            <button onclick="closeOverviewModal()" class="p-2 glass-button text-slate-400 hover:text-white rounded-xl">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div id="overview-modal-grid" class="grid grid-cols-5 sm:grid-cols-8 gap-3 py-6 overflow-y-auto flex-grow">
+            <!-- Questions circles populated here -->
+        </div>
+        <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
+            <button onclick="closeOverviewModal()" class="px-5 py-2.5 glass-button text-xs font-bold text-slate-300 rounded-xl">बंद करें</button>
+            <button onclick="submitQuizFromOverview()" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-xs font-bold text-white rounded-xl shadow-lg shadow-brand-600/30">सबमिट करें</button>
+        </div>
+    </div>
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="glass-nav border-t border-slate-800/60 mt-8 py-5 text-center text-slate-500 text-xs font-medium tracking-wide">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p>&copy; 2026 BSEB Quiz Portal &bull; Crafted with Glassmorphism UI</p>
+            <p class="text-slate-400 font-semibold flex items-center gap-1">
+                Powered by <span class="text-indigo-400">Code By Logic Engine</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- APP ENGINE SCRIPT -->
+    <script>
+    // ==========================================
+    // DATA STRUCTURE (Quiz Master Data)
+    // ==========================================
+    const quizData = [
+        {
+            subjectName: "HINDI (हिंदी)",
+            icon: "book-open",
+            description: "कक्षा 10वीं बिहार बोर्ड हिंदी (गोधूलि भाग-2) गद्यखंड एवं काव्यखंड के संपूर्ण टेस्ट।",
+            sections: [
+                {
+                    sectionName: "गद्यखंड (Prose)",
+                    icon: "book-text",
+                    chapters: [
+                        { name: "पाठ 01 (श्रम विभाजन और जाति प्रथा)", file: "HINDI/PROSE/01.json" },
+                        { name: "पाठ 02 (विष के दांत)", file: "HINDI/PROSE/02.json" },
+                        { name: "पाठ 03 (भारत से हम क्या सीखें)", file: "HINDI/PROSE/03.json" },
+                        { name: "पाठ 04 (नाखून क्यों बढ़ते हैं)", file: "HINDI/PROSE/04.json" },
+                        { name: "पाठ 05 (नागरी लिपि)", file: "HINDI/PROSE/05.json" },
+                        { name: "पाठ 06 (बहादुर)", file: "HINDI/PROSE/06.json" },
+                        { name: "पाठ 07 (परंपरा का मूल्यांकन)", file: "HINDI/PROSE/07.json" },
+                        { name: "पाठ 08 (जीत-जीत मैं निरखत हूँ)", file: "HINDI/PROSE/08.json" },
+                        { name: "पाठ 09 (अविन्यों)", file: "HINDI/PROSE/09.json" },
+                        { name: "पाठ 10 (मछली)", file: "HINDI/PROSE/10.json" },
+                        { name: "पाठ 11 (नौबतखाने में इबादत)", file: "HINDI/PROSE/11.json" },
+                        { name: "पाठ 12 (शिक्षा और संस्कृति)", file: "HINDI/PROSE/12.json" }
+                    ]
+                },
+                {
+                    sectionName: "काव्यखंड (Poetry)",
+                    icon: "feather",
+                    chapters: [
+                        { name: "पाठ 01 (राम नाम बिनु बिरथे जगि जन्मा)", file: "HINDI/POETRY/01.json" },
+                        { name: "पाठ 02 (प्रेम अयनि श्री राधिका)", file: "HINDI/POETRY/02.json" },
+                        { name: "पाठ 03 (अति सूधो सनेह को मारगु है)", file: "HINDI/POETRY/03.json" },
+                        { name: "पाठ 04 (स्वदेशी)", file: "HINDI/POETRY/04.json" },
+                        { name: "पाठ 05 (भारतमाता)", file: "HINDI/POETRY/05.json" },
+                        { name: "पाठ 06 (जनतंत्र का जन्म)", file: "HINDI/POETRY/06.json" },
+                        { name: "पाठ 07 (हिरोशिमा)", file: "HINDI/POETRY/07.json" },
+                        { name: "पाठ 08 (एक वृक्ष की हत्या)", file: "HINDI/POETRY/08.json" },
+                        { name: "पाठ 09 (हमारी नींद)", file: "HINDI/POETRY/09.json" },
+                        { name: "पाठ 10 (अक्षर-ज्ञान)", file: "HINDI/POETRY/10.json" },
+                        { name: "पाठ 11 (लौटकर आऊँगा फिर)", file: "HINDI/POETRY/11.json" },
+                        { name: "पाठ 12 (मेरे बिना तुम प्रभु)", file: "HINDI/POETRY/12.json" }
+                    ]
+                }
+            ]
+        },
+        {
+            subjectName: "SCIENCE (विज्ञान)",
+            icon: "flask-conical",
+            description: "भौतिकी (भारती भवन), रसायनशास्त्र और जीवविज्ञान के संपूर्ण ऑब्जेक्टिव प्रश्न।",
+            sections: [
+                {
+                    sectionName: "PHYSICS (भौतिक विज्ञान)",
+                    icon: "zap",
+                    chapters: [
+                        { name: "अध्याय 01 (प्रकाश का परावर्तन)", file: "SCIENCE/PHYSICS/01.json" },
+                        { name: "अध्याय 02 (प्रकाश का अपवर्तन)", file: "SCIENCE/PHYSICS/02.json" },
+                        { name: "अध्याय 03 (मानव नेत्र और रंगबिरंगा संसार)", file: "SCIENCE/PHYSICS/03.json" },
+                        { name: "अध्याय 04 (विद्युत धारा)", file: "SCIENCE/PHYSICS/04.json" },
+                        { name: "अध्याय 05 (विद्युत धारा का चुंबकीय प्रभाव)", file: "SCIENCE/PHYSICS/05.json" },
+                        { name: "अध्याय 06 (ऊर्जा के स्रोत)", file: "SCIENCE/PHYSICS/06.json" }
+                    ]
+                },
+                {
+                    sectionName: "CHEMISTRY (रसायन विज्ञान)",
+                    icon: "atom",
+                    chapters: [
+                        { name: "अध्याय 01 (रासायनिक अभिक्रियाएं एवं समीकरण)", file: "SCIENCE/CHEMISTRY/01.json" },
+                        { name: "अध्याय 02 (अम्ल, क्षारक एवं लवण)", file: "SCIENCE/CHEMISTRY/02.json" },
+                        { name: "अध्याय 03 (धातु एवं अधातु)", file: "SCIENCE/CHEMISTRY/03.json" },
+                        { name: "अध्याय 04 (कार्बन एवं इसके यौगिक)", file: "SCIENCE/CHEMISTRY/04.json" },
+                        { name: "अध्याय 05 (तत्वों का आवर्त वर्गीकरण)", file: "SCIENCE/CHEMISTRY/05.json" },
+                        { name: "अध्याय 06 (प्राकृतिक संसाधनों का प्रबंधन)", file: "SCIENCE/CHEMISTRY/06.json" }
+                    ]
+                },
+                {
+                    sectionName: "BIOLOGY (जीव विज्ञान)",
+                    icon: "dna",
+                    chapters: [
+                        { name: "अध्याय 01 (जैव प्रक्रम / पोषण)", file: "SCIENCE/BIOLOGY/01.json" },
+                        { name: "अध्याय 02 (श्वसन)", file: "SCIENCE/BIOLOGY/02.json" },
+                        { name: "अध्याय 03 (परिवहन)", file: "SCIENCE/BIOLOGY/03.json" },
+                        { name: "अध्याय 04 (उत्सर्जन)", file: "SCIENCE/BIOLOGY/04.json" },
+                        { name: "अध्याय 05 (नियंत्रण और समन्वय)", file: "SCIENCE/BIOLOGY/05.json" },
+                        { name: "अध्याय 06 (जीव जनन कैसे करते हैं)", file: "SCIENCE/BIOLOGY/06.json" },
+                        { name: "अध्याय 07 (आनुवंशिकता एवं जैव विकास)", file: "SCIENCE/BIOLOGY/07.json" },
+                        { name: "अध्याय 08 (हमारा पर्यावरण)", file: "SCIENCE/BIOLOGY/08.json" }
+                    ]
+                }
+            ]
+        },
+        {
+            subjectName: "SOCIAL SCIENCE (सामाजिक विज्ञान)",
+            icon: "globe",
+            description: "इतिहास, भूगोल, राजनीति विज्ञान, अर्थशास्त्र एवं आपदा प्रबंधन।",
+            sections: [
+                {
+                    sectionName: "HISTORY (इतिहास)",
+                    icon: "landmark",
+                    chapters: [
+                        { name: "पाठ 01 (यूरोप में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/01.json" },
+                        { name: "पाठ 02 (समाजवाद एवं साम्यवाद)", file: "SOCIAL_SCIENCE/HISTORY/02.json" },
+                        { name: "पाठ 03 (हिन्द-चीन में राष्ट्रवादी आंदोलन)", file: "SOCIAL_SCIENCE/HISTORY/03.json" },
+                        { name: "पाठ 04 (भारत में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/04.json" },
+                        { name: "पाठ 05 (अर्थव्यवस्था और आजीविका)", file: "SOCIAL_SCIENCE/HISTORY/05.json" },
+                        { name: "पाठ 06 (शहरीकरण एवं शहरी जीवन)", file: "SOCIAL_SCIENCE/HISTORY/06.json" },
+                        { name: "पाठ 07 (व्यापार और भूमंडलीकरण)", file: "SOCIAL_SCIENCE/HISTORY/07.json" },
+                        { name: "पाठ 08 (प्रेस-संस्कृति और राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/08.json" }
+                    ]
+                },
+                {
+                    sectionName: "GEOGRAPHY (भूगोल)",
+                    icon: "map-pin",
+                    chapters: [
+                        { name: "इकाई 1: भारत : संसाधन एवं उपयोग (मुख्य)", file: "SOCIAL_SCIENCE/GEOGRAPHY/010.json" },
+                        { name: "इकाई 1(क): प्राकृतिक संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/011.json" },
+                        { name: "इकाई 1(ख): जल संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/012.json" },
+                        { name: "इकाई 1(ग): वन एवं वन्य प्राणी संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/013.json" },
+                        { name: "इकाई 1(घ): खनिज संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/014.json" },
+                        { name: "इकाई 1(ङ): शक्ति (ऊर्जा) संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/015.json" },
+                        { name: "इकाई 2: कृषि", file: "SOCIAL_SCIENCE/GEOGRAPHY/020.json" },
+                        { name: "इकाई 3: निर्माण उद्योग", file: "SOCIAL_SCIENCE/GEOGRAPHY/030.json" },
+                        { name: "इकाई 4: परिवहन, संचार एवं व्यापार", file: "SOCIAL_SCIENCE/GEOGRAPHY/040.json" },
+                        { name: "इकाई 5: बिहार : कृषि एवं वन संसाधन (मुख्य)", file: "SOCIAL_SCIENCE/GEOGRAPHY/051.json" },
+                        { name: "इकाई 5(क): बिहार : खनिज एवं ऊर्जा संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/052.json" },
+                        { name: "इकाई 5(ख): बिहार : उद्योग एवं परिवहन", file: "SOCIAL_SCIENCE/GEOGRAPHY/053.json" },
+                        { name: "इकाई 5(ग): बिहार : जनसंख्या एवं नगरीकरण", file: "SOCIAL_SCIENCE/GEOGRAPHY/054.json" },
+                        { name: "इकाई 6: मानचित्र अध्ययन (प्रारूप)", file: "SOCIAL_SCIENCE/GEOGRAPHY/060.json" }
+                    ]
+                },
+                {
+                    sectionName: "POLITICAL SCIENCE (राजनीति विज्ञान)",
+                    icon: "scale",
+                    chapters: [
+                        { name: "पाठ 01 (लोकतंत्र में द्वंद्व/साझेदारी)", file: "SOCIAL_SCIENCE/POLITICS/01.json" },
+                        { name: "पाठ 02 (सत्ता में साझेदारी की कार्यप्रणाली)", file: "SOCIAL_SCIENCE/POLITICS/02.json" },
+                        { name: "पाठ 03 (लोकतंत्र की प्रतिस्पर्धा एवं संघर्ष)", file: "SOCIAL_SCIENCE/POLITICS/03.json" },
+                        { name: "पाठ 04 (लोकतंत्र की उपलब्धियां)", file: "SOCIAL_SCIENCE/POLITICS/04.json" },
+                        { name: "पाठ 05 (लोकतंत्र की चुनौतियां)", file: "SOCIAL_SCIENCE/POLITICS/05.json" }
+                    ]
+                },
+                {
+                    sectionName: "ECONOMICS (अर्थशास्त्र)",
+                    icon: "coins",
+                    chapters: [
+                        { name: "पाठ 01 (अर्थव्यवस्था एवं इसके विकास का इतिहास)", file: "SOCIAL_SCIENCE/ECONOMICS/01.json" },
+                        { name: "पाठ 02 (राज्य एवं राष्ट्र की आय)", file: "SOCIAL_SCIENCE/ECONOMICS/02.json" },
+                        { name: "पाठ 03 (मुद्रा, बचत एवं साख)", file: "SOCIAL_SCIENCE/ECONOMICS/03.json" },
+                        { name: "पाठ 04 (हमारी वित्तीय संस्थाएं)", file: "SOCIAL_SCIENCE/ECONOMICS/04.json" },
+                        { name: "पाठ 05 (रोजगार एवं सेवाएँ)", file: "SOCIAL_SCIENCE/ECONOMICS/05.json" },
+                        { name: "पाठ 06 (वैश्वीकरण)", file: "SOCIAL_SCIENCE/ECONOMICS/06.json" },
+                        { name: "पाठ 07 (उपभोक्ता जागरण एवं संरक्षण)", file: "SOCIAL_SCIENCE/ECONOMICS/07.json" }
+                    ]
+                },
+                {
+                    sectionName: "DISASTER MANAGEMENT (आपदा प्रबंधन)",
+                    icon: "shield-alert",
+                    chapters: [
+                        { name: "पाठ 01 (प्राकृतिक आपदा : एक परिचय)", file: "SOCIAL_SCIENCE/DISASTER/01.json" },
+                        { name: "पाठ 02 (प्राकृतिक आपदा एवं प्रबंधन : बाढ़ और सुखाड़)", file: "SOCIAL_SCIENCE/DISASTER/02.json" },
+                        { name: "पाठ 03 (भूकंप एवं सुनामी)", file: "SOCIAL_SCIENCE/DISASTER/03.json" },
+                        { name: "पाठ 04 (जीवन रक्षक आकस्मिक प्रबंधन)", file: "SOCIAL_SCIENCE/DISASTER/04.json" }
+                    ]
+                }
+            ]
+        }
+    ];
+
+    // ==========================================
+    // STATE MANAGEMENT
+    // ==========================================
+    let currentViewState = { stage: "subjects", subjectIndex: null, secIndex: null };
+    let chapterMeta = { title: "BSEB क्विज़ Portal", subtitle: "लोड हो रहा है...", description: "" };
+    let rawQuestions = [];
+    let questions = [];
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+    let questionStates = [];
+
+    // DOM Elements
+    const gridContainer = document.getElementById('quiz-grid');
+    const mainTitle = document.getElementById('dashboard-title');
+    const mainDesc = document.getElementById('dashboard-desc');
+    const navBackBtn = document.getElementById('nav-back-btn');
+    const devModal = document.getElementById('dev-modal');
+    const overviewModal = document.getElementById('overview-modal');
+    const dashboardView = document.getElementById('dashboard-view');
+    const quizView = document.getElementById('quiz-view');
+    const appQuizContainer = document.getElementById('app-quiz-container');
+
+    // ==========================================
+    // INIT & ROUTING
+    // ==========================================
+    window.onload = function() {
+        lucide.createIcons();
+        
+        // PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then((reg) => console.log('Service Worker Registered: ', reg.scope))
+                .catch((err) => console.log('Service Worker Registration Failed: ', err));
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataFile = urlParams.get('file');
+
+        if (dataFile) {
+            switchView('quiz');
+            loadQuizData(dataFile);
+        } else {
+            history.replaceState({ stage: "subjects" }, "", "#subjects");
+            renderSubjects(true);
+        }
+    };
+
+    function switchView(view) {
+        if (view === 'dashboard') {
+            dashboardView.classList.remove('hidden');
+            quizView.classList.add('hidden');
+        } else {
+            dashboardView.classList.add('hidden');
+            quizView.classList.remove('hidden');
+        }
+    }
+
+    function handleHeaderBack() {
+        if (!quizView.classList.contains('hidden')) {
+            window.location.href = window.location.pathname; // Return to dashboard home
+            return;
+        }
+        history.back();
+    }
+
+    // ==========================================
+    // RENDER DASHBOARD STAGES
+    // ==========================================
+    function renderSubjects(isBackAction = false) {
+        switchView('dashboard');
+        gridContainer.innerHTML = '';
+        gridContainer.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl w-full mx-auto animate-fade-in";
+        mainTitle.innerHTML = `Choose a <span class="bg-gradient-to-r from-emerald-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">Subject</span> to Begin`;
+        mainDesc.innerText = "अपनी पसंद का विषय चुनें, फिर उपलब्ध सेक्शन्स या चैप्टर्स में से किसी भी मॉडल टेस्ट का ऑनलाइन अभ्यास करें।";
+        navBackBtn.classList.add('hidden');
+        currentViewState = { stage: "subjects", subjectIndex: null };
+
+        if (!isBackAction) {
+            history.pushState({ stage: "subjects" }, "", "#subjects");
+        }
+
+        quizData.forEach((sub, subIndex) => {
+            const card = document.createElement('div');
+            card.className = "glass-card-interactive p-5 rounded-2xl flex flex-col justify-between cursor-pointer group";
+            card.setAttribute('onclick', `handleSubjectClick(${subIndex})`);
+            
+            let countText = sub.sections ? `${sub.sections.length} Sections` : `${sub.chapters.length} Chapters`;
+
+            card.innerHTML = `
+                <div class="space-y-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:bg-brand-600 group-hover:text-white group-hover:border-transparent transition-all duration-300 shadow-lg">
+                        <i data-lucide="${sub.icon || 'book-open'}" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-slate-100 group-hover:text-indigo-300 transition-colors duration-200">${sub.subjectName}</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed line-clamp-2 mt-1">${sub.description}</p>
+                    </div>
+                </div>
+                <div class="pt-3.5 border-t border-slate-800/80 mt-4 flex items-center justify-between text-[11px] font-extrabold tracking-wider text-indigo-400 uppercase group-hover:text-white transition-colors duration-200">
+                    <span>${countText}</span>
+                    <span class="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        <span>Open</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </span>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+        lucide.createIcons();
+    }
+
+    function handleSubjectClick(subIndex) {
+        const sub = quizData[subIndex];
+        if (sub.sections) {
+            renderSections(subIndex);
+        } else {
+            renderChapters(sub.chapters, sub.subjectName, "subjects", subIndex);
+        }
+    }
+
+    function renderSections(subIndex, isBackAction = false) {
+        switchView('dashboard');
+        const currentSub = quizData[subIndex];
+        gridContainer.innerHTML = '';
+        gridContainer.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl w-full mx-auto animate-fade-in";
+        
+        mainTitle.innerHTML = `<span class="bg-gradient-to-r from-emerald-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">${currentSub.subjectName}</span> Sections`;
+        mainDesc.innerText = "अपना पसंदीदा सेक्शन चुनें जिसके टेस्ट का आप अभ्यास करना चाहते हैं।";
+        navBackBtn.classList.remove('hidden');
+        currentViewState = { stage: "sections", subjectIndex: subIndex };
+
+        if (!isBackAction) {
+            history.pushState({ stage: "sections", subjectIndex: subIndex }, "", `#sections-${subIndex}`);
+        }
+
+        currentSub.sections.forEach((sec, secIndex) => {
+            const card = document.createElement('div');
+            card.className = "glass-card-interactive p-5 rounded-2xl flex flex-col justify-between cursor-pointer group";
+            card.setAttribute('onclick', `renderSectionChapters(${subIndex}, ${secIndex})`);
+            
+            card.innerHTML = `
+                <div class="space-y-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:bg-brand-600 group-hover:text-white group-hover:border-transparent transition-all duration-300 shadow-lg">
+                        <i data-lucide="${sec.icon || 'folder'}" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-slate-100 group-hover:text-indigo-300 transition-colors duration-200">${sec.sectionName}</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-1">बिहार बोर्ड परीक्षा विशेष ऑब्जेक्टिव मॉडल सेट्स।</p>
+                    </div>
+                </div>
+                <div class="pt-3.5 border-t border-slate-800/80 mt-4 flex items-center justify-between text-[11px] font-extrabold tracking-wider text-indigo-400 uppercase group-hover:text-white transition-colors duration-200">
+                    <span>${sec.chapters.length} Chapters</span>
+                    <span class="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        <span>View</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </span>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+        lucide.createIcons();
+    }
+
+    function renderSectionChapters(subIndex, secIndex) {
+        const sec = quizData[subIndex].sections[secIndex];
+        renderChapters(sec.chapters, sec.sectionName, "sections", subIndex, secIndex);
+    }
+
+    function renderChapters(chaptersList, titleName, backToStage, subIndex = null, secIndex = null, isBackAction = false) {
+        switchView('dashboard');
+        gridContainer.innerHTML = '';
+        gridContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-3.5 max-w-4xl w-full mx-auto animate-fade-in";
+        
+        mainTitle.innerHTML = `<span class="bg-gradient-to-r from-emerald-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">${titleName}</span> Chapters`;
+        mainDesc.innerText = "चैप्टर का चुनाव करें। क्लिक करते ही उस अध्याय का लाइव क्विज़ इंटरफ़ेस चालू हो जाएगा।";
+        navBackBtn.classList.remove('hidden');
+        
+        currentViewState = { stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex };
+
+        if (!isBackAction) {
+            history.pushState({ stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex }, "", "#chapters");
+        }
+
+        chaptersList.forEach((chap) => {
+            const card = document.createElement('div');
+            card.className = "glass-card-interactive p-4 rounded-2xl flex items-center justify-between cursor-pointer group";
+            card.setAttribute('onclick', `runQuizFile('${chap.file}')`);
+            
+            card.innerHTML = `
+                <div class="space-y-1 pr-4">
+                    <span class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-wider group-hover:text-indigo-300 transition-colors">Test Module</span>
+                    <p class="text-sm font-bold text-slate-200 group-hover:text-white transition-colors leading-snug">${chap.name}</p>
+                </div>
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-slate-950 flex items-center justify-center transition-all duration-300 shrink-0 shadow-lg">
+                    <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+        lucide.createIcons();
+    }
+
+    function runQuizFile(jsonFilePath) {
+        const targetUrl = `./data/${jsonFilePath}`;
+        
+        fetch(targetUrl, { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = `index.html?file=${jsonFilePath}`;
+            } else {
+                showDevModal();
+            }
+        })
+        .catch(() => {
+            showDevModal();
+        });
+    }
+
+    function showDevModal() { devModal.classList.remove('hidden'); }
+    function closeDevModal() { devModal.classList.add('hidden'); }
+
+    // System Back Popstate Event
+    window.addEventListener('popstate', function(event) {
+        const state = event.state;
+        if (state) {
+            if (state.stage === "subjects") {
+                renderSubjects(true);
+            } else if (state.stage === "sections") {
+                renderSections(state.subjectIndex, true);
+            } else if (state.stage === "chapters") {
+                if (state.backTo === "sections") {
+                    const sec = quizData[state.subjectIndex].sections[state.secIndex];
+                    renderChapters(sec.chapters, sec.sectionName, "sections", state.subjectIndex, state.secIndex, true);
+                } else {
+                    const sub = quizData[state.subjectIndex];
+                    renderChapters(sub.chapters, sub.subjectName, "subjects", state.subjectIndex, null, true);
+                }
+            }
+        } else {
+            renderSubjects(true);
+        }
+    });
+
+    // ==========================================
+    // QUIZ ENGINE CORE
+    // ==========================================
+    function loadQuizData(file) {
+        navBackBtn.classList.remove('hidden');
+        fetch(`./data/${file}`)
+            .then(res => res.json())
+            .then(data => {
+                chapterMeta.title = data.title || "BSEB क्विज़ पोर्टल";
+                chapterMeta.subtitle = data.subtitle || "";
+                chapterMeta.description = data.description || "";
+                rawQuestions = data.questions || [];
+                renderStartScreen();
+            })
+            .catch(err => {
+                appQuizContainer.innerHTML = `
+                    <div class="p-8 text-center my-auto space-y-4">
+                        <i data-lucide="alert-triangle" class="w-12 h-12 text-red-400 mx-auto"></i>
+                        <h2 class="text-xl font-bold text-white">त्रुटि: डेटा फ़ाइल लोड नहीं हो सकी!</h2>
+                        <p class="text-xs text-slate-400">कृपया फ़ाइल पथ जाँचें या बाद में पुनः प्रयास करें।</p>
+                        <button onclick="window.location.href='index.html'" class="px-5 py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-bold">मुख्य पृष्ठ पर जाएँ</button>
+                    </div>
+                `;
+                lucide.createIcons();
+            });
+    }
+
+    function shuffleQuestionsAndOptions(array) {
+        const shuffled = JSON.parse(JSON.stringify(array));
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        shuffled.forEach(item => {
+            const correctAnswerText = item.o[item.a];
+            for (let i = item.o.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [item.o[i], item.o[j]] = [item.o[j], item.o[i]];
+            }
+            item.a = item.o.indexOf(correctAnswerText);
+        });
+        return shuffled;
+    }
+
+    function renderStartScreen() {
+        appQuizContainer.innerHTML = `
+            <div class="flex-1 flex flex-col items-center justify-center p-6 sm:p-10 text-center fade-in h-full my-auto space-y-6">
+                <div class="w-20 h-20 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-3xl flex items-center justify-center shadow-xl shadow-indigo-500/10">
+                    <i data-lucide="book-open-check" class="w-10 h-10"></i>
+                </div>
+                <div class="space-y-2 max-w-xl">
+                    <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight">${chapterMeta.title}</h1>
+                    <h2 class="text-base sm:text-lg font-bold text-indigo-400">${chapterMeta.subtitle}</h2>
+                    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed pt-2">${chapterMeta.description || 'इस अध्याय के संपूर्ण ऑब्जेक्टिव प्रश्नों का अभ्यास करें एवं अपना स्कोर जांचें।'}</p>
+                </div>
+                <div class="pt-2">
+                    <button onclick="startQuiz()" class="px-8 py-4 bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white font-extrabold text-base rounded-2xl shadow-xl shadow-indigo-600/30 transform hover:-translate-y-0.5 transition-all">
+                        क्विज़ प्रारंभ करें ➔
+                    </button>
+                </div>
+            </div>
+        `;
+        lucide.createIcons();
+    }
+
+    function startQuiz() {
+        if(rawQuestions.length === 0) {
+            alert("कोई प्रश्न उपलब्ध नहीं है!");
+            return;
+        }
+        questions = shuffleQuestionsAndOptions(rawQuestions);
+        currentQuestion = 0;
+        score = 0;
+        questionStates = new Array(questions.length).fill('default');
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        answered = false;
+        const q = questions[currentQuestion];
+        const progress = ((currentQuestion) / questions.length) * 100;
+
+        let optionsHtml = '';
+        q.o.forEach((opt, index) => {
+            optionsHtml += `
+                <button onclick="checkAnswer(${index}, this)" class="option-btn">
+                    <span>${opt}</span>
+                    <span class="icon-container hidden"></span>
+                </button>
+            `;
+        });
+
+        let gridHtml = '';
+        for(let i = 0; i < questions.length; i++) {
+            let stateClass = 'state-default';
+            if(questionStates[i] === 'correct') stateClass = 'state-correct';
+            if(questionStates[i] === 'wrong') stateClass = 'state-wrong';
+            if(questionStates[i] === 'skipped') stateClass = 'state-skipped';
+            
+            gridHtml += `<button onclick="jumpToQuestion(${i})" class="q-circle ${stateClass}">${i + 1}</button>`;
+        }
+
+        appQuizContainer.innerHTML = `
+            <!-- QUIZ HEADER -->
+            <div class="p-4 sm:p-6 border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs font-bold text-indigo-400 tracking-wider">प्रश्न ${currentQuestion + 1} / ${questions.length}</span>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-extrabold text-slate-200 glass-button px-3 py-1 rounded-full">स्कोर: ${score}</span>
+                        <button onclick="openOverviewModal()" class="md:hidden p-1.5 glass-button text-slate-300 rounded-lg">
+                            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="w-full bg-slate-800/60 rounded-full h-2 overflow-hidden">
+                    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-300" style="width: ${progress}%"></div>
+                </div>
+            </div>
+
+            <!-- 3-BLOCK RESPONSIVE LAYOUT -->
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-12 gap-5 p-4 sm:p-6 animate-fade-in overflow-y-auto">
+                
+                <!-- LEFT BLOCK: QUESTION DESCRIPTION -->
+                <div class="md:col-span-5 glass-card p-5 rounded-2xl flex flex-col justify-start">
+                    <span class="text-[10px] font-extrabold uppercase text-indigo-400 tracking-wider">Question Detail</span>
+                    <h2 class="text-base sm:text-lg font-bold text-slate-100 mt-2 leading-relaxed">${q.q}</h2>
+                </div>
+
+                <!-- MIDDLE BLOCK: OPTIONS & ACTIONS -->
+                <div class="md:col-span-7 flex flex-col justify-between space-y-4">
+                    <div id="options-container" class="flex-1 flex flex-col justify-center">
+                        ${optionsHtml}
+                    </div>
+                    
+                    <div class="flex justify-between items-center pt-3 border-t border-slate-800/80">
+                        <button id="skip-btn" onclick="skipQuestion()" class="px-5 py-2.5 glass-button text-xs font-bold text-slate-300 rounded-xl">स्किप करें</button>
+                        <button id="next-btn" onclick="nextQuestion()" class="hidden px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-xs font-extrabold text-white rounded-xl shadow-lg shadow-indigo-600/30">
+                            ${currentQuestion === questions.length - 1 ? 'परिणाम देखें' : 'अगला प्रश्न ➔'}
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FOOTER OVERVIEW GRID BAR (Desktop View) -->
+            <div class="hidden md:block p-4 border-t border-slate-800/80 bg-slate-900/30">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">प्रश्नावली ओवरव्यू</span>
+                    <button onclick="renderResultScreen()" class="text-xs font-bold text-indigo-400 hover:text-indigo-300">सबमिट करें ➔</button>
+                </div>
+                <div class="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
+                    ${gridHtml}
+                </div>
+            </div>
+        `;
+        lucide.createIcons();
+    }
+
+    function checkAnswer(selectedIndex, btnElement) {
+        if (answered) return;
+        answered = true;
+
+        const q = questions[currentQuestion];
+        const allBtns = document.querySelectorAll('.option-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const skipBtn = document.getElementById('skip-btn');
+
+        if(skipBtn) skipBtn.classList.add('hidden');
+
+        allBtns.forEach((btn, index) => {
+            btn.classList.add('disabled-option');
+            btn.disabled = true;
+            const iconContainer = btn.querySelector('.icon-container');
+            iconContainer.classList.remove('hidden');
+
+            if (index === q.a) {
+                btn.classList.add('correct');
+                btn.classList.remove('disabled-option');
+                iconContainer.innerHTML = `<i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>`;
+            }
+            
+            if (index === selectedIndex && selectedIndex !== q.a) {
+                btn.classList.add('wrong');
+                btn.classList.remove('disabled-option');
+                iconContainer.innerHTML = `<i data-lucide="x-circle" class="w-5 h-5 text-red-400"></i>`;
+            } 
+        });
+
+        if (selectedIndex === q.a) {
+            score++;
+            questionStates[currentQuestion] = 'correct';
+        } else {
+            questionStates[currentQuestion] = 'wrong';
+        }
+
+        nextBtn.classList.remove('hidden');
+        lucide.createIcons();
+    }
+
+    function skipQuestion() {
+        questionStates[currentQuestion] = 'skipped';
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            renderQuestion();
+        } else {
+            renderResultScreen();
+        }
+    }
+
+    function openOverviewModal() {
+        let gridHtml = '';
+        for(let i = 0; i < questions.length; i++) {
+            let stateClass = 'state-default';
+            if(questionStates[i] === 'correct') stateClass = 'state-correct';
+            if(questionStates[i] === 'wrong') stateClass = 'state-wrong';
+            if(questionStates[i] === 'skipped') stateClass = 'state-skipped';
+            
+            gridHtml += `<button onclick="jumpToQuestion(${i})" class="q-circle ${stateClass}">${i + 1}</button>`;
+        }
+        document.getElementById('overview-modal-grid').innerHTML = gridHtml;
+        overviewModal.classList.remove('hidden');
+    }
+
+    function closeOverviewModal() {
+        overviewModal.classList.add('hidden');
+    }
+
+    function jumpToQuestion(index) {
+        currentQuestion = index;
+        closeOverviewModal();
+        renderQuestion();
+    }
+
+    function submitQuizFromOverview() {
+        closeOverviewModal();
+        renderResultScreen();
+    }
+
+    function renderResultScreen() {
+        const percentage = Math.round((score / questions.length) * 100);
+        let message = "";
+        
+        if (percentage === 100) { message = "उत्कृष्ट! आपने इस अध्याय में पूरे अंक प्राप्त किए हैं!"; }
+        else if (percentage >= 80) { message = "शानदार प्रदर्शन! आपकी तैयारी बहुत अच्छी है।"; }
+        else if (percentage >= 50) { message = "अच्छा प्रयास! पाठ को एक बार और दोहराएँ।"; }
+        else { message = "अभ्यास जारी रखें! पाठ्यपुस्तक को ध्यान से पढ़ें और पुनः प्रयास करें।"; }
+
+        const strokeDasharray = `${percentage}, 100`;
+        const colorClass = percentage >= 80 ? '#22c55e' : percentage >= 50 ? '#eab308' : '#ef4444';
+
+        let correctCount = 0;
+        let wrongCount = 0;
+        let skippedCount = 0;
+
+        questionStates.forEach(st => {
+            if(st === 'correct') correctCount++;
+            else if(st === 'wrong') wrongCount++;
+            else if(st === 'skipped') skippedCount++;
+        });
+
+        appQuizContainer.innerHTML = `
+            <div class="flex-1 flex flex-col items-center justify-center p-6 sm:p-10 text-center fade-in overflow-y-auto space-y-6">
+                <div class="space-y-1">
+                    <h2 class="text-xl sm:text-2xl font-black text-white">${chapterMeta.title}</h2>
+                    <p class="text-xs text-slate-400">${chapterMeta.subtitle} (कुल प्रश्न: ${questions.length})</p>
+                </div>
+                
+                <h3 class="text-2xl font-extrabold text-indigo-400">क्विज़ पूर्ण हुई!</h3>
+
+                <div class="relative w-44 h-44 flex items-center justify-center my-2">
+                    <svg viewBox="0 0 36 36" class="circular-chart w-full h-full">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        <path class="circle" stroke="${colorClass}" stroke-dasharray="${strokeDasharray}" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <div class="absolute flex flex-col items-center justify-center">
+                        <span class="text-3xl font-black text-white">${percentage}%</span>
+                        <span class="text-[10px] text-slate-400 uppercase font-bold tracking-widest">Score</span>
+                    </div>
+                </div>
+
+                <div class="glass-card p-4 rounded-2xl w-full max-w-md">
+                    <div class="grid grid-cols-4 gap-2 text-center">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">कुल प्रश्न</p>
+                            <p class="text-base sm:text-lg font-black text-white">${questions.length}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">सही उत्तर</p>
+                            <p class="text-base sm:text-lg font-black text-emerald-400">${correctCount}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">गलत उत्तर</p>
+                            <p class="text-base sm:text-lg font-black text-red-400">${wrongCount}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">छोड़े गए</p>
+                            <p class="text-base sm:text-lg font-black text-yellow-400">${skippedCount}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-300 max-w-md leading-relaxed">${message}</p>
+                
+                <div class="flex gap-3">
+                    <button onclick="startQuiz()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-lg shadow-emerald-600/30">
+                        पुनः प्रयास करें
+                    </button>
+                    <button onclick="window.location.href='index.html'" class="px-6 py-3 glass-button text-slate-200 hover:text-white font-extrabold text-xs sm:text-sm rounded-xl">
+                        मुख्य डैशबोर्ड
+                    </button>
+                </div>
+            </div>
+        `;
+        lucide.createIcons();
+    }
+    </script>
+</body>
+</html>
