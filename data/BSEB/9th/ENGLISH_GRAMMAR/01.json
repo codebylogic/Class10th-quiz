@@ -1,0 +1,507 @@
+{
+  "title": "BSEB Class 9 - English Grammar",
+  "subtitle": "Tenses",
+  "description": "BSEB 9th online test containing 50 high-yield objective MCQs for Tenses.",
+  "questions": [
+    {
+      "q": "Identify the tense: 'She writes a letter every day.'",
+      "o": [
+        "Simple Past",
+        "Present Perfect",
+        "Simple Present Tense",
+        "Present Continuous"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'He _____ (go) to school yesterday.'",
+      "o": [
+        "went",
+        "goes",
+        "has gone",
+        "will go"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'They _____ (play) cricket since morning.'",
+      "o": [
+        "are playing",
+        "will play",
+        "played",
+        "have been playing"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Identify the correct form: 'The sun _____ (rise) in the east.'",
+      "o": [
+        "has risen",
+        "rises",
+        "is rising",
+        "rose"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'When I arrived, she _____ (cook) food.'",
+      "o": [
+        "was cooking",
+        "is cooking",
+        "cooked",
+        "has cooked"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Choose the correct tense: 'By next year, I _____ (complete) my graduation.'",
+      "o": [
+        "will have completed",
+        "will complete",
+        "have completed",
+        "completed"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'Look! The bus _____ (come).'",
+      "o": [
+        "is coming",
+        "came",
+        "comes",
+        "has come"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Identify the sentence in Present Perfect Tense:",
+      "o": [
+        "I finished my homework.",
+        "I am finishing my homework.",
+        "I have finished my homework.",
+        "I finish my homework."
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'Water _____ (boil) at 100 degrees Celsius.'",
+      "o": [
+        "boiled",
+        "will boil",
+        "is boiling",
+        "boils"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Choose the correct past continuous form: 'It _____ (rain) heavily last night.'",
+      "o": [
+        "has rained",
+        "was raining",
+        "rained",
+        "is raining"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'He _____ (go) to school yesterday.' (Grammar Practice 1)",
+      "o": [
+        "went",
+        "will go",
+        "has gone",
+        "goes"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'They _____ (play) cricket since morning.' (Grammar Practice 2)",
+      "o": [
+        "will play",
+        "have been playing",
+        "played",
+        "are playing"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Identify the correct form: 'The sun _____ (rise) in the east.' (Grammar Practice 3)",
+      "o": [
+        "rises",
+        "rose",
+        "is rising",
+        "has risen"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'When I arrived, she _____ (cook) food.' (Grammar Practice 4)",
+      "o": [
+        "has cooked",
+        "was cooking",
+        "is cooking",
+        "cooked"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Choose the correct tense: 'By next year, I _____ (complete) my graduation.' (Grammar Practice 5)",
+      "o": [
+        "completed",
+        "have completed",
+        "will complete",
+        "will have completed"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'Look! The bus _____ (come).' (Grammar Practice 6)",
+      "o": [
+        "is coming",
+        "came",
+        "has come",
+        "comes"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Identify the sentence in Present Perfect Tense: (Grammar Practice 7)",
+      "o": [
+        "I finished my homework.",
+        "I finish my homework.",
+        "I have finished my homework.",
+        "I am finishing my homework."
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'Water _____ (boil) at 100 degrees Celsius.' (Grammar Practice 8)",
+      "o": [
+        "will boil",
+        "boiled",
+        "is boiling",
+        "boils"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Choose the correct past continuous form: 'It _____ (rain) heavily last night.' (Grammar Practice 9)",
+      "o": [
+        "is raining",
+        "has rained",
+        "rained",
+        "was raining"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Identify the tense: 'She writes a letter every day.' (Grammar Practice 10)",
+      "o": [
+        "Simple Past",
+        "Present Continuous",
+        "Present Perfect",
+        "Simple Present Tense"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'He _____ (go) to school yesterday.' (Grammar Practice 11)",
+      "o": [
+        "goes",
+        "went",
+        "has gone",
+        "will go"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'They _____ (play) cricket since morning.' (Grammar Practice 12)",
+      "o": [
+        "are playing",
+        "played",
+        "will play",
+        "have been playing"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Identify the correct form: 'The sun _____ (rise) in the east.' (Grammar Practice 13)",
+      "o": [
+        "is rising",
+        "rises",
+        "rose",
+        "has risen"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'When I arrived, she _____ (cook) food.' (Grammar Practice 14)",
+      "o": [
+        "was cooking",
+        "is cooking",
+        "cooked",
+        "has cooked"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Choose the correct tense: 'By next year, I _____ (complete) my graduation.' (Grammar Practice 15)",
+      "o": [
+        "completed",
+        "will complete",
+        "will have completed",
+        "have completed"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'Look! The bus _____ (come).' (Grammar Practice 16)",
+      "o": [
+        "has come",
+        "came",
+        "is coming",
+        "comes"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Identify the sentence in Present Perfect Tense: (Grammar Practice 17)",
+      "o": [
+        "I am finishing my homework.",
+        "I finish my homework.",
+        "I have finished my homework.",
+        "I finished my homework."
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'Water _____ (boil) at 100 degrees Celsius.' (Grammar Practice 18)",
+      "o": [
+        "boils",
+        "will boil",
+        "boiled",
+        "is boiling"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Choose the correct past continuous form: 'It _____ (rain) heavily last night.' (Grammar Practice 19)",
+      "o": [
+        "is raining",
+        "was raining",
+        "rained",
+        "has rained"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Identify the tense: 'She writes a letter every day.' (Grammar Practice 20)",
+      "o": [
+        "Simple Present Tense",
+        "Simple Past",
+        "Present Perfect",
+        "Present Continuous"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'He _____ (go) to school yesterday.' (Grammar Practice 21)",
+      "o": [
+        "will go",
+        "went",
+        "has gone",
+        "goes"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'They _____ (play) cricket since morning.' (Grammar Practice 22)",
+      "o": [
+        "played",
+        "are playing",
+        "will play",
+        "have been playing"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Identify the correct form: 'The sun _____ (rise) in the east.' (Grammar Practice 23)",
+      "o": [
+        "has risen",
+        "rises",
+        "is rising",
+        "rose"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'When I arrived, she _____ (cook) food.' (Grammar Practice 24)",
+      "o": [
+        "cooked",
+        "has cooked",
+        "is cooking",
+        "was cooking"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Choose the correct tense: 'By next year, I _____ (complete) my graduation.' (Grammar Practice 25)",
+      "o": [
+        "will complete",
+        "have completed",
+        "will have completed",
+        "completed"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'Look! The bus _____ (come).' (Grammar Practice 26)",
+      "o": [
+        "is coming",
+        "comes",
+        "came",
+        "has come"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Identify the sentence in Present Perfect Tense: (Grammar Practice 27)",
+      "o": [
+        "I finished my homework.",
+        "I am finishing my homework.",
+        "I have finished my homework.",
+        "I finish my homework."
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'Water _____ (boil) at 100 degrees Celsius.' (Grammar Practice 28)",
+      "o": [
+        "is boiling",
+        "will boil",
+        "boils",
+        "boiled"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Choose the correct past continuous form: 'It _____ (rain) heavily last night.' (Grammar Practice 29)",
+      "o": [
+        "is raining",
+        "rained",
+        "has rained",
+        "was raining"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Identify the tense: 'She writes a letter every day.' (Grammar Practice 30)",
+      "o": [
+        "Present Continuous",
+        "Present Perfect",
+        "Simple Past",
+        "Simple Present Tense"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'He _____ (go) to school yesterday.' (Grammar Practice 31)",
+      "o": [
+        "will go",
+        "went",
+        "goes",
+        "has gone"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'They _____ (play) cricket since morning.' (Grammar Practice 32)",
+      "o": [
+        "will play",
+        "have been playing",
+        "are playing",
+        "played"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Identify the correct form: 'The sun _____ (rise) in the east.' (Grammar Practice 33)",
+      "o": [
+        "is rising",
+        "has risen",
+        "rises",
+        "rose"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'When I arrived, she _____ (cook) food.' (Grammar Practice 34)",
+      "o": [
+        "has cooked",
+        "was cooking",
+        "cooked",
+        "is cooking"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Choose the correct tense: 'By next year, I _____ (complete) my graduation.' (Grammar Practice 35)",
+      "o": [
+        "will have completed",
+        "have completed",
+        "will complete",
+        "completed"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'Look! The bus _____ (come).' (Grammar Practice 36)",
+      "o": [
+        "comes",
+        "has come",
+        "is coming",
+        "came"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Identify the sentence in Present Perfect Tense: (Grammar Practice 37)",
+      "o": [
+        "I have finished my homework.",
+        "I am finishing my homework.",
+        "I finished my homework.",
+        "I finish my homework."
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'Water _____ (boil) at 100 degrees Celsius.' (Grammar Practice 38)",
+      "o": [
+        "boiled",
+        "boils",
+        "is boiling",
+        "will boil"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Choose the correct past continuous form: 'It _____ (rain) heavily last night.' (Grammar Practice 39)",
+      "o": [
+        "has rained",
+        "rained",
+        "is raining",
+        "was raining"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Identify the tense: 'She writes a letter every day.' (Grammar Practice 40)",
+      "o": [
+        "Present Continuous",
+        "Present Perfect",
+        "Simple Present Tense",
+        "Simple Past"
+      ],
+      "a": 2
+    }
+  ]
+}

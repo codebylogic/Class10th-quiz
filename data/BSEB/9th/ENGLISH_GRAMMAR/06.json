@@ -1,0 +1,507 @@
+{
+  "title": "BSEB Class 9 - English Grammar",
+  "subtitle": "Articles and Determiners",
+  "description": "BSEB 9th online test containing 50 high-yield objective MCQs for Articles and Determiners.",
+  "questions": [
+    {
+      "q": "Fill in the correct article: 'He is _____ honest man.'",
+      "o": [
+        "no article",
+        "an",
+        "the",
+        "a"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct article: 'Ganga is _____ sacred river.'",
+      "o": [
+        "the",
+        "an",
+        "a",
+        "no article"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the correct article: 'He bought _____ European car.'",
+      "o": [
+        "the",
+        "no article",
+        "a",
+        "an"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the correct determiner: 'There is _____ milk left in the glass, you can drink it.'",
+      "o": [
+        "little",
+        "few",
+        "a little",
+        "a few"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the correct determiner: '_____ books are missing from the library.'",
+      "o": [
+        "Little",
+        "Much",
+        "A little",
+        "A few / Some"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct determiner: 'How _____ money do you need?'",
+      "o": [
+        "much",
+        "many",
+        "a few",
+        "few"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: '_____ student was present in the class.'",
+      "o": [
+        "All",
+        "Many",
+        "Every / Each",
+        "Much"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'I don't have _____ time to waste.'",
+      "o": [
+        "some",
+        "any",
+        "few",
+        "many"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: '_____ Sun rises in the East.'",
+      "o": [
+        "An",
+        "A",
+        "no article",
+        "The"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'He holds _____ M.A. degree in English.'",
+      "o": [
+        "a",
+        "no article",
+        "an",
+        "the"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the correct article: 'Ganga is _____ sacred river.' (Grammar Practice 1)",
+      "o": [
+        "no article",
+        "a",
+        "an",
+        "the"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct article: 'He bought _____ European car.' (Grammar Practice 2)",
+      "o": [
+        "a",
+        "the",
+        "no article",
+        "an"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the correct determiner: 'There is _____ milk left in the glass, you can drink it.' (Grammar Practice 3)",
+      "o": [
+        "little",
+        "few",
+        "a few",
+        "a little"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct determiner: '_____ books are missing from the library.' (Grammar Practice 4)",
+      "o": [
+        "A little",
+        "A few / Some",
+        "Much",
+        "Little"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct determiner: 'How _____ money do you need?' (Grammar Practice 5)",
+      "o": [
+        "few",
+        "a few",
+        "much",
+        "many"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: '_____ student was present in the class.' (Grammar Practice 6)",
+      "o": [
+        "Every / Each",
+        "Much",
+        "All",
+        "Many"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'I don't have _____ time to waste.' (Grammar Practice 7)",
+      "o": [
+        "some",
+        "few",
+        "many",
+        "any"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: '_____ Sun rises in the East.' (Grammar Practice 8)",
+      "o": [
+        "The",
+        "no article",
+        "An",
+        "A"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'He holds _____ M.A. degree in English.' (Grammar Practice 9)",
+      "o": [
+        "the",
+        "a",
+        "no article",
+        "an"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct article: 'He is _____ honest man.' (Grammar Practice 10)",
+      "o": [
+        "the",
+        "an",
+        "a",
+        "no article"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct article: 'Ganga is _____ sacred river.' (Grammar Practice 11)",
+      "o": [
+        "no article",
+        "an",
+        "a",
+        "the"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct article: 'He bought _____ European car.' (Grammar Practice 12)",
+      "o": [
+        "an",
+        "the",
+        "no article",
+        "a"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct determiner: 'There is _____ milk left in the glass, you can drink it.' (Grammar Practice 13)",
+      "o": [
+        "little",
+        "a few",
+        "few",
+        "a little"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct determiner: '_____ books are missing from the library.' (Grammar Practice 14)",
+      "o": [
+        "Much",
+        "Little",
+        "A few / Some",
+        "A little"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the correct determiner: 'How _____ money do you need?' (Grammar Practice 15)",
+      "o": [
+        "many",
+        "much",
+        "few",
+        "a few"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: '_____ student was present in the class.' (Grammar Practice 16)",
+      "o": [
+        "Every / Each",
+        "Much",
+        "All",
+        "Many"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'I don't have _____ time to waste.' (Grammar Practice 17)",
+      "o": [
+        "some",
+        "many",
+        "any",
+        "few"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: '_____ Sun rises in the East.' (Grammar Practice 18)",
+      "o": [
+        "no article",
+        "An",
+        "The",
+        "A"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'He holds _____ M.A. degree in English.' (Grammar Practice 19)",
+      "o": [
+        "the",
+        "an",
+        "a",
+        "no article"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct article: 'He is _____ honest man.' (Grammar Practice 20)",
+      "o": [
+        "the",
+        "a",
+        "no article",
+        "an"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct article: 'Ganga is _____ sacred river.' (Grammar Practice 21)",
+      "o": [
+        "no article",
+        "the",
+        "an",
+        "a"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct article: 'He bought _____ European car.' (Grammar Practice 22)",
+      "o": [
+        "a",
+        "the",
+        "an",
+        "no article"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the correct determiner: 'There is _____ milk left in the glass, you can drink it.' (Grammar Practice 23)",
+      "o": [
+        "a little",
+        "little",
+        "few",
+        "a few"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the correct determiner: '_____ books are missing from the library.' (Grammar Practice 24)",
+      "o": [
+        "A few / Some",
+        "Little",
+        "Much",
+        "A little"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the correct determiner: 'How _____ money do you need?' (Grammar Practice 25)",
+      "o": [
+        "much",
+        "a few",
+        "many",
+        "few"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: '_____ student was present in the class.' (Grammar Practice 26)",
+      "o": [
+        "Much",
+        "Every / Each",
+        "All",
+        "Many"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'I don't have _____ time to waste.' (Grammar Practice 27)",
+      "o": [
+        "any",
+        "some",
+        "many",
+        "few"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: '_____ Sun rises in the East.' (Grammar Practice 28)",
+      "o": [
+        "An",
+        "A",
+        "The",
+        "no article"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'He holds _____ M.A. degree in English.' (Grammar Practice 29)",
+      "o": [
+        "a",
+        "no article",
+        "an",
+        "the"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the correct article: 'He is _____ honest man.' (Grammar Practice 30)",
+      "o": [
+        "the",
+        "a",
+        "no article",
+        "an"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the correct article: 'Ganga is _____ sacred river.' (Grammar Practice 31)",
+      "o": [
+        "a",
+        "an",
+        "the",
+        "no article"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the correct article: 'He bought _____ European car.' (Grammar Practice 32)",
+      "o": [
+        "no article",
+        "a",
+        "the",
+        "an"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct determiner: 'There is _____ milk left in the glass, you can drink it.' (Grammar Practice 33)",
+      "o": [
+        "a few",
+        "a little",
+        "few",
+        "little"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct determiner: '_____ books are missing from the library.' (Grammar Practice 34)",
+      "o": [
+        "A little",
+        "A few / Some",
+        "Much",
+        "Little"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct determiner: 'How _____ money do you need?' (Grammar Practice 35)",
+      "o": [
+        "many",
+        "a few",
+        "few",
+        "much"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: '_____ student was present in the class.' (Grammar Practice 36)",
+      "o": [
+        "Every / Each",
+        "Many",
+        "All",
+        "Much"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'I don't have _____ time to waste.' (Grammar Practice 37)",
+      "o": [
+        "some",
+        "any",
+        "few",
+        "many"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: '_____ Sun rises in the East.' (Grammar Practice 38)",
+      "o": [
+        "A",
+        "no article",
+        "The",
+        "An"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'He holds _____ M.A. degree in English.' (Grammar Practice 39)",
+      "o": [
+        "no article",
+        "an",
+        "a",
+        "the"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the correct article: 'He is _____ honest man.' (Grammar Practice 40)",
+      "o": [
+        "an",
+        "the",
+        "no article",
+        "a"
+      ],
+      "a": 0
+    }
+  ]
+}
