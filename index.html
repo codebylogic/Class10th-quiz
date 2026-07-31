@@ -1321,8 +1321,7 @@
             </div>
         `;
 
-        // आपकी प्रदान की गई API Key
-        const apiKey = "AQ.Ab8RN6KYSFM4qrAtjGiPP6X5fIeGSJBrPEU1gGPPr8j8T6FfVQ";
+        const apiKey = window.GEMINI_API_KEY || localStorage.getItem('gemini_key') || "";
         
         // जेमिनी 1.5 फ़्लैश एंडपॉइंट URL
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
