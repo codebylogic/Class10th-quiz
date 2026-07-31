@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BSEB Class 10th Quiz Portal - स्मार्ट अध्ययन पोर्टल</title>
+    <title>Smart Quiz Portal - स्मार्ट अध्ययन पोर्टल</title>
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="./manifest.json">
@@ -132,7 +132,7 @@
             85%, 100% { opacity: 0; width: 0; }
         }
 
-        /* Quiz Engine UI Styles (Source 3) */
+        /* Quiz Engine UI Styles */
         .glass-panel {
             background: rgba(30, 41, 59, 0.75);
             backdrop-filter: blur(16px);
@@ -340,67 +340,6 @@
             width: 100%; 
             max-width: 480px; 
         }
-        /* AI Bottom Sheet Styling */
-.ai-sheet {
-    position: fixed;
-    bottom: -100%;
-    left: 0;
-    width: 100%;
-    height: 70vh; /* स्वाइप होने पर इतनी ऊँचाई होगी */
-    background: #0f172a;
-    border-top: 2px solid #38bdf8;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.9);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.3s ease;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    transform: translateY(calc(70vh - 70px)); /* शुरुआत में केवल 70px की पट्टी दिखेगी */
-}
-
-.ai-sheet.active {
-    bottom: 0;
-}
-
-.ai-sheet.expanded {
-    transform: translateY(0); /* स्वाइप करने पर पूरा खुल जाएगा */
-}
-
-.ai-sheet-handle {
-    width: 44px;
-    height: 5px;
-    background-color: #334155;
-    margin: 8px auto 4px auto;
-    border-radius: 10px;
-    cursor: grab;
-}
-
-.ai-sheet-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.ai-sheet-body {
-    flex: 1;
-    padding: 16px;
-    overflow-y: auto;
-    color: #e2e8f0;
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-.swipe-hint {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-align: center;
-}
-
     </style>
 </head>
 
@@ -416,14 +355,23 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-400 bg-clip-text text-transparent">BSEB SMART QUIZ</h1>
-                    <p class="text-[10px] text-indigo-400 font-semibold uppercase tracking-widest">स्मार्ट डिजिटल लर्निंग प्लेटफॉर्म</p>
+                    <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-400 bg-clip-text text-transparent">SMART QUIZ PORTAL</h1>
+                    <p class="text-[10px] text-indigo-400 font-semibold uppercase tracking-widest">डिजिटल लर्निंग प्लेटफॉर्म</p>
                 </div>
             </div>
             
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-3">
+                <!-- COURSE SELECTOR DROPDOWN MENU -->
+                <div class="relative inline-block text-left">
+                    <select id="course-selector" onchange="switchCourse(this.value)" class="bg-slate-900 border border-indigo-500/40 text-cyan-300 text-xs font-bold py-2 px-3 pr-8 rounded-xl cursor-pointer hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-md">
+                        <option value="bseb10">BSEB 10th</option>
+                        <option value="cbse9">CBSE 9th</option>
+                        <option value="cbse10">CBSE 10th</option>
+                    </select>
+                </div>
+
                 <button id="back-btn" onclick="handleNavigationBack()" class="hidden px-4 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 hover:text-white rounded-xl transition flex items-center space-x-1 shadow-md">
-                    <span>⬅ मुख्य पृष्ठ / वापस</span>
+                    <span>⬅ वापस</span>
                 </button>
             </div>
         </div>
@@ -435,13 +383,13 @@
 
         <!-- HERO & APP TAGLINE SECTION -->
         <section class="space-y-4 text-center max-w-3xl mx-auto pt-2 pb-4 relative z-10">
-            <span class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-cyan-400 border border-indigo-500/20 uppercase tracking-widest shadow-sm">
+            <span id="course-tagline" class="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-cyan-400 border border-indigo-500/20 uppercase tracking-widest shadow-sm">
                 🚀 कक्षा 10वीं बोर्ड परीक्षा सफलता पोर्टल
             </span>
 
             <div class="github-stage">
                 <div class="github-logo">
-                    <img src="codebylogic.png" alt="Code By Logic Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%236366f1'/><text x='50%' y='55%' font-size='30' fill='white' text-anchor='middle' dominant-baseline='middle'>CBL</text></svg>'">
+                    <img src="codebylogic.png" alt="Code By Logic Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%236366f1\'/><text x=\'50%\' y=\'55%\' font-size=\'30\' fill=\'white\' text-anchor=\'middle\' dominant-baseline=\'middle\'>CBL</text></svg>'">
                 </div>
                 <div class="github-name-wrapper">
                     <div class="github-name">CODE BY LOGIC</div>
@@ -452,7 +400,7 @@
                 स्मार्ट अभ्यास, <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent">उत्कृष्ट परिणाम</span>
             </h2>
             <p id="dashboard-desc" class="text-slate-300 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
-                बिहार बोर्ड कक्षा 10वीं के सभी विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त और भरोसेमंद डिजिटल साथी।
+                बोर्ड परीक्षा के सभी विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त साथी।
             </p>
 
             <!-- STATS COUNTER BAR -->
@@ -480,7 +428,7 @@
         </div>
     </main>
 
-    <!-- QUIZ ENGINE INTERFACE CONTAINER (Source 2 / 3 Container) -->
+    <!-- QUIZ ENGINE INTERFACE CONTAINER -->
     <main id="quiz-engine-view" class="flex-grow w-full max-w-4xl mx-auto px-4 py-4 hidden flex items-center justify-center">
         <div id="app" class="glass-panel w-full"></div>
     </main>
@@ -505,209 +453,500 @@
 
     <!-- GLOBAL FOOTER -->
     <footer class="border-t border-slate-900 py-4 text-center text-slate-500 text-[11px] font-medium tracking-wide bg-slate-950/50">
-        &copy; 2026 BSEB Smart Quiz Portal | Code By Logic - सर्वाधिकार सुरक्षित।
+        &copy; 2026 Smart Quiz Portal | Code By Logic - सर्वाधिकार सुरक्षित।
     </footer>
 
-    <!-- SCRIPT SECTION (Source 1 + Source 4 Integrated) -->
+    <!-- SCRIPT SECTION -->
     <script>
     // ==========================================
-    // 🚀 बिहार बोर्ड कक्षा 10वीं - QUIZ DATA ENGINE
+    // 🎓 MULTI-COURSE DATABASE STRUCTURE
     // ==========================================
-    const quizData = [
-        {
-            subjectName: "HINDI (हिंदी)",
-            icon: "📔",
-            description: "कक्षा 10वीं बिहार बोर्ड हिंदी (गोधूलि भाग-2) गद्यखंड एवं काव्यखंड के संपूर्ण ऑब्जेक्टिव टेस्ट सेट।",
-            sections: [
-                
+    const coursesData = {
+        // ------------------ BSEB 10TH ------------------
+        bseb10: {
+            title: "🚀 बिहार बोर्ड कक्षा 10वीं सफलता पोर्टल",
+            baseDir: "data/",
+            data: [
                 {
-                    sectionName: "गद्यखंड (Prose)",
-                    icon: "📖",
-                    chapters: [
-                        { name: "पाठ 01 (श्रम विभाजन और जाति प्रथा)", file: "HINDI/PROSE/01.json" },
-                        { name: "पाठ 02 (विष के दांत)", file: "HINDI/PROSE/02.json" },
-                        { name: "पाठ 03 (भारत से हम क्या सीखें)", file: "HINDI/PROSE/03.json" },
-                        { name: "पाठ 04 (नाखून क्यों बढ़ते हैं)", file: "HINDI/PROSE/04.json" },
-                        { name: "पाठ 05 (नागरी लिपि)", file: "HINDI/PROSE/05.json" },
-                        { name: "पाठ 06 (बहादुर)", file: "HINDI/PROSE/06.json" },
-                        { name: "पाठ 07 (परंपरा का मूल्यांकन)", file: "HINDI/PROSE/07.json" },
-                        { name: "पाठ 08 (जीत-जीत मैं निरखत हूँ)", file: "HINDI/PROSE/08.json" },
-                        { name: "पाठ 09 (अविन्यों)", file: "HINDI/PROSE/09.json" },
-                        { name: "पाठ 10 (मछली)", file: "HINDI/PROSE/10.json" },
-                        { name: "पाठ 11 (नौबतखाने में इबादत)", file: "HINDI/PROSE/11.json" },
-                        { name: "पाठ 12 (शिक्षा और संस्कृति)", file: "HINDI/PROSE/12.json" }
+                    subjectName: "HINDI (हिंदी)",
+                    icon: "📔",
+                    description: "कक्षा 10वीं बिहार बोर्ड हिंदी (गोधूलि भाग-2) गद्यखंड एवं काव्यखंड।",
+                    sections: [
+                        {
+                            sectionName: "गद्यखंड (Prose)",
+                            icon: "📖",
+                            chapters: [
+                                { name: "पाठ 01 (श्रम विभाजन और जाति प्रथा)", file: "HINDI/PROSE/01.json" },
+                                { name: "पाठ 02 (विष के दांत)", file: "HINDI/PROSE/02.json" },
+                                { name: "पाठ 03 (भारत से हम क्या सीखें)", file: "HINDI/PROSE/03.json" },
+                                { name: "पाठ 04 (नाखून क्यों बढ़ते हैं)", file: "HINDI/PROSE/04.json" },
+                                { name: "पाठ 05 (नागरी लिपि)", file: "HINDI/PROSE/05.json" },
+                                { name: "पाठ 06 (बहादुर)", file: "HINDI/PROSE/06.json" },
+                                { name: "पाठ 07 (परंपरा का मूल्यांकन)", file: "HINDI/PROSE/07.json" },
+                                { name: "पाठ 08 (जीत-जीत मैं निरखत हूँ)", file: "HINDI/PROSE/08.json" },
+                                { name: "पाठ 09 (अविन्यों)", file: "HINDI/PROSE/09.json" },
+                                { name: "पाठ 10 (मछली)", file: "HINDI/PROSE/10.json" },
+                                { name: "पाठ 11 (नौबतखाने में इबादत)", file: "HINDI/PROSE/11.json" },
+                                { name: "पाठ 12 (शिक्षा और संस्कृति)", file: "HINDI/PROSE/12.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "काव्यखंड (Poetry)",
+                            icon: "✍️",
+                            chapters: [
+                                { name: "पाठ 01 (राम नाम बिनु बिरथे जगि जन्मा)", file: "HINDI/POETRY/01.json" },
+                                { name: "पाठ 02 (प्रेम अयनि श्री राधिका)", file: "HINDI/POETRY/02.json" },
+                                { name: "पाठ 03 (अति सूधो सनेह को मारगु है)", file: "HINDI/POETRY/03.json" },
+                                { name: "पाठ 04 (स्वदेशी)", file: "HINDI/POETRY/04.json" },
+                                { name: "पाठ 05 (भारतमाता)", file: "HINDI/POETRY/05.json" },
+                                { name: "पाठ 06 (जनतंत्र का जन्म)", file: "HINDI/POETRY/06.json" },
+                                { name: "पाठ 07 (हिरोशिमा)", file: "HINDI/POETRY/07.json" },
+                                { name: "पाठ 08 (एक वृक्ष की हत्या)", file: "HINDI/POETRY/08.json" },
+                                { name: "पाठ 09 (हमारी नींद)", file: "HINDI/POETRY/09.json" },
+                                { name: "पाठ 10 (अक्षर-ज्ञान)", file: "HINDI/POETRY/10.json" },
+                                { name: "पाठ 11 (लौटकर आऊँगा फिर)", file: "HINDI/POETRY/11.json" },
+                                { name: "पाठ 12 (मेरे बिना तुम प्रभु)", file: "HINDI/POETRY/12.json" }
+                            ]
+                        }
                     ]
                 },
                 {
-                    sectionName: "काव्यखंड (Poetry)",
-                    icon: "✍️",
-                    chapters: [
-                        { name: "पाठ 01 (राम नाम बिनु बिरथे जगि जन्मा)", file: "HINDI/POETRY/01.json" },
-                        { name: "पाठ 02 (प्रेम अयनि श्री राधिका)", file: "HINDI/POETRY/02.json" },
-                        { name: "पाठ 03 (अति सूधो सनेह को मारगु है)", file: "HINDI/POETRY/03.json" },
-                        { name: "पाठ 04 (स्वदेशी)", file: "HINDI/POETRY/04.json" },
-                        { name: "पाठ 05 (भारतमाता)", file: "HINDI/POETRY/05.json" },
-                        { name: "पाठ 06 (जनतंत्र का जन्म)", file: "HINDI/POETRY/06.json" },
-                        { name: "पाठ 07 (हिरोशिमा)", file: "HINDI/POETRY/07.json" },
-                        { name: "पाठ 08 (एक वृक्ष की हत्या)", file: "HINDI/POETRY/08.json" },
-                        { name: "पाठ 09 (हमारी नींद)", file: "HINDI/POETRY/09.json" },
-                        { name: "पाठ 10 (अक्षर-ज्ञान)", file: "HINDI/POETRY/10.json" },
-                        { name: "पाठ 11 (लौटकर आऊँगा फिर)", file: "HINDI/POETRY/11.json" },
-                        { name: "पाठ 12 (मेरे बिना तुम प्रभु)", file: "HINDI/POETRY/12.json" }
+                    subjectName: "SCIENCE (विज्ञान)",
+                    icon: "🧪",
+                    description: "भौतिकी, रसायनशास्त्र और जीवविज्ञान के संपूर्ण प्रश्न।",
+                    sections: [
+                        {
+                            sectionName: "PHYSICS (भौतिक विज्ञान)",
+                            icon: "⚡",
+                            chapters: [
+                                { name: "अध्याय 01 (प्रकाश का परावर्तन)", file: "SCIENCE/PHYSICS/01.json" },
+                                { name: "अध्याय 02 (प्रकाश का अपवर्तन)", file: "SCIENCE/PHYSICS/02.json" },
+                                { name: "अध्याय 03 (मानव नेत्र और रंगबिरंगा संसार)", file: "SCIENCE/PHYSICS/03.json" },
+                                { name: "अध्याय 04 (विद्युत धारा)", file: "SCIENCE/PHYSICS/04.json" },
+                                { name: "अध्याय 05 (विद्युत धारा का चुंबकीय प्रभाव)", file: "SCIENCE/PHYSICS/05.json" },
+                                { name: "अध्याय 06 (ऊर्जा के स्रोत)", file: "SCIENCE/PHYSICS/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "CHEMISTRY (रसायन विज्ञान)",
+                            icon: "⚗️",
+                            chapters: [
+                                { name: "अध्याय 01 (रासायनिक अभिक्रियाएं एवं समीकरण)", file: "SCIENCE/CHEMISTRY/01.json" },
+                                { name: "अध्याय 02 (अम्ल, क्षारक एवं लवण)", file: "SCIENCE/CHEMISTRY/02.json" },
+                                { name: "अध्याय 03 (धातु एवं अधातु)", file: "SCIENCE/CHEMISTRY/03.json" },
+                                { name: "अध्याय 04 (कार्बन एवं इसके यौगिक)", file: "SCIENCE/CHEMISTRY/04.json" },
+                                { name: "अध्याय 05 (तत्वों का आवर्त वर्गीकरण)", file: "SCIENCE/CHEMISTRY/05.json" },
+                                { name: "अध्याय 06 (प्राकृतिक संसाधनों का प्रबंधन)", file: "SCIENCE/CHEMISTRY/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "BIOLOGY (जीव विज्ञान)",
+                            icon: "🧬",
+                            chapters: [
+                                { name: "अध्याय 01 (जैव प्रक्रम / पोषण)", file: "SCIENCE/BIOLOGY/01.json" },
+                                { name: "अध्याय 02 (श्वसन)", file: "SCIENCE/BIOLOGY/02.json" },
+                                { name: "अध्याय 03 (परिवहन)", file: "SCIENCE/BIOLOGY/03.json" },
+                                { name: "अध्याय 04 (उत्सर्जन)", file: "SCIENCE/BIOLOGY/04.json" },
+                                { name: "अध्याय 05 (नियंत्रण और समन्वय)", file: "SCIENCE/BIOLOGY/05.json" },
+                                { name: "अध्याय 06 (जीव जनन कैसे करते हैं)", file: "SCIENCE/BIOLOGY/06.json" },
+                                { name: "अध्याय 07 (आनुवंशिकता एवं जैव विकास)", file: "SCIENCE/BIOLOGY/07.json" },
+                                { name: "अध्याय 08 (हमारा पर्यावरण)", file: "SCIENCE/BIOLOGY/08.json" }
+                            ]
+                        }
                     ]
                 },
                 {
-    sectionName: "व्याकरण (Grammar)",
-    icon: "📝",
-    chapters: [
-        { name: "पाठ 01 (वर्ण विचार)", file: "HINDI/GRAMMAR/01.json" },
-        { name: "पाठ 02 (संज्ञा)", file: "HINDI/GRAMMAR/02.json" },
-        { name: "पाठ 03 (सर्वनाम)", file: "HINDI/GRAMMAR/03.json" },
-        { name: "पाठ 04 (विशेषण)", file: "HINDI/GRAMMAR/04.json" },
-        { name: "पाठ 05 (क्रिया)", file: "HINDI/GRAMMAR/05.json" },
-        { name: "पाठ 06 (लिंग)", file: "HINDI/GRAMMAR/06.json" },
-        { name: "पाठ 07 (वचन)", file: "HINDI/GRAMMAR/07.json" },
-        { name: "पाठ 08 (कारक)", file: "HINDI/GRAMMAR/08.json" },
-        { name: "पाठ 09 (काल)", file: "HINDI/GRAMMAR/09.json" },
-        { name: "पाठ 10 (संधि)", file: "HINDI/GRAMMAR/10.json" },
-        { name: "पाठ 11 (समास)", file: "HINDI/GRAMMAR/11.json" },
-        { name: "पाठ 12 (उपसर्ग और प्रत्यय)", file: "HINDI/GRAMMAR/12.json" },
-        { name: "पाठ 13 (पर्यायवाची शब्द)", file: "HINDI/GRAMMAR/13.json" },
-        { name: "पाठ 14 (विपरीतार्थक / विलोम शब्द)", file: "HINDI/GRAMMAR/14.json" },
-        { name: "पाठ 15 (अनेकार्थक शब्द / एक शब्द)", file: "HINDI/GRAMMAR/15.json" },
-        { name: "पाठ 16 (मुहावरे और लोकोक्तियाँ)", file: "HINDI/GRAMMAR/16.json" },
-        { name: "पाठ 17 (वाक्य शुद्धि)", file: "HINDI/GRAMMAR/17.json" }
-    ]
-}
-
-            ]
-        },
-        {
-            subjectName: "SCIENCE (विज्ञान)",
-            icon: "🧪",
-            description: "भौतिकी (भारती भवन), रसायनशास्त्र और जीवविज्ञान के संपूर्ण परीक्षा-उपयोगी वस्तुनिष्ठ प्रश्न।",
-            sections: [
-                {
-                    sectionName: "PHYSICS (भौतिक विज्ञान)",
-                    icon: "⚡",
-                    chapters: [
-                        { name: "अध्याय 01 (प्रकाश का परावर्तन)", file: "SCIENCE/PHYSICS/01.json" },
-                        { name: "अध्याय 02 (प्रकाश का अपवर्तन)", file: "SCIENCE/PHYSICS/02.json" },
-                        { name: "अध्याय 03 (मानव नेत्र और रंगबिरंगा संसार)", file: "SCIENCE/PHYSICS/03.json" },
-                        { name: "अध्याय 04 (विद्युत धारा)", file: "SCIENCE/PHYSICS/04.json" },
-                        { name: "अध्याय 05 (विद्युत धारा का चुंबकीय प्रभाव)", file: "SCIENCE/PHYSICS/05.json" },
-                        { name: "अध्याय 06 (ऊर्जा के स्रोत)", file: "SCIENCE/PHYSICS/06.json" }
-                    ]
-                },
-                {
-                    sectionName: "CHEMISTRY (रसायन विज्ञान)",
-                    icon: "⚗️",
-                    chapters: [
-                        { name: "अध्याय 01 (रासायनिक अभिक्रियाएं एवं समीकरण)", file: "SCIENCE/CHEMISTRY/01.json" },
-                        { name: "अध्याय 02 (अम्ल, क्षारक एवं लवण)", file: "SCIENCE/CHEMISTRY/02.json" },
-                        { name: "अध्याय 03 (धातु एवं अधातु)", file: "SCIENCE/CHEMISTRY/03.json" },
-                        { name: "अध्याय 04 (कार्बन एवं इसके यौगिक)", file: "SCIENCE/CHEMISTRY/04.json" },
-                        { name: "अध्याय 05 (तत्वों का आवर्त वर्गीकरण)", file: "SCIENCE/CHEMISTRY/05.json" },
-                        { name: "अध्याय 06 (प्राकृतिक संसाधनों का प्रबंधन)", file: "SCIENCE/CHEMISTRY/06.json" }
-                    ]
-                },
-                {
-                    sectionName: "BIOLOGY (जीव विज्ञान)",
-                    icon: "🧬",
-                    chapters: [
-                        { name: "अध्याय 01 (जैव प्रक्रम / पोषण)", file: "SCIENCE/BIOLOGY/01.json" },
-                        { name: "अध्याय 02 (श्वसन)", file: "SCIENCE/BIOLOGY/02.json" },
-                        { name: "अध्याय 03 (परिवहन)", file: "SCIENCE/BIOLOGY/03.json" },
-                        { name: "अध्याय 04 (उत्सर्जन)", file: "SCIENCE/BIOLOGY/04.json" },
-                        { name: "अध्याय 05 (नियंत्रण और समन्वय)", file: "SCIENCE/BIOLOGY/05.json" },
-                        { name: "अध्याय 06 (जीव जनन कैसे करते हैं)", file: "SCIENCE/BIOLOGY/06.json" },
-                        { name: "अध्याय 07 (आनुवंशिकता एवं जैव विकास)", file: "SCIENCE/BIOLOGY/07.json" },
-                        { name: "अध्याय 08 (हमारा पर्यावरण)", file: "SCIENCE/BIOLOGY/08.json" }
+                    subjectName: "SOCIAL SCIENCE (सामाजिक विज्ञान)",
+                    icon: "🌍",
+                    description: "इतिहास, भूगोल, राजनीति विज्ञान, अर्थशास्त्र एवं आपदा प्रबंधन।",
+                    sections: [
+                        {
+                            sectionName: "HISTORY (इतिहास)",
+                            icon: "📜",
+                            chapters: [
+                                { name: "पाठ 01 (यूरोप में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/01.json" },
+                                { name: "पाठ 02 (समाजवाद एवं साम्यवाद)", file: "SOCIAL_SCIENCE/HISTORY/02.json" },
+                                { name: "पाठ 03 (हिन्द-चीन में राष्ट्रवादी आंदोलन)", file: "SOCIAL_SCIENCE/HISTORY/03.json" },
+                                { name: "पाठ 04 (भारत में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/04.json" },
+                                { name: "पाठ 05 (अर्थव्यवस्था और आजीविका)", file: "SOCIAL_SCIENCE/HISTORY/05.json" },
+                                { name: "पाठ 06 (शहरीकरण एवं शहरी जीवन)", file: "SOCIAL_SCIENCE/HISTORY/06.json" },
+                                { name: "पाठ 07 (व्यापार और भूमंडलीकरण)", file: "SOCIAL_SCIENCE/HISTORY/07.json" },
+                                { name: "पाठ 08 (प्रेस-संस्कृति और राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/08.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "GEOGRAPHY (भूगोल)",
+                            icon: "🗺️",
+                            chapters: [
+                                { name: "इकाई 1: भारत : संसाधन एवं उपयोग", file: "SOCIAL_SCIENCE/GEOGRAPHY/010.json" },
+                                { name: "इकाई 1(क): प्राकृतिक संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/011.json" },
+                                { name: "इकाई 1(ख): जल संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/012.json" },
+                                { name: "इकाई 1(ग): वन एवं वन्य प्राणी संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/013.json" },
+                                { name: "इकाई 1(घ): खनिज संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/014.json" },
+                                { name: "इकाई 1(ङ): शक्ति (ऊर्जा) संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/015.json" },
+                                { name: "इकाई 2: कृषि", file: "SOCIAL_SCIENCE/GEOGRAPHY/020.json" },
+                                { name: "इकाई 3: निर्माण उद्योग", file: "SOCIAL_SCIENCE/GEOGRAPHY/030.json" },
+                                { name: "इकाई 4: परिवहन, संचार एवं व्यापार", file: "SOCIAL_SCIENCE/GEOGRAPHY/040.json" },
+                                { name: "इकाई 5: बिहार : कृषि एवं वन संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/051.json" },
+                                { name: "इकाई 5(क): बिहार : खनिज एवं ऊर्जा संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/052.json" },
+                                { name: "इकाई 5(ख): बिहार : उद्योग एवं परिवहन", file: "SOCIAL_SCIENCE/GEOGRAPHY/053.json" },
+                                { name: "इकाई 5(ग): बिहार : जनसंख्या एवं नगरीकरण", file: "SOCIAL_SCIENCE/GEOGRAPHY/054.json" },
+                                { name: "इकाई 6: मानचित्र अध्ययन", file: "SOCIAL_SCIENCE/GEOGRAPHY/060.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "POLITICAL SCIENCE (राजनीति विज्ञान)",
+                            icon: "⚖️",
+                            chapters: [
+                                { name: "पाठ 01 (लोकतंत्र में द्वंद्व/साझेदारी)", file: "SOCIAL_SCIENCE/POLITICS/01.json" },
+                                { name: "पाठ 02 (सत्ता में साझेदारी की कार्यप्रणाली)", file: "SOCIAL_SCIENCE/POLITICS/02.json" },
+                                { name: "पाठ 03 (लोकतंत्र की प्रतिस्पर्धा एवं संघर्ष)", file: "SOCIAL_SCIENCE/POLITICS/03.json" },
+                                { name: "पाठ 04 (लोकतंत्र की उपलब्धियां)", file: "SOCIAL_SCIENCE/POLITICS/04.json" },
+                                { name: "पाठ 05 (लोकतंत्र की चुनौतियां)", file: "SOCIAL_SCIENCE/POLITICS/05.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "ECONOMICS (अर्थशास्त्र)",
+                            icon: "💰",
+                            chapters: [
+                                { name: "पाठ 01 (अर्थव्यवस्था एवं इसके विकास का इतिहास)", file: "SOCIAL_SCIENCE/ECONOMICS/01.json" },
+                                { name: "पाठ 02 (राज्य एवं राष्ट्र की आय)", file: "SOCIAL_SCIENCE/ECONOMICS/02.json" },
+                                { name: "पाठ 03 (मुद्रा, बचत एवं साख)", file: "SOCIAL_SCIENCE/ECONOMICS/03.json" },
+                                { name: "पाठ 04 (हमारी वित्तीय संस्थाएं)", file: "SOCIAL_SCIENCE/ECONOMICS/04.json" },
+                                { name: "पाठ 05 (रोजगार एवं सेवाएँ)", file: "SOCIAL_SCIENCE/ECONOMICS/05.json" },
+                                { name: "पाठ 06 (वैश्वीकरण)", file: "SOCIAL_SCIENCE/ECONOMICS/06.json" },
+                                { name: "पाठ 07 (उपभोक्ता जागरण एवं संरक्षण)", file: "SOCIAL_SCIENCE/ECONOMICS/07.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "DISASTER MANAGEMENT (आपदा प्रबंधन)",
+                            icon: "🚨",
+                            chapters: [
+                                { name: "पाठ 01 (प्राकृतिक आपदा : एक परिचय)", file: "SOCIAL_SCIENCE/DISASTER/01.json" },
+                                { name: "पाठ 02 (प्राकृतिक आपदा एवं प्रबंधन : बाढ़ और सुखाड़)", file: "SOCIAL_SCIENCE/DISASTER/02.json" },
+                                { name: "पाठ 03 (भूकंप एवं सुनामी)", file: "SOCIAL_SCIENCE/DISASTER/03.json" },
+                                { name: "पाठ 04 (जीवन रक्षक आकस्मिक प्रबंधन)", file: "SOCIAL_SCIENCE/DISASTER/04.json" }
+                            ]
+                        }
                     ]
                 }
             ]
         },
-        {
-            subjectName: "SOCIAL SCIENCE (सामाजिक विज्ञान)",
-            icon: "🌍",
-            description: "इतिहास, भूगोल, राजनीति विज्ञान, अर्थशास्त्र एवं आपदा प्रबंधन के वस्तुनिष्ठ मॉक टेस्ट।",
-            sections: [
+
+        // ------------------ CBSE CLASS 9 ------------------
+        cbse9: {
+            title: "📘 CBSE Class 9th Online Practice Portal",
+            baseDir: "CBSE_CLASS_9/",
+            data: [
                 {
-                    sectionName: "HISTORY (इतिहास)",
-                    icon: "📜",
-                    chapters: [
-                        { name: "पाठ 01 (यूरोप में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/01.json" },
-                        { name: "पाठ 02 (समाजवाद एवं साम्यवाद)", file: "SOCIAL_SCIENCE/HISTORY/02.json" },
-                        { name: "पाठ 03 (हिन्द-चीन में राष्ट्रवादी आंदोलन)", file: "SOCIAL_SCIENCE/HISTORY/03.json" },
-                        { name: "पाठ 04 (भारत में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/04.json" },
-                        { name: "पाठ 05 (अर्थव्यवस्था और आजीविका)", file: "SOCIAL_SCIENCE/HISTORY/05.json" },
-                        { name: "पाठ 06 (शहरीकरण एवं शहरी जीवन)", file: "SOCIAL_SCIENCE/HISTORY/06.json" },
-                        { name: "पाठ 07 (व्यापार और भूमंडलीकरण)", file: "SOCIAL_SCIENCE/HISTORY/07.json" },
-                        { name: "पाठ 08 (प्रेस-संस्कृति और राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/08.json" }
+                    subjectName: "SCIENCE",
+                    icon: "🔬",
+                    description: "CBSE Class 9th Science Physics, Chemistry and Biology.",
+                    sections: [
+                        {
+                            sectionName: "PHYSICS",
+                            icon: "⚡",
+                            chapters: [
+                                { name: "Chapter 01 (Motion)", file: "SCIENCE/PHYSICS/01.json" },
+                                { name: "Chapter 02 (Force and Laws of Motion)", file: "SCIENCE/PHYSICS/02.json" },
+                                { name: "Chapter 03 (Gravitation)", file: "SCIENCE/PHYSICS/03.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "CHEMISTRY",
+                            icon: "🧪",
+                            chapters: [
+                                { name: "Chapter 01 (Matter in Our Surroundings)", file: "SCIENCE/CHEMISTRY/01.json" },
+                                { name: "Chapter 02 (Is Matter Around Us Pure)", file: "SCIENCE/CHEMISTRY/02.json" },
+                                { name: "Chapter 03 (Atoms and Molecules)", file: "SCIENCE/CHEMISTRY/03.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "BIOLOGY",
+                            icon: "🧬",
+                            chapters: [
+                                { name: "Chapter 01 (The Fundamental Unit of Life)", file: "SCIENCE/BIOLOGY/01.json" },
+                                { name: "Chapter 02 (Tissues)", file: "SCIENCE/BIOLOGY/02.json" },
+                                { name: "Chapter 03 (Improvement in Food Resources)", file: "SCIENCE/BIOLOGY/03.json" }
+                            ]
+                        }
                     ]
                 },
                 {
-                    sectionName: "GEOGRAPHY (भूगोल)",
-                    icon: "🗺️",
-                    chapters: [
-                        { name: "इकाई 1: भारत : संसाधन एवं उपयोग", file: "SOCIAL_SCIENCE/GEOGRAPHY/010.json" },
-                        { name: "इकाई 1(क): प्राकृतिक संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/011.json" },
-                        { name: "इकाई 1(ख): जल संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/012.json" },
-                        { name: "इकाई 1(ग): वन एवं वन्य प्राणी संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/013.json" },
-                        { name: "इकाई 1(घ): खनिज संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/014.json" },
-                        { name: "इकाई 1(ङ): शक्ति (ऊर्जा) संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/015.json" },
-                        { name: "इकाई 2: कृषि", file: "SOCIAL_SCIENCE/GEOGRAPHY/020.json" },
-                        { name: "इकाई 3: निर्माण उद्योग", file: "SOCIAL_SCIENCE/GEOGRAPHY/030.json" },
-                        { name: "इकाई 4: परिवहन, संचार एवं व्यापार", file: "SOCIAL_SCIENCE/GEOGRAPHY/040.json" },
-                        { name: "इकाई 5: बिहार : कृषि एवं वन संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/051.json" },
-                        { name: "इकाई 5(क): बिहार : खनिज एवं ऊर्जा संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/052.json" },
-                        { name: "इकाई 5(ख): बिहार : उद्योग एवं परिवहन", file: "SOCIAL_SCIENCE/GEOGRAPHY/053.json" },
-                        { name: "इकाई 5(ग): बिहार : जनसंख्या एवं नगरीकरण", file: "SOCIAL_SCIENCE/GEOGRAPHY/054.json" },
-                        { name: "इकाई 6: मानचित्र अध्ययन", file: "SOCIAL_SCIENCE/GEOGRAPHY/060.json" }
+                    subjectName: "SST (SOCIAL SCIENCE)",
+                    icon: "🌍",
+                    description: "History, Geography, Political Science, and Economics.",
+                    sections: [
+                        {
+                            sectionName: "HISTORY",
+                            icon: "📜",
+                            chapters: [
+                                { name: "Chapter 01 (The French Revolution)", file: "SST/HISTORY/01.json" },
+                                { name: "Chapter 02 (Socialism in Europe & Russian Revolution)", file: "SST/HISTORY/02.json" },
+                                { name: "Chapter 03 (Nazism and the Rise of Hitler)", file: "SST/HISTORY/03.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "GEOGRAPHY",
+                            icon: "🗺️",
+                            chapters: [
+                                { name: "Chapter 01 (India - Size and Location)", file: "SST/GEOGRAPHY/01.json" },
+                                { name: "Chapter 02 (Physical Features of India)", file: "SST/GEOGRAPHY/02.json" },
+                                { name: "Chapter 03 (Drainage)", file: "SST/GEOGRAPHY/03.json" },
+                                { name: "Chapter 04 (Climate)", file: "SST/GEOGRAPHY/04.json" },
+                                { name: "Chapter 05 (Natural Vegetation and Wildlife)", file: "SST/GEOGRAPHY/05.json" },
+                                { name: "Chapter 06 (Population)", file: "SST/GEOGRAPHY/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "POLITICAL SCIENCE",
+                            icon: "⚖️",
+                            chapters: [
+                                { name: "Chapter 01 (What is Democracy? Why Democracy?)", file: "SST/POLITICAL_SCIENCE/01.json" },
+                                { name: "Chapter 02 (Constitutional Design)", file: "SST/POLITICAL_SCIENCE/02.json" },
+                                { name: "Chapter 03 (Electoral Politics)", file: "SST/POLITICAL_SCIENCE/03.json" },
+                                { name: "Chapter 04 (Working of Institutions)", file: "SST/POLITICAL_SCIENCE/04.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "ECONOMICS",
+                            icon: "💰",
+                            chapters: [
+                                { name: "Chapter 01 (The Story of Village Palampur)", file: "SST/ECONOMICS/01.json" },
+                                { name: "Chapter 02 (People as Resource)", file: "SST/ECONOMICS/02.json" },
+                                { name: "Chapter 03 (Poverty as a Challenge)", file: "SST/ECONOMICS/03.json" }
+                            ]
+                        }
                     ]
                 },
                 {
-                    sectionName: "POLITICAL SCIENCE (राजनीति विज्ञान)",
-                    icon: "⚖️",
+                    subjectName: "HINDI GRAMMAR",
+                    icon: "✍️",
+                    description: "कक्षा 9वीं हिंदी व्याकरण मॉक टेस्ट।",
                     chapters: [
-                        { name: "पाठ 01 (लोकतंत्र में द्वंद्व/साझेदारी)", file: "SOCIAL_SCIENCE/POLITICS/01.json" },
-                        { name: "पाठ 02 (सत्ता में साझेदारी की कार्यप्रणाली)", file: "SOCIAL_SCIENCE/POLITICS/02.json" },
-                        { name: "पाठ 03 (लोकतंत्र की प्रतिस्पर्धा एवं संघर्ष)", file: "SOCIAL_SCIENCE/POLITICS/03.json" },
-                        { name: "पाठ 04 (लोकतंत्र की उपलब्धियां)", file: "SOCIAL_SCIENCE/POLITICS/04.json" },
-                        { name: "पाठ 05 (लोकतंत्र की चुनौतियां)", file: "SOCIAL_SCIENCE/POLITICS/05.json" }
+                        { name: "अध्याय 01 (उपसर्ग और प्रत्यय)", file: "HINDI_GRAMMAR/01.json" },
+                        { name: "अध्याय 02 (समास)", file: "HINDI_GRAMMAR/02.json" },
+                        { name: "अध्याय 03 (अर्थ की दृष्टि से वाक्य भेद)", file: "HINDI_GRAMMAR/03.json" },
+                        { name: "अध्याय 04 (अलंकार)", file: "HINDI_GRAMMAR/04.json" }
                     ]
                 },
                 {
-                    sectionName: "ECONOMICS (अर्थशास्त्र)",
-                    icon: "💰",
+                    subjectName: "ENGLISH GRAMMAR",
+                    icon: "📝",
+                    description: "Class 9 English Grammar Practice Sets.",
                     chapters: [
-                        { name: "पाठ 01 (अर्थव्यवस्था एवं इसके विकास का इतिहास)", file: "SOCIAL_SCIENCE/ECONOMICS/01.json" },
-                        { name: "पाठ 02 (राज्य एवं राष्ट्र की आय)", file: "SOCIAL_SCIENCE/ECONOMICS/02.json" },
-                        { name: "पाठ 03 (मुद्रा, बचत एवं साख)", file: "SOCIAL_SCIENCE/ECONOMICS/03.json" },
-                        { name: "पाठ 04 (हमारी वित्तीय संस्थाएं)", file: "SOCIAL_SCIENCE/ECONOMICS/04.json" },
-                        { name: "पाठ 05 (रोजगार एवं सेवाएँ)", file: "SOCIAL_SCIENCE/ECONOMICS/05.json" },
-                        { name: "पाठ 06 (वैश्वीकरण)", file: "SOCIAL_SCIENCE/ECONOMICS/06.json" },
-                        { name: "पाठ 07 (उपभोक्ता जागरण एवं संरक्षण)", file: "SOCIAL_SCIENCE/ECONOMICS/07.json" }
+                        { name: "Topic 01 (Tenses)", file: "ENGLISH_GRAMMAR/01.json" },
+                        { name: "Topic 02 (Modals)", file: "ENGLISH_GRAMMAR/02.json" },
+                        { name: "Topic 03 (Subject - Verb Concord)", file: "ENGLISH_GRAMMAR/03.json" },
+                        { name: "Topic 04 (Reported Speech)", file: "ENGLISH_GRAMMAR/04.json" }
+                    ]
+                }
+            ]
+        },
+
+        // ------------------ CBSE CLASS 10 ------------------
+        cbse10: {
+            title: "🎓 CBSE Class 10th Board Practice Portal",
+            baseDir: "CBSE/",
+            data: [
+                {
+                    subjectName: "SCIENCE",
+                    icon: "🧪",
+                    description: "Class 10 Physics, Chemistry, and Biology.",
+                    sections: [
+                        {
+                            sectionName: "PHYSICS",
+                            icon: "⚡",
+                            chapters: [
+                                { name: "Chapter 01 (Light - Reflection and Refraction)", file: "SCIENCE/PHYSICS/01.json" },
+                                { name: "Chapter 02 (Human Eye and Colourful World)", file: "SCIENCE/PHYSICS/02.json" },
+                                { name: "Chapter 03 (Electricity)", file: "SCIENCE/PHYSICS/03.json" },
+                                { name: "Chapter 04 (Magnetic Effects of Electric Current)", file: "SCIENCE/PHYSICS/04.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "CHEMISTRY",
+                            icon: "⚗️",
+                            chapters: [
+                                { name: "Chapter 01 (Chemical Reactions and Equations)", file: "SCIENCE/CHEMISTRY/01.json" },
+                                { name: "Chapter 02 (Acids, Bases and Salts)", file: "SCIENCE/CHEMISTRY/02.json" },
+                                { name: "Chapter 03 (Metals and Non-metals)", file: "SCIENCE/CHEMISTRY/03.json" },
+                                { name: "Chapter 04 (Carbon and its Compounds)", file: "SCIENCE/CHEMISTRY/04.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "BIOLOGY",
+                            icon: "🧬",
+                            chapters: [
+                                { name: "Chapter 01 (Life Processes)", file: "SCIENCE/BIOLOGY/01.json" },
+                                { name: "Chapter 02 (Control and Coordination)", file: "SCIENCE/BIOLOGY/02.json" },
+                                { name: "Chapter 03 (How do Organisms Reproduce?)", file: "SCIENCE/BIOLOGY/03.json" },
+                                { name: "Chapter 04 (Heredity and Evolution)", file: "SCIENCE/BIOLOGY/04.json" },
+                                { name: "Chapter 05 (Our Environment)", file: "SCIENCE/BIOLOGY/05.json" }
+                            ]
+                        }
                     ]
                 },
                 {
-                    sectionName: "DISASTER MANAGEMENT (आपदा प्रबंधन)",
-                    icon: "🚨",
-                    chapters: [
-                        { name: "पाठ 01 (प्राकृतिक आपदा : एक परिचय)", file: "SOCIAL_SCIENCE/DISASTER/01.json" },
-                        { name: "पाठ 02 (प्राकृतिक आपदा एवं प्रबंधन : बाढ़ और सुखाड़)", file: "SOCIAL_SCIENCE/DISASTER/02.json" },
-                        { name: "पाठ 03 (भूकंप एवं सुनामी)", file: "SOCIAL_SCIENCE/DISASTER/03.json" },
-                        { name: "पाठ 04 (जीवन रक्षक आकस्मिक प्रबंधन)", file: "SOCIAL_SCIENCE/DISASTER/04.json" }
+                    subjectName: "SST (SOCIAL SCIENCE)",
+                    icon: "🌍",
+                    description: "History, Geography, Political Science, and Economics.",
+                    sections: [
+                        {
+                            sectionName: "HISTORY",
+                            icon: "📜",
+                            chapters: [
+                                { name: "Chapter 01 (The Rise of Nationalism in Europe)", file: "SST/HISTORY/01.json" },
+                                { name: "Chapter 02 (Nationalism in India)", file: "SST/HISTORY/02.json" },
+                                { name: "Chapter 03 (The Making of a Global World)", file: "SST/HISTORY/03.json" },
+                                { name: "Chapter 04 (The Age of Industrialisation)", file: "SST/HISTORY/04.json" },
+                                { name: "Chapter 05 (Print Culture and the Modern World)", file: "SST/HISTORY/05.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "GEOGRAPHY",
+                            icon: "🗺️",
+                            chapters: [
+                                { name: "Chapter 01 (Resources and Development)", file: "SST/GEOGRAPHY/01.json" },
+                                { name: "Chapter 02 (Forest and Wildlife Resources)", file: "SST/GEOGRAPHY/02.json" },
+                                { name: "Chapter 03 (Water Resources)", file: "SST/GEOGRAPHY/03.json" },
+                                { name: "Chapter 04 (Agriculture)", file: "SST/GEOGRAPHY/04.json" },
+                                { name: "Chapter 05 (Minerals and Energy Resources)", file: "SST/GEOGRAPHY/05.json" },
+                                { name: "Chapter 06 (Manufacturing Industries)", file: "SST/GEOGRAPHY/06.json" },
+                                { name: "Chapter 07 (Lifelines of National Economy)", file: "SST/GEOGRAPHY/07.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "POLITICAL SCIENCE",
+                            icon: "⚖️",
+                            chapters: [
+                                { name: "Chapter 01 (Power Sharing)", file: "SST/POLITICAL_SCIENCE/01.json" },
+                                { name: "Chapter 02 (Federalism)", file: "SST/POLITICAL_SCIENCE/02.json" },
+                                { name: "Chapter 03 (Gender, Religion and Caste)", file: "SST/POLITICAL_SCIENCE/03.json" },
+                                { name: "Chapter 04 (Political Parties)", file: "SST/POLITICAL_SCIENCE/04.json" },
+                                { name: "Chapter 05 (Outcomes of Democracy)", file: "SST/POLITICAL_SCIENCE/05.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "ECONOMICS",
+                            icon: "💰",
+                            chapters: [
+                                { name: "Chapter 01 (Development)", file: "SST/ECONOMICS/01.json" },
+                                { name: "Chapter 02 (Sectors of the Indian Economy)", file: "SST/ECONOMICS/02.json" },
+                                { name: "Chapter 03 (Money and Credit)", file: "SST/ECONOMICS/03.json" },
+                                { name: "Chapter 04 (Globalization and the Indian Economy)", file: "SST/ECONOMICS/04.json" },
+                                { name: "Chapter 05 (Consumer Rights)", file: "SST/ECONOMICS/05.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "HINDI",
+                    icon: "📔",
+                    description: "क्षितिज भाग-2 एवं कृतिका भाग-2 ऑब्जेक्टिव टेस्ट।",
+                    sections: [
+                        {
+                            sectionName: "KSHITIJ - KAVYA KHAND",
+                            icon: "✍️",
+                            chapters: [
+                                { name: "पाठ 01 (पद - सूरदास)", file: "HINDI/KSHITIJ/KAVYA_KHAND/01.json" },
+                                { name: "पाठ 02 (राम-लक्ष्मण-परशुराम संवाद)", file: "HINDI/KSHITIJ/KAVYA_KHAND/02.json" },
+                                { name: "पाठ 03 (आत्मकथ्य)", file: "HINDI/KSHITIJ/KAVYA_KHAND/03.json" },
+                                { name: "पाठ 04 (उत्साह और अट नहीं रही)", file: "HINDI/KSHITIJ/KAVYA_KHAND/04.json" },
+                                { name: "पाठ 05 (यह दंतुरित मुसकान और फसल)", file: "HINDI/KSHITIJ/KAVYA_KHAND/05.json" },
+                                { name: "पाठ 06 (संगतकार)", file: "HINDI/KSHITIJ/KAVYA_KHAND/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "KSHITIJ - GADYA KHAND",
+                            icon: "📖",
+                            chapters: [
+                                { name: "पाठ 01 (नेताजी का चश्मा)", file: "HINDI/KSHITIJ/GADYA_KHAND/01.json" },
+                                { name: "पाठ 02 (बालगोबिन भगत)", file: "HINDI/KSHITIJ/GADYA_KHAND/02.json" },
+                                { name: "पाठ 03 (लखनवी अंदाज)", file: "HINDI/KSHITIJ/GADYA_KHAND/03.json" },
+                                { name: "पाठ 04 (एक कहानी यह भी)", file: "HINDI/KSHITIJ/GADYA_KHAND/04.json" },
+                                { name: "पाठ 05 (नौबतखाने में इबादत)", file: "HINDI/KSHITIJ/GADYA_KHAND/05.json" },
+                                { name: "पाठ 06 (संस्कृति)", file: "HINDI/KSHITIJ/GADYA_KHAND/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "KRITIKA",
+                            icon: "📚",
+                            chapters: [
+                                { name: "पाठ 01 (माता का आँचल)", file: "HINDI/KRITIKA/01.json" },
+                                { name: "पाठ 02 (साना-साना हाथ जोड़ि...)", file: "HINDI/KRITIKA/02.json" },
+                                { name: "पाठ 03 (मैं क्यों लिखता हूँ?)", file: "HINDI/KRITIKA/03.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "ENGLISH",
+                    icon: "📖",
+                    description: "First Flight and Footprints Without Feet.",
+                    sections: [
+                        {
+                            sectionName: "FIRST FLIGHT - PROSE",
+                            icon: "📘",
+                            chapters: [
+                                { name: "Chapter 01 (A Letter to God)", file: "ENGLISH/FIRST_FLIGHT/PROSE/01.json" },
+                                { name: "Chapter 02 (Nelson Mandela: Long Walk to Freedom)", file: "ENGLISH/FIRST_FLIGHT/PROSE/02.json" },
+                                { name: "Chapter 03 (Two Stories about Flying)", file: "ENGLISH/FIRST_FLIGHT/PROSE/03.json" },
+                                { name: "Chapter 04 (From the Diary of Anne Frank)", file: "ENGLISH/FIRST_FLIGHT/PROSE/04.json" },
+                                { name: "Chapter 05 (Glimpses of India)", file: "ENGLISH/FIRST_FLIGHT/PROSE/05.json" },
+                                { name: "Chapter 06 (Mijbil the Otter)", file: "ENGLISH/FIRST_FLIGHT/PROSE/06.json" },
+                                { name: "Chapter 07 (Madam Rides the Bus)", file: "ENGLISH/FIRST_FLIGHT/PROSE/07.json" },
+                                { name: "Chapter 08 (The Sermon at Benares)", file: "ENGLISH/FIRST_FLIGHT/PROSE/08.json" },
+                                { name: "Chapter 09 (The Proposal)", file: "ENGLISH/FIRST_FLIGHT/PROSE/09.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "FIRST FLIGHT - POETRY",
+                            icon: "✍️",
+                            chapters: [
+                                { name: "Poem 01 (Dust of Snow)", file: "ENGLISH/FIRST_FLIGHT/POETRY/01.json" },
+                                { name: "Poem 02 (Fire and Ice)", file: "ENGLISH/FIRST_FLIGHT/POETRY/02.json" },
+                                { name: "Poem 03 (A Tiger in the Zoo)", file: "ENGLISH/FIRST_FLIGHT/POETRY/03.json" },
+                                { name: "Poem 04 (How to Tell Wild Animals)", file: "ENGLISH/FIRST_FLIGHT/POETRY/04.json" },
+                                { name: "Poem 05 (The Ball Poem)", file: "ENGLISH/FIRST_FLIGHT/POETRY/05.json" },
+                                { name: "Poem 06 (Amanda!)", file: "ENGLISH/FIRST_FLIGHT/POETRY/06.json" },
+                                { name: "Poem 07 (The Trees)", file: "ENGLISH/FIRST_FLIGHT/POETRY/07.json" },
+                                { name: "Poem 08 (Fog)", file: "ENGLISH/FIRST_FLIGHT/POETRY/08.json" },
+                                { name: "Poem 09 (The Tale of Custard the Dragon)", file: "ENGLISH/FIRST_FLIGHT/POETRY/09.json" },
+                                { name: "Poem 10 (For Anne Gregory)", file: "ENGLISH/FIRST_FLIGHT/POETRY/10.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "FOOTPRINTS WITHOUT FEET",
+                            icon: "📕",
+                            chapters: [
+                                { name: "Chapter 01 (A Triumph of Surgery)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/01.json" },
+                                { name: "Chapter 02 (The Thief's Story)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/02.json" },
+                                { name: "Chapter 03 (The Midnight Visitor)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/03.json" },
+                                { name: "Chapter 04 (A Question of Trust)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/04.json" },
+                                { name: "Chapter 05 (Footprints without Feet)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/05.json" },
+                                { name: "Chapter 06 (The Making of a Scientist)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/06.json" },
+                                { name: "Chapter 07 (The Necklace)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/07.json" },
+                                { name: "Chapter 08 (Bholi)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/08.json" },
+                                { name: "Chapter 09 (The Book That Saved the Earth)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/09.json" }
+                            ]
+                        }
                     ]
                 }
             ]
         }
-    ];
+    };
+
+    // State Variables
+    let currentCourseKey = "bseb10";
+    let activeQuizData = coursesData[currentCourseKey].data;
+    let currentBaseDir = coursesData[currentCourseKey].baseDir;
 
     // DOM Elements
     const gridContainer = document.getElementById('quiz-grid');
     const mainTitle = document.getElementById('dashboard-title');
     const mainDesc = document.getElementById('dashboard-desc');
+    const courseTagline = document.getElementById('course-tagline');
     const backBtn = document.getElementById('back-btn');
     const devModal = document.getElementById('dev-modal');
     const quickStats = document.getElementById('quick-stats');
@@ -719,8 +958,8 @@
     // Navigation State
     let currentViewState = { stage: "subjects", subjectIndex: null, secIndex: null };
 
-    // Quiz State Variables
-    let chapterMeta = { title: "BSEB क्विज़ पोर्टल", subtitle: "लोड हो रहा है...", description: "कृपया प्रतीक्षा करें..." };
+    // Quiz Engine State Variables
+    let chapterMeta = { title: "क्विज़ पोर्टल", subtitle: "लोड हो रहा है...", description: "कृपया प्रतीक्षा करें..." };
     let rawQuestions = [];
     let questions = [];
     let currentQuestion = 0;
@@ -732,13 +971,6 @@
         history.replaceState({ stage: "subjects" }, "", "#subjects");
         renderSubjects(true);
         
-        // Check if URL has direct file param
-        const urlParams = new URLSearchParams(window.location.search);
-        const dataFile = urlParams.get('file');
-        if (dataFile) {
-            loadAndStartQuiz(dataFile);
-        }
-
         // PWA Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -748,6 +980,15 @@
             });
         }
     };
+
+    function switchCourse(courseKey) {
+        if (!coursesData[courseKey]) return;
+        currentCourseKey = courseKey;
+        activeQuizData = coursesData[courseKey].data;
+        currentBaseDir = coursesData[courseKey].baseDir;
+        courseTagline.innerText = coursesData[courseKey].title;
+        renderSubjects();
+    }
 
     function showDashboardView() {
         portalDashboard.classList.remove('hidden');
@@ -770,7 +1011,7 @@
         gridContainer.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl w-full mx-auto animate-fade-in";
         
         mainTitle.innerHTML = `स्मार्ट अभ्यास, <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent">उत्कृष्ट परिणाम</span>`;
-        mainDesc.innerText = "बिहार बोर्ड कक्षा 10वीं के सभी विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त डिजिटल साथी।";
+        mainDesc.innerText = "विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त डिजिटल साथी।";
         quickStats.classList.remove('hidden');
         backBtn.classList.add('hidden');
         currentViewState = { stage: "subjects", subjectIndex: null };
@@ -779,7 +1020,7 @@
             history.pushState({ stage: "subjects" }, "", "#subjects");
         }
 
-        quizData.forEach((sub, subIndex) => {
+        activeQuizData.forEach((sub, subIndex) => {
             const card = document.createElement('div');
             card.className = "p-5 bg-slate-900/60 border border-slate-800/80 rounded-2xl flex flex-col justify-between hover:border-indigo-500/60 hover:bg-slate-900/90 transition-all duration-300 cursor-pointer group transform hover:-translate-y-1 active:translate-y-0 shadow-lg shadow-black/30";
             card.setAttribute('onclick', `handleSubjectClick(${subIndex})`);
@@ -804,7 +1045,7 @@
     }
 
     function handleSubjectClick(subIndex) {
-        const sub = quizData[subIndex];
+        const sub = activeQuizData[subIndex];
         if (sub.sections) {
             renderSections(subIndex);
         } else {
@@ -817,7 +1058,7 @@
         gridContainer.innerHTML = '';
         gridContainer.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl w-full mx-auto animate-fade-in";
         
-        const currentSub = quizData[subIndex];
+        const currentSub = activeQuizData[subIndex];
         mainTitle.innerHTML = `<span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">${currentSub.subjectName}</span> के मुख्य सेक्शंस`;
         mainDesc.innerText = "अपनी तैयारी को आसान बनाने के लिए नीचे दिए गए सेक्शन में से चुनाव करें।";
         quickStats.classList.add('hidden');
@@ -839,7 +1080,7 @@
                         ${sec.icon || '📁'}
                     </div>
                     <h3 class="text-base font-bold text-slate-100 group-hover:text-cyan-300 transition-colors duration-200">${sec.sectionName}</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">बिहार बोर्ड स्पेशल महत्वपूर्ण प्रश्न संग्रह।</p>
+                    <p class="text-xs text-slate-400 leading-relaxed">विशेष महत्वपूर्ण प्रश्न संग्रह।</p>
                 </div>
                 <div class="pt-4 border-t border-slate-800/80 mt-4 flex items-center justify-between text-[11px] font-bold tracking-wider text-cyan-400 uppercase">
                     <span>${sec.chapters.length} चैप्टर्स</span>
@@ -851,7 +1092,7 @@
     }
 
     function renderSectionChapters(subIndex, secIndex) {
-        const sec = quizData[subIndex].sections[secIndex];
+        const sec = activeQuizData[subIndex].sections[secIndex];
         renderChapters(sec.chapters, sec.sectionName, "sections", subIndex, secIndex);
     }
 
@@ -889,13 +1130,13 @@
         });
     }
 
-    function runQuizFile(jsonFilePath) {
-        const targetUrl = `./data/${jsonFilePath}`;
+    function runQuizFile(jsonRelativePath) {
+        const targetUrl = `./${currentBaseDir}${jsonRelativePath}`;
         
         fetch(targetUrl, { method: 'HEAD' })
         .then(response => {
             if (response.ok) {
-                loadAndStartQuiz(jsonFilePath);
+                loadAndStartQuiz(targetUrl);
             } else {
                 showDevModal();
             }
@@ -923,9 +1164,9 @@
     }
 
     // ==========================================
-    // 🧠 QUIZ ENGINE CORE FUNCTIONS (Source 4 Integrated)
+    // 🧠 QUIZ ENGINE CORE FUNCTIONS
     // ==========================================
-    function loadAndStartQuiz(filePath) {
+    function loadAndStartQuiz(fullPath) {
         showQuizEngineView();
         backBtn.classList.remove('hidden');
         appDiv.innerHTML = `
@@ -935,10 +1176,10 @@
             </div>
         `;
 
-        fetch(`./data/${filePath}`)
+        fetch(fullPath)
             .then(res => res.json())
             .then(data => {
-                chapterMeta.title = data.title || "BSEB क्विज़";
+                chapterMeta.title = data.title || "ऑनलाइन क्विज़";
                 chapterMeta.subtitle = data.subtitle || "";
                 chapterMeta.description = data.description || "";
                 rawQuestions = data.questions || [];
@@ -1225,10 +1466,10 @@
                 renderSections(state.subjectIndex, true);
             } else if (state.stage === "chapters") {
                 if (state.backTo === "sections") {
-                    const sec = quizData[state.subjectIndex].sections[state.secIndex];
+                    const sec = activeQuizData[state.subjectIndex].sections[state.secIndex];
                     renderChapters(sec.chapters, sec.sectionName, "sections", state.subjectIndex, state.secIndex, true);
                 } else {
-                    const sub = quizData[state.subjectIndex];
+                    const sub = activeQuizData[state.subjectIndex];
                     renderChapters(sub.chapters, sub.subjectName, "subjects", state.subjectIndex, null, true);
                 }
             }
@@ -1236,173 +1477,6 @@
             renderSubjects(true);
         }
     });
-        // ==========================================
-    // ✦ SMART FEATURE DETECTION + GEMINI AI SHEET
-    // ==========================================
-    const API_KEY = "YOUR_GEMINI_API_KEY"; // यहाँ अपनी मुफ़्त Gemini API Key डालें
-    
-    const aiSheet = document.getElementById('ai-bottom-sheet');
-    const aiQueryPreview = document.getElementById('ai-query-preview');
-    const aiSheetContent = document.getElementById('ai-sheet-content');
-
-    let currentSelectedQuery = "";
-    let isFetched = false;
-
-    // चेक करें कि क्या फ़ोन में सिस्टम का अपना डिफ़ॉल्ट Touch Search समर्थित है या नहीं
-    function isSystemSearchSupported() {
-        // अगर फ़ोन एंड्रॉइड का लेटेस्ट वर्ज़न (Circle to Search सपोर्टेड) है
-        // या ब्राउज़र में नेटिव context menu सपोर्टेड है, तो true रिटर्न करेगा
-        const isModernAndroid = /Android 1[4-9]/i.test(navigator.userAgent);
-        const hasNativeSearch = 'search' in window || (window.chrome && window.chrome.search);
-
-        return isModernAndroid || hasNativeSearch;
-    }
-
-    // टेक्स्ट सिलेक्ट होने पर इवेंट
-    document.addEventListener('selectionchange', () => {
-        // अगर फ़ोन में सिस्टम का डिफ़ॉल्ट फ़ीचर पहले से मौजूद है, तो custom AI न चलाएं
-        if (isSystemSearchSupported()) {
-            return; // फ़ोन का अपना फीचर चलने दें
-        }
-
-        const selectedText = window.getSelection().toString().trim();
-        
-        if (selectedText.length >= 2 && selectedText !== currentSelectedQuery) {
-            currentSelectedQuery = selectedText;
-            isFetched = false;
-            
-            aiQueryPreview.innerText = `"${currentSelectedQuery}"`;
-            aiSheetContent.innerHTML = `
-                <div class="swipe-hint">
-                    <span class="text-xs text-cyan-300 font-semibold animate-pulse">⬆ व्याख्या देखने के लिए ऊपर स्वाइप करें</span>
-                </div>
-            `;
-            
-            aiSheet.classList.add('active');
-            aiSheet.classList.remove('expanded');
-        }
-    });
-
-    // स्वाइप डिटेक्ट करने का लॉजिक (Touch Events)
-    let startY = 0;
-    if (aiSheet) {
-        aiSheet.addEventListener('touchstart', (e) => {
-            startY = e.touches[0].clientY;
-        });
-
-        aiSheet.addEventListener('touchend', (e) => {
-            let endY = e.changedTouches[0].clientY;
-            
-            // ऊपर स्वाइप (50px से ज़्यादा)
-            if (startY - endY > 50) {
-                expandAndFetchAI();
-            } 
-            // नीचे स्वाइप
-            else if (endY - startY > 50 && aiSheet.classList.contains('expanded')) {
-                aiSheet.classList.remove('expanded');
-            }
-        });
-    }
-
-    function expandAndFetchAI() {
-        aiSheet.classList.add('expanded');
-
-        if (!isFetched && currentSelectedQuery) {
-            isFetched = true;
-            fetchGeminiExplanation(currentSelectedQuery);
-        }
-    }
-
-        async function fetchGeminiExplanation(query) {
-        aiSheetContent.innerHTML = `
-            <div class="flex flex-col items-center justify-center h-40 space-y-3">
-                <div class="w-8 h-8 border-3 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
-                <p class="text-xs text-cyan-300 font-medium">BSEB 10th गाइड से उत्तर तैयार हो रहा है...</p>
-            </div>
-        `;
-
-        const apiKey = window.GEMINI_API_KEY || localStorage.getItem('gemini_key') || "";
-        
-        // जेमिनी 1.5 फ़्लैश एंडपॉइंट URL
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-        try {
-            const prompt = `आप बिहार बोर्ड (BSEB) कक्षा 10वीं के शिक्षक हैं। छात्र द्वारा पूछे गए इस शब्द/प्रश्न "${query}" की आसान और संक्षिप्त (3-4 वाक्यों में) हिंदी में सटीक व्याख्या करें।`;
-
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            parts: [
-                                {
-                                    text: prompt
-                                }
-                            ]
-                        }
-                    ]
-                })
-            });
-
-            const data = await response.json();
-
-            if (data.candidates && data.candidates[0].content.parts[0].text) {
-                const aiReply = data.candidates[0].content.parts[0].text;
-
-                // उत्तर स्क्रीन पर दिखाना
-                aiSheetContent.innerHTML = `
-                    <div class="space-y-2 animate-fade-in">
-                        <p class="text-xs text-cyan-400 font-bold uppercase tracking-wider">✦ AI व्याख्या / उत्तर:</p>
-                        <div class="text-sm text-slate-200 leading-relaxed">${aiReply.replace(/\n/g, '<br>')}</div>
-                    </div>
-                `;
-            } else {
-                throw new Error("Invalid response format");
-            }
-
-        } catch (error) {
-            console.error("Gemini API Error:", error);
-            aiSheetContent.innerHTML = `
-                <div class="text-center py-6">
-                    <p class="text-xs text-red-400 font-semibold mb-2">उत्तर लोड करने में समस्या हुई!</p>
-                    <p class="text-[11px] text-slate-400">कृपया अपनी इंटरनेट कनेक्टिविटी जाँचें या पुनः प्रयास करें।</p>
-                </div>
-            `;
-            isFetched = false;
-        }
-    }
-
-
-    function closeAiSheet() {
-        if (aiSheet) {
-            aiSheet.classList.remove('active', 'expanded');
-            currentSelectedQuery = "";
-            isFetched = false;
-        }
-    }
-    
     </script>
-    <!-- AI OVERVIEW BOTTOM SHEET -->
-<div id="ai-bottom-sheet" class="ai-sheet">
-    <div class="ai-sheet-handle"></div>
-    
-    <div class="ai-sheet-header">
-        <div class="flex items-center space-x-2">
-            <span class="text-cyan-400 font-bold text-sm">✦ AI Overview</span>
-            <span id="ai-query-preview" class="text-xs text-slate-400 truncate max-w-[200px]"></span>
-        </div>
-        <button onclick="closeAiSheet()" class="text-slate-400 hover:text-white font-bold text-sm px-2">✕</button>
-    </div>
-
-    <div id="ai-sheet-content" class="ai-sheet-body">
-        <div class="swipe-hint">
-            <span class="text-xs text-cyan-300 font-semibold animate-pulse">⬆ व्याख्या / उत्तर देखने के लिए ऊपर स्वाइप करें</span>
-        </div>
-    </div>
-</div>
-
 </body>
 </html>

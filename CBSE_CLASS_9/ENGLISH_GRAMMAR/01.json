@@ -1,0 +1,507 @@
+{
+  "title": "CBSE Class 9 - English Grammar",
+  "subtitle": "Tenses",
+  "description": "Online practice test containing 50 high-yield objective MCQs for Class 9 Tenses.",
+  "questions": [
+    {
+      "q": "Identify the tense: 'She has been studying since morning.'",
+      "o": [
+        "Present Perfect Tense",
+        "Present Continuous Tense",
+        "Past Perfect Continuous Tense",
+        "Present Perfect Continuous Tense"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'The sun _____ in the east.'",
+      "o": [
+        "has risen",
+        "rose",
+        "is rising",
+        "rises"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'By this time tomorrow, we _____ in London.'",
+      "o": [
+        "will be arriving",
+        "have arrived",
+        "are arriving",
+        "arrived"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Choose the correct form: 'When I reached the station, the train _____.'",
+      "o": [
+        "had left",
+        "was leaving",
+        "left",
+        "has left"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'Look! It _____ outside.'",
+      "o": [
+        "rains",
+        "is raining",
+        "has rained",
+        "rained"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Identify the sentence in Past Perfect Tense:",
+      "o": [
+        "He was finishing his work.",
+        "He has finished his work.",
+        "He had finished his work before dinner.",
+        "He finished his work before dinner."
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'She _____ English for five years before moving to Canada.'",
+      "o": [
+        "is learning",
+        "had been learning",
+        "has been learning",
+        "learned"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Identify the tense: 'I will have completed the project by Friday.'",
+      "o": [
+        "Present Perfect Tense",
+        "Future Perfect Tense",
+        "Future Continuous Tense",
+        "Simple Future Tense"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Fill in the blank: 'Water _____ at 100 degrees Celsius.'",
+      "o": [
+        "will boil",
+        "boiled",
+        "boils",
+        "is boiling"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Choose the correct option: 'If it _____, we will cancel the match.'",
+      "o": [
+        "rains",
+        "rained",
+        "is raining",
+        "will rain"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'They _____ tennis every Sunday.'",
+      "o": [
+        "are playing",
+        "have played",
+        "played",
+        "play"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Choose the correct option: 'I _____ him since 2020.'",
+      "o": [
+        "have not seen",
+        "did not see",
+        "am not seeing",
+        "do not see"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'While I _____ a book, the phone rang.'",
+      "o": [
+        "had read",
+        "have read",
+        "read",
+        "was reading"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Choose the correct form: 'He _____ his car when the accident happened.'",
+      "o": [
+        "drove",
+        "had driven",
+        "was driving",
+        "has been driving"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Fill in the blank: 'We _____ for two hours when it started to snow.'",
+      "o": [
+        "were walking",
+        "walked",
+        "had been walking",
+        "have walked"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Identify the tense: 'They are building a new bridge over the river.'",
+      "o": [
+        "Present Perfect Tense",
+        "Future Continuous Tense",
+        "Simple Present Tense",
+        "Present Continuous Tense"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'She _____ to the market yesterday.'",
+      "o": [
+        "was going",
+        "has gone",
+        "goes",
+        "went"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'I _____ my homework just now.'",
+      "o": [
+        "finished",
+        "had finished",
+        "have finished",
+        "am finishing"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Choose the correct option: 'Next month, my parents _____ married for 25 years.'",
+      "o": [
+        "are",
+        "have been",
+        "will have been",
+        "will be"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Identify the simple past tense form of 'catch':",
+      "o": [
+        "catching",
+        "catched",
+        "has caught",
+        "caught"
+      ],
+      "a": 3
+    },
+    {
+      "q": "Fill in the blank: 'The train _____ at 9:00 AM every morning.'",
+      "o": [
+        "departed",
+        "departs",
+        "is departing",
+        "has departed"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Choose the correct option: 'As soon as he saw the police, he _____ away.'",
+      "o": [
+        "ran",
+        "was running",
+        "had run",
+        "runs"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Fill in the blank: 'I _____ never _____ such a beautiful painting before.'",
+      "o": [
+        "have ... seen",
+        "was ... seeing",
+        "am ... seeing",
+        "did ... see"
+      ],
+      "a": 0
+    },
+    {
+      "q": "Choose the correct option: 'By the end of this year, I _____ from school.'",
+      "o": [
+        "am graduating",
+        "will have graduated",
+        "graduate",
+        "will graduate"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Identify the correct negative form of 'She works hard':",
+      "o": [
+        "She does not work hard.",
+        "She is not working hard.",
+        "She did not work hard.",
+        "She do not work hard."
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Identify the tense: 'She has been studying since morning.'",
+      "o": [
+        "Present Perfect Continuous Tense",
+        "Present Continuous Tense",
+        "Past Perfect Continuous Tense",
+        "Present Perfect Tense"
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'The sun _____ in the east.'",
+      "o": [
+        "is rising",
+        "rises",
+        "rose",
+        "has risen"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'By this time tomorrow, we _____ in London.'",
+      "o": [
+        "are arriving",
+        "will be arriving",
+        "arrived",
+        "have arrived"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Choose the correct form: 'When I reached the station, the train _____.'",
+      "o": [
+        "was leaving",
+        "has left",
+        "left",
+        "had left"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'Look! It _____ outside.'",
+      "o": [
+        "is raining",
+        "rains",
+        "rained",
+        "has rained"
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Identify the sentence in Past Perfect Tense:",
+      "o": [
+        "He had finished his work before dinner.",
+        "He was finishing his work.",
+        "He has finished his work.",
+        "He finished his work before dinner."
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'She _____ English for five years before moving to Canada.'",
+      "o": [
+        "learned",
+        "is learning",
+        "has been learning",
+        "had been learning"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: Identify the tense: 'I will have completed the project by Friday.'",
+      "o": [
+        "Present Perfect Tense",
+        "Future Perfect Tense",
+        "Simple Future Tense",
+        "Future Continuous Tense"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'Water _____ at 100 degrees Celsius.'",
+      "o": [
+        "boils",
+        "will boil",
+        "is boiling",
+        "boiled"
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Choose the correct option: 'If it _____, we will cancel the match.'",
+      "o": [
+        "will rain",
+        "rained",
+        "rains",
+        "is raining"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'They _____ tennis every Sunday.'",
+      "o": [
+        "played",
+        "play",
+        "have played",
+        "are playing"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Choose the correct option: 'I _____ him since 2020.'",
+      "o": [
+        "do not see",
+        "did not see",
+        "am not seeing",
+        "have not seen"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'While I _____ a book, the phone rang.'",
+      "o": [
+        "have read",
+        "had read",
+        "was reading",
+        "read"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: Choose the correct form: 'He _____ his car when the accident happened.'",
+      "o": [
+        "drove",
+        "was driving",
+        "had driven",
+        "has been driving"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'We _____ for two hours when it started to snow.'",
+      "o": [
+        "have walked",
+        "had been walking",
+        "were walking",
+        "walked"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Identify the tense: 'They are building a new bridge over the river.'",
+      "o": [
+        "Present Perfect Tense",
+        "Simple Present Tense",
+        "Future Continuous Tense",
+        "Present Continuous Tense"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'She _____ to the market yesterday.'",
+      "o": [
+        "was going",
+        "went",
+        "goes",
+        "has gone"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'I _____ my homework just now.'",
+      "o": [
+        "finished",
+        "am finishing",
+        "have finished",
+        "had finished"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: Choose the correct option: 'Next month, my parents _____ married for 25 years.'",
+      "o": [
+        "have been",
+        "will be",
+        "are",
+        "will have been"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: Identify the simple past tense form of 'catch':",
+      "o": [
+        "caught",
+        "catched",
+        "catching",
+        "has caught"
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'The train _____ at 9:00 AM every morning.'",
+      "o": [
+        "has departed",
+        "is departing",
+        "departs",
+        "departed"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: Choose the correct option: 'As soon as he saw the police, he _____ away.'",
+      "o": [
+        "was running",
+        "ran",
+        "had run",
+        "runs"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Fill in the blank: 'I _____ never _____ such a beautiful painting before.'",
+      "o": [
+        "did ... see",
+        "am ... seeing",
+        "have ... seen",
+        "was ... seeing"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: Choose the correct option: 'By the end of this year, I _____ from school.'",
+      "o": [
+        "will have graduated",
+        "will graduate",
+        "am graduating",
+        "graduate"
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Identify the correct negative form of 'She works hard':",
+      "o": [
+        "She do not work hard.",
+        "She is not working hard.",
+        "She does not work hard.",
+        "She did not work hard."
+      ],
+      "a": 2
+    }
+  ]
+}

@@ -1,0 +1,507 @@
+{
+  "title": "CBSE Class 9 - English Grammar",
+  "subtitle": "Reported Speech",
+  "description": "Online practice test containing 50 high-yield objective MCQs for Class 9 Reported Speech.",
+  "questions": [
+    {
+      "q": "Convert to indirect speech: He said, 'I am reading a book.'",
+      "o": [
+        "He said that I am reading a book.",
+        "He said that he is reading a book.",
+        "He told he reads a book.",
+        "He said that he was reading a book."
+      ],
+      "a": 3
+    },
+    {
+      "q": "Convert to indirect speech: She said to me, 'Where do you live?'",
+      "o": [
+        "She asked me where did I live.",
+        "She told me where I live.",
+        "She asked me where do I live.",
+        "She asked me where I lived."
+      ],
+      "a": 3
+    },
+    {
+      "q": "Convert to indirect speech: The teacher said, 'The earth revolves around the sun.'",
+      "o": [
+        "The teacher said that the earth revolves around the sun.",
+        "The teacher said that earth is revolving around sun.",
+        "The teacher told that earth revolves.",
+        "The teacher said that the earth revolved around the sun."
+      ],
+      "a": 0
+    },
+    {
+      "q": "Convert to indirect speech: He said, 'I have completed my work.'",
+      "o": [
+        "He said that he had completed his work.",
+        "He said that I had completed my work.",
+        "He said that he completed his work.",
+        "He told that he has completed his work."
+      ],
+      "a": 0
+    },
+    {
+      "q": "Convert to indirect speech: Ram said to Shyam, 'Will you help me?'",
+      "o": [
+        "Ram asked Shyam that will he help him.",
+        "Ram asked Shyam if he would help him.",
+        "Ram asked Shyam that he would help.",
+        "Ram told Shyam if he will help him."
+      ],
+      "a": 1
+    },
+    {
+      "q": "Convert to indirect speech: 'Don't make noise,' said the teacher to the students.",
+      "o": [
+        "The teacher told students no noise.",
+        "The teacher asked students that don't make noise.",
+        "The teacher ordered the students not to make noise.",
+        "The teacher ordered the students to not make noise."
+      ],
+      "a": 2
+    },
+    {
+      "q": "Convert to indirect speech: He said, 'Bravo! You have done well.'",
+      "o": [
+        "He told that he has done well.",
+        "He applauded him saying that he had done well.",
+        "He said bravo that he did well.",
+        "He exclaimed with joy that bravo."
+      ],
+      "a": 1
+    },
+    {
+      "q": "Convert to indirect speech: She said, 'Alas! I have lost my purse.'",
+      "o": [
+        "She exclaimed that she loses her purse.",
+        "She exclaimed with sorrow that she had lost her purse.",
+        "She told with sorrow that she lost her purse.",
+        "She said alas that she lost her purse."
+      ],
+      "a": 1
+    },
+    {
+      "q": "When reported speech is a universal truth or habitual fact, the verb tense in reported speech:",
+      "o": [
+        "Changes to future tense",
+        "Changes to past perfect",
+        "Does not change",
+        "Changes to simple past"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Convert to indirect speech: He said to her, 'May you succeed in life!'",
+      "o": [
+        "He wished her that she might succeed in life.",
+        "He asked her if she might succeed.",
+        "He ordered her to succeed.",
+        "He told her that she may succeed in life."
+      ],
+      "a": 0
+    },
+    {
+      "q": "In indirect speech, reporting verb 'said to' in an assertive sentence becomes:",
+      "o": [
+        "asked",
+        "exclaimed",
+        "ordered",
+        "told"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In indirect speech, reporting verb 'said to' in an interrogative sentence becomes:",
+      "o": [
+        "asked / inquired",
+        "told",
+        "ordered",
+        "advised"
+      ],
+      "a": 0
+    },
+    {
+      "q": "In indirect speech, 'now' changes to:",
+      "o": [
+        "ago",
+        "there",
+        "here",
+        "then"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In indirect speech, 'today' changes to:",
+      "o": [
+        "today",
+        "next day",
+        "that day",
+        "yesterday"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In indirect speech, 'tomorrow' changes to:",
+      "o": [
+        "that day",
+        "today",
+        "the next day / the following day",
+        "the previous day"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In indirect speech, 'yesterday' changes to:",
+      "o": [
+        "that day",
+        "tomorrow",
+        "the next day",
+        "the previous day / the day before"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In indirect speech, 'here' changes to:",
+      "o": [
+        "everywhere",
+        "where",
+        "here",
+        "there"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In indirect speech, 'this' changes to:",
+      "o": [
+        "these",
+        "it",
+        "that",
+        "this"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In indirect speech, 'these' changes to:",
+      "o": [
+        "them",
+        "this",
+        "those",
+        "these"
+      ],
+      "a": 2
+    },
+    {
+      "q": "Convert to indirect speech: Rohan said, 'I went to Delhi last week.'",
+      "o": [
+        "Rohan told he has gone to Delhi.",
+        "Rohan said that he went to Delhi last week.",
+        "Rohan asked if he went to Delhi.",
+        "Rohan said that he had gone to Delhi the previous week."
+      ],
+      "a": 3
+    },
+    {
+      "q": "Convert to indirect speech: Father said to me, 'Do not waste your time.'",
+      "o": [
+        "Father told me that do not waste time.",
+        "Father advised me not to waste my time.",
+        "Father advised me to not waste my time.",
+        "Father asked me that not waste time."
+      ],
+      "a": 1
+    },
+    {
+      "q": "Convert to indirect speech: 'What a beautiful flower it is!' said Mary.",
+      "o": [
+        "Mary exclaimed with wonder that it was a very beautiful flower.",
+        "Mary told that it is a beautiful flower.",
+        "Mary asked if it was a beautiful flower.",
+        "Mary said what a beautiful flower it was."
+      ],
+      "a": 0
+    },
+    {
+      "q": "Convert to indirect speech: He said, 'I will call you tomorrow.'",
+      "o": [
+        "He said that he would call me the next day.",
+        "He told that he would call me tomorrow.",
+        "He asked if he would call me.",
+        "He said that he will call me tomorrow."
+      ],
+      "a": 0
+    },
+    {
+      "q": "If the reporting verb is in Present or Future tense (e.g. 'He says'), the tense of verb in reported speech:",
+      "o": [
+        "Changes to conditional",
+        "Does not change",
+        "Changes to past perfect",
+        "Changes to past tense"
+      ],
+      "a": 1
+    },
+    {
+      "q": "Convert to indirect speech: She says, 'I am feeling unwell.'",
+      "o": [
+        "She says that she is feeling unwell.",
+        "She says that she was feeling unwell.",
+        "She told that she was feeling unwell.",
+        "She said that she is feeling unwell."
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: He said, 'I am reading a book.'",
+      "o": [
+        "He said that he was reading a book.",
+        "He said that he is reading a book.",
+        "He told he reads a book.",
+        "He said that I am reading a book."
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: She said to me, 'Where do you live?'",
+      "o": [
+        "She asked me where do I live.",
+        "She asked me where I lived.",
+        "She told me where I live.",
+        "She asked me where did I live."
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: The teacher said, 'The earth revolves around the sun.'",
+      "o": [
+        "The teacher told that earth revolves.",
+        "The teacher said that the earth revolves around the sun.",
+        "The teacher said that the earth revolved around the sun.",
+        "The teacher said that earth is revolving around sun."
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: He said, 'I have completed my work.'",
+      "o": [
+        "He said that I had completed my work.",
+        "He told that he has completed his work.",
+        "He said that he completed his work.",
+        "He said that he had completed his work."
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: Ram said to Shyam, 'Will you help me?'",
+      "o": [
+        "Ram asked Shyam if he would help him.",
+        "Ram asked Shyam that will he help him.",
+        "Ram told Shyam if he will help him.",
+        "Ram asked Shyam that he would help."
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: 'Don't make noise,' said the teacher to the students.",
+      "o": [
+        "The teacher ordered the students not to make noise.",
+        "The teacher told students no noise.",
+        "The teacher asked students that don't make noise.",
+        "The teacher ordered the students to not make noise."
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: He said, 'Bravo! You have done well.'",
+      "o": [
+        "He exclaimed with joy that bravo.",
+        "He told that he has done well.",
+        "He said bravo that he did well.",
+        "He applauded him saying that he had done well."
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: She said, 'Alas! I have lost my purse.'",
+      "o": [
+        "She exclaimed that she loses her purse.",
+        "She exclaimed with sorrow that she had lost her purse.",
+        "She said alas that she lost her purse.",
+        "She told with sorrow that she lost her purse."
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: When reported speech is a universal truth or habitual fact, the verb tense in reported speech:",
+      "o": [
+        "Does not change",
+        "Changes to future tense",
+        "Changes to simple past",
+        "Changes to past perfect"
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: He said to her, 'May you succeed in life!'",
+      "o": [
+        "He told her that she may succeed in life.",
+        "He asked her if she might succeed.",
+        "He wished her that she might succeed in life.",
+        "He ordered her to succeed."
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, reporting verb 'said to' in an assertive sentence becomes:",
+      "o": [
+        "ordered",
+        "told",
+        "exclaimed",
+        "asked"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, reporting verb 'said to' in an interrogative sentence becomes:",
+      "o": [
+        "advised",
+        "told",
+        "ordered",
+        "asked / inquired"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, 'now' changes to:",
+      "o": [
+        "there",
+        "ago",
+        "then",
+        "here"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, 'today' changes to:",
+      "o": [
+        "today",
+        "that day",
+        "next day",
+        "yesterday"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, 'tomorrow' changes to:",
+      "o": [
+        "the previous day",
+        "the next day / the following day",
+        "that day",
+        "today"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, 'yesterday' changes to:",
+      "o": [
+        "that day",
+        "the next day",
+        "tomorrow",
+        "the previous day / the day before"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, 'here' changes to:",
+      "o": [
+        "everywhere",
+        "there",
+        "here",
+        "where"
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, 'this' changes to:",
+      "o": [
+        "these",
+        "this",
+        "that",
+        "it"
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: In indirect speech, 'these' changes to:",
+      "o": [
+        "this",
+        "these",
+        "them",
+        "those"
+      ],
+      "a": 3
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: Rohan said, 'I went to Delhi last week.'",
+      "o": [
+        "Rohan said that he had gone to Delhi the previous week.",
+        "Rohan said that he went to Delhi last week.",
+        "Rohan told he has gone to Delhi.",
+        "Rohan asked if he went to Delhi."
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: Father said to me, 'Do not waste your time.'",
+      "o": [
+        "Father asked me that not waste time.",
+        "Father advised me to not waste my time.",
+        "Father advised me not to waste my time.",
+        "Father told me that do not waste time."
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: 'What a beautiful flower it is!' said Mary.",
+      "o": [
+        "Mary told that it is a beautiful flower.",
+        "Mary exclaimed with wonder that it was a very beautiful flower.",
+        "Mary asked if it was a beautiful flower.",
+        "Mary said what a beautiful flower it was."
+      ],
+      "a": 1
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: He said, 'I will call you tomorrow.'",
+      "o": [
+        "He said that he will call me tomorrow.",
+        "He asked if he would call me.",
+        "He said that he would call me the next day.",
+        "He told that he would call me tomorrow."
+      ],
+      "a": 2
+    },
+    {
+      "q": "In CBSE Class 9 context: If the reporting verb is in Present or Future tense (e.g. 'He says'), the tense of verb in reported speech:",
+      "o": [
+        "Does not change",
+        "Changes to past tense",
+        "Changes to conditional",
+        "Changes to past perfect"
+      ],
+      "a": 0
+    },
+    {
+      "q": "In CBSE Class 9 context: Convert to indirect speech: She says, 'I am feeling unwell.'",
+      "o": [
+        "She said that she is feeling unwell.",
+        "She says that she was feeling unwell.",
+        "She says that she is feeling unwell.",
+        "She told that she was feeling unwell."
+      ],
+      "a": 2
+    }
+  ]
+}
