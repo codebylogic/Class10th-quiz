@@ -340,6 +340,67 @@
             width: 100%; 
             max-width: 480px; 
         }
+        /* AI Bottom Sheet Styling */
+.ai-sheet {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 70vh; /* स्वाइप होने पर इतनी ऊँचाई होगी */
+    background: #0f172a;
+    border-top: 2px solid #38bdf8;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.9);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.3s ease;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(calc(70vh - 70px)); /* शुरुआत में केवल 70px की पट्टी दिखेगी */
+}
+
+.ai-sheet.active {
+    bottom: 0;
+}
+
+.ai-sheet.expanded {
+    transform: translateY(0); /* स्वाइप करने पर पूरा खुल जाएगा */
+}
+
+.ai-sheet-handle {
+    width: 44px;
+    height: 5px;
+    background-color: #334155;
+    margin: 8px auto 4px auto;
+    border-radius: 10px;
+    cursor: grab;
+}
+
+.ai-sheet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-sheet-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.swipe-hint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
     </style>
 </head>
 
@@ -458,6 +519,7 @@
             icon: "📔",
             description: "कक्षा 10वीं बिहार बोर्ड हिंदी (गोधूलि भाग-2) गद्यखंड एवं काव्यखंड के संपूर्ण ऑब्जेक्टिव टेस्ट सेट।",
             sections: [
+                
                 {
                     sectionName: "गद्यखंड (Prose)",
                     icon: "📖",
@@ -493,7 +555,31 @@
                         { name: "पाठ 11 (लौटकर आऊँगा फिर)", file: "HINDI/POETRY/11.json" },
                         { name: "पाठ 12 (मेरे बिना तुम प्रभु)", file: "HINDI/POETRY/12.json" }
                     ]
-                }
+                },
+                {
+    sectionName: "व्याकरण (Grammar)",
+    icon: "📝",
+    chapters: [
+        { name: "पाठ 01 (वर्ण विचार)", file: "HINDI/GRAMMAR/01.json" },
+        { name: "पाठ 02 (संज्ञा)", file: "HINDI/GRAMMAR/02.json" },
+        { name: "पाठ 03 (सर्वनाम)", file: "HINDI/GRAMMAR/03.json" },
+        { name: "पाठ 04 (विशेषण)", file: "HINDI/GRAMMAR/04.json" },
+        { name: "पाठ 05 (क्रिया)", file: "HINDI/GRAMMAR/05.json" },
+        { name: "पाठ 06 (लिंग)", file: "HINDI/GRAMMAR/06.json" },
+        { name: "पाठ 07 (वचन)", file: "HINDI/GRAMMAR/07.json" },
+        { name: "पाठ 08 (कारक)", file: "HINDI/GRAMMAR/08.json" },
+        { name: "पाठ 09 (काल)", file: "HINDI/GRAMMAR/09.json" },
+        { name: "पाठ 10 (संधि)", file: "HINDI/GRAMMAR/10.json" },
+        { name: "पाठ 11 (समास)", file: "HINDI/GRAMMAR/11.json" },
+        { name: "पाठ 12 (उपसर्ग और प्रत्यय)", file: "HINDI/GRAMMAR/12.json" },
+        { name: "पाठ 13 (पर्यायवाची शब्द)", file: "HINDI/GRAMMAR/13.json" },
+        { name: "पाठ 14 (विपरीतार्थक / विलोम शब्द)", file: "HINDI/GRAMMAR/14.json" },
+        { name: "पाठ 15 (अनेकार्थक शब्द / एक शब्द)", file: "HINDI/GRAMMAR/15.json" },
+        { name: "पाठ 16 (मुहावरे और लोकोक्तियाँ)", file: "HINDI/GRAMMAR/16.json" },
+        { name: "पाठ 17 (वाक्य शुद्धि)", file: "HINDI/GRAMMAR/17.json" }
+    ]
+}
+
             ]
         },
         {
@@ -1150,6 +1236,174 @@
             renderSubjects(true);
         }
     });
+        // ==========================================
+    // ✦ SMART FEATURE DETECTION + GEMINI AI SHEET
+    // ==========================================
+    const API_KEY = "YOUR_GEMINI_API_KEY"; // यहाँ अपनी मुफ़्त Gemini API Key डालें
+    
+    const aiSheet = document.getElementById('ai-bottom-sheet');
+    const aiQueryPreview = document.getElementById('ai-query-preview');
+    const aiSheetContent = document.getElementById('ai-sheet-content');
+
+    let currentSelectedQuery = "";
+    let isFetched = false;
+
+    // चेक करें कि क्या फ़ोन में सिस्टम का अपना डिफ़ॉल्ट Touch Search समर्थित है या नहीं
+    function isSystemSearchSupported() {
+        // अगर फ़ोन एंड्रॉइड का लेटेस्ट वर्ज़न (Circle to Search सपोर्टेड) है
+        // या ब्राउज़र में नेटिव context menu सपोर्टेड है, तो true रिटर्न करेगा
+        const isModernAndroid = /Android 1[4-9]/i.test(navigator.userAgent);
+        const hasNativeSearch = 'search' in window || (window.chrome && window.chrome.search);
+
+        return isModernAndroid || hasNativeSearch;
+    }
+
+    // टेक्स्ट सिलेक्ट होने पर इवेंट
+    document.addEventListener('selectionchange', () => {
+        // अगर फ़ोन में सिस्टम का डिफ़ॉल्ट फ़ीचर पहले से मौजूद है, तो custom AI न चलाएं
+        if (isSystemSearchSupported()) {
+            return; // फ़ोन का अपना फीचर चलने दें
+        }
+
+        const selectedText = window.getSelection().toString().trim();
+        
+        if (selectedText.length >= 2 && selectedText !== currentSelectedQuery) {
+            currentSelectedQuery = selectedText;
+            isFetched = false;
+            
+            aiQueryPreview.innerText = `"${currentSelectedQuery}"`;
+            aiSheetContent.innerHTML = `
+                <div class="swipe-hint">
+                    <span class="text-xs text-cyan-300 font-semibold animate-pulse">⬆ व्याख्या देखने के लिए ऊपर स्वाइप करें</span>
+                </div>
+            `;
+            
+            aiSheet.classList.add('active');
+            aiSheet.classList.remove('expanded');
+        }
+    });
+
+    // स्वाइप डिटेक्ट करने का लॉजिक (Touch Events)
+    let startY = 0;
+    if (aiSheet) {
+        aiSheet.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+        });
+
+        aiSheet.addEventListener('touchend', (e) => {
+            let endY = e.changedTouches[0].clientY;
+            
+            // ऊपर स्वाइप (50px से ज़्यादा)
+            if (startY - endY > 50) {
+                expandAndFetchAI();
+            } 
+            // नीचे स्वाइप
+            else if (endY - startY > 50 && aiSheet.classList.contains('expanded')) {
+                aiSheet.classList.remove('expanded');
+            }
+        });
+    }
+
+    function expandAndFetchAI() {
+        aiSheet.classList.add('expanded');
+
+        if (!isFetched && currentSelectedQuery) {
+            isFetched = true;
+            fetchGeminiExplanation(currentSelectedQuery);
+        }
+    }
+
+        async function fetchGeminiExplanation(query) {
+        aiSheetContent.innerHTML = `
+            <div class="flex flex-col items-center justify-center h-40 space-y-3">
+                <div class="w-8 h-8 border-3 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-xs text-cyan-300 font-medium">BSEB 10th गाइड से उत्तर तैयार हो रहा है...</p>
+            </div>
+        `;
+
+        // आपकी प्रदान की गई API Key
+        const apiKey = "AQ.Ab8RN6KYSFM4qrAtjGiPP6X5fIeGSJBrPEU1gGPPr8j8T6FfVQ";
+        
+        // जेमिनी 1.5 फ़्लैश एंडपॉइंट URL
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+        try {
+            const prompt = `आप बिहार बोर्ड (BSEB) कक्षा 10वीं के शिक्षक हैं। छात्र द्वारा पूछे गए इस शब्द/प्रश्न "${query}" की आसान और संक्षिप्त (3-4 वाक्यों में) हिंदी में सटीक व्याख्या करें।`;
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: prompt
+                                }
+                            ]
+                        }
+                    ]
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.candidates && data.candidates[0].content.parts[0].text) {
+                const aiReply = data.candidates[0].content.parts[0].text;
+
+                // उत्तर स्क्रीन पर दिखाना
+                aiSheetContent.innerHTML = `
+                    <div class="space-y-2 animate-fade-in">
+                        <p class="text-xs text-cyan-400 font-bold uppercase tracking-wider">✦ AI व्याख्या / उत्तर:</p>
+                        <div class="text-sm text-slate-200 leading-relaxed">${aiReply.replace(/\n/g, '<br>')}</div>
+                    </div>
+                `;
+            } else {
+                throw new Error("Invalid response format");
+            }
+
+        } catch (error) {
+            console.error("Gemini API Error:", error);
+            aiSheetContent.innerHTML = `
+                <div class="text-center py-6">
+                    <p class="text-xs text-red-400 font-semibold mb-2">उत्तर लोड करने में समस्या हुई!</p>
+                    <p class="text-[11px] text-slate-400">कृपया अपनी इंटरनेट कनेक्टिविटी जाँचें या पुनः प्रयास करें।</p>
+                </div>
+            `;
+            isFetched = false;
+        }
+    }
+
+
+    function closeAiSheet() {
+        if (aiSheet) {
+            aiSheet.classList.remove('active', 'expanded');
+            currentSelectedQuery = "";
+            isFetched = false;
+        }
+    }
+    
     </script>
+    <!-- AI OVERVIEW BOTTOM SHEET -->
+<div id="ai-bottom-sheet" class="ai-sheet">
+    <div class="ai-sheet-handle"></div>
+    
+    <div class="ai-sheet-header">
+        <div class="flex items-center space-x-2">
+            <span class="text-cyan-400 font-bold text-sm">✦ AI Overview</span>
+            <span id="ai-query-preview" class="text-xs text-slate-400 truncate max-w-[200px]"></span>
+        </div>
+        <button onclick="closeAiSheet()" class="text-slate-400 hover:text-white font-bold text-sm px-2">✕</button>
+    </div>
+
+    <div id="ai-sheet-content" class="ai-sheet-body">
+        <div class="swipe-hint">
+            <span class="text-xs text-cyan-300 font-semibold animate-pulse">⬆ व्याख्या / उत्तर देखने के लिए ऊपर स्वाइप करें</span>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
