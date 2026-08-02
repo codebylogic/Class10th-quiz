@@ -1088,57 +1088,205 @@
         }
     };
 
-    // यह Common Subject हर क्लास/बोर्ड में अपने-आप जुड़ जाएगा
-    const commonGrammarSubject = {
-        subjectName: "📚 COMMON GRAMMAR (व्याकरण)",
-        icon: "🌐",
-        description: "सभी कक्षाओं एवं प्रतियोगी परीक्षाओं हेतु हिंदी एवं इंग्लिश व्याकरण।",
-        sections: [
-            {
-                sectionName: "HINDI GRAMMAR (हिंदी व्याकरण)",
-                icon: "✍️",
-                chapters: [
-                    { name: "अध्याय 01 (वर्ण विचार और उच्चारण स्थान)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/01.json" },
-                    { name: "अध्याय 02 (अयोगवाह और वर्तनी शुद्धि)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/02.json" },
-                    { name: "अध्याय 03 (शब्द भेद - तत्सम, तद्भव)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/03.json" },
-                    { name: "अध्याय 04 (शब्द रचना - रूढ़, यौगिक)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/04.json" },
-                    { name: "अध्याय 05 (विकारी शब्द - संज्ञा, सर्वनाम)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/05.json" },
-                    { name: "अध्याय 06 (क्रिया, काल और वाच्य)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/06.json" },
-                    { name: "अध्याय 07 (अविकारी शब्द - अव्यय और निपात)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/07.json" },
-                    { name: "अध्याय 08 (उपसर्ग और प्रत्यय)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/08.json" },
-                    { name: "अध्याय 09 (संधि - स्वर, व्यंजन, विसर्ग)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/09.json" },
-                    { name: "अध्याय 10 (समास और उसके भेद)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/10.json" },
-                    { name: "अध्याय 11 (शब्द भण्डार - पर्यायवाची, विलोम)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/11.json" },
-                    { name: "अध्याय 12 (वाक्यांश के लिए एक शब्द)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/12.json" },
-                    { name: "अध्याय 13 (मुहावरे और लोकोक्तियाँ)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/13.json" },
-                    { name: "अध्याय 14 (वाक्य विचार और पदबंध)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/14.json" },
-                    { name: "अध्याय 15 (वाक्य शुद्धि और पद परिचय)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/15.json" },
-                    { name: "अध्याय 16 (विराम चिह्न)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/16.json" }
-                ]
-            },
-            {
-                sectionName: "ENGLISH GRAMMAR",
-                icon: "📝",
-                chapters: [
-                    { name: "Chapter 01 (Tenses and Aspects)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/01.json" },
-                    { name: "Chapter 02 (Modals and Auxiliaries)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/02.json" },
-                    { name: "Chapter 03 (Subject - Verb Concord)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/03.json" },
-                    { name: "Chapter 04 (Reported Speech)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/04.json" },
-                    { name: "Chapter 05 (Active and Passive Voice)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/05.json" },
-                    { name: "Chapter 06 (Articles and Determiners)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/06.json" },
-                    { name: "Chapter 07 (Prepositions & Phrasal Verbs)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/07.json" },
-                    { name: "Chapter 08 (Nouns and Pronouns)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/08.json" },
-                    { name: "Chapter 09 (Adjectives and Adverbs)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/09.json" },
-                    { name: "Chapter 10 (Conjunctions & Connectors)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/10.json" },
-                    { name: "Chapter 11 (Sentence Transformation)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/11.json" },
-                    { name: "Chapter 12 (Clause Analysis)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/12.json" },
-                    { name: "Chapter 13 (Synonyms and Antonyms)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/13.json" },
-                    { name: "Chapter 14 (One Word Substitution)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/14.json" },
-                    { name: "Chapter 15 (Idioms and Phrases)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/15.json" },
-                    { name: "Chapter 16 (Common Errors & Correction)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/16.json" }
-                ]
-            }
-        ]
+   // यह मास्टर Common Subject हर क्लास/बोर्ड में अपने-आप जुड़ जाएगा
+const commonMasterSubject = {
+    subjectName: "📚 COMMON (सामान्य ज्ञान एवं व्याकरण)",
+    icon: "🌐",
+    description: "सभी कक्षाओं एवं प्रतियोगी परीक्षाओं हेतु सामान्य ज्ञान, सामान्य अध्ययन और व्याकरण।",
+    sections: [
+        // ==========================================
+        // SECTION 1: GENERAL KNOWLEDGE (GK)
+        // ==========================================
+        {
+            sectionName: "GK - HISTORY (इतिहास)",
+            icon: "📜",
+            chapters: [
+                { name: "पाठ 01 (सिंधु घाटी सभ्यता / Indus Valley Civilization)", file: "COMMON/GK/HISTORY/01.json" },
+                { name: "पाठ 02 (वैदिक संस्कृति एवं सभ्यता / Vedic Culture)", file: "COMMON/GK/HISTORY/02.json" },
+                { name: "पाठ 03 (महाजनपद काल, बौद्ध एवं जैन धर्म / Mahajanapadas, Buddhism & Jainism)", file: "COMMON/GK/HISTORY/03.json" },
+                { name: "पाठ 04 (मौर्य साम्राज्य और गुप्त साम्राज्य / Mauryan & Gupta Empire)", file: "COMMON/GK/HISTORY/04.json" },
+                { name: "पाठ 05 (दक्षिण भारत के प्रमुख राजवंश / South Indian Dynasties)", file: "COMMON/GK/HISTORY/05.json" },
+                { name: "पाठ 06 (दिल्ली सल्तनत / Delhi Sultanate)", file: "COMMON/GK/HISTORY/06.json" },
+                { name: "पाठ 07 (मुगल साम्राज्य और मराठा साम्राज्य / Mughal & Maratha Empire)", file: "COMMON/GK/HISTORY/07.json" },
+                { name: "पाठ 08 (भारत में यूरोपीय कंपनियों का आगमन / Arrival of European Companies)", file: "COMMON/GK/HISTORY/08.json" },
+                { name: "पाठ 09 (1857 की क्रांति / Revolt of 1857)", file: "COMMON/GK/HISTORY/09.json" },
+                { name: "पाठ 10 (सामाजिक और धार्मिक सुधार आंदोलन / Socio-Religious Reform Movements)", file: "COMMON/GK/HISTORY/10.json" },
+                { name: "पाठ 11 (भारतीय राष्ट्रीय कांग्रेस और प्रमुख अधिवेशन / INC & Important Sessions)", file: "COMMON/GK/HISTORY/11.json" },
+                { name: "पाठ 12 (स्वतंत्रता संग्राम और प्रमुख आंदोलन / Freedom Movement)", file: "COMMON/GK/HISTORY/12.json" },
+                { name: "पाठ 13 (भारत का विभाजन और स्वतंत्रता / Partition and Independence)", file: "COMMON/GK/HISTORY/13.json" }
+            ]
+        },
+        {
+            sectionName: "GK - GEOGRAPHY (भूगोल)",
+            icon: "🗺️",
+            chapters: [
+                { name: "पाठ 01 (सौरमंडल, पृथ्वी की गति और अक्षांश-देशांतर / Solar System & Earth Movements)", file: "COMMON/GK/GEOGRAPHY/01.json" },
+                { name: "पाठ 02 (पृथ्वी की आंतरिक संरचना, भूकंप और ज्वालामुखी / Earth Interior, Volcanoes & Earthquakes)", file: "COMMON/GK/GEOGRAPHY/02.json" },
+                { name: "पाठ 03 (वायुमंडल की संरचना और दाबांतर / Atmosphere & Pressure)", file: "COMMON/GK/GEOGRAPHY/03.json" },
+                { name: "पाठ 04 (महाद्वीप, महासागर और जलधाराएँ / Continents, Oceans & Currents)", file: "COMMON/GK/GEOGRAPHY/04.json" },
+                { name: "पाठ 05 (भारत की भौतिक बनावट / Physical Features of India)", file: "COMMON/GK/GEOGRAPHY/05.json" },
+                { name: "पाठ 06 (भारत की नदियाँ, झीलें और जलप्रपात / Rivers, Lakes & Waterfalls)", file: "COMMON/GK/GEOGRAPHY/06.json" },
+                { name: "पाठ 07 (भारत की जलवायु और मृदा के प्रकार / Climate & Soil Types of India)", file: "COMMON/GK/GEOGRAPHY/07.json" },
+                { name: "पाठ 08 (कृषि, सिंचाई और प्रमुख फसलें / Agriculture & Major Crops)", file: "COMMON/GK/GEOGRAPHY/08.json" },
+                { name: "पाठ 09 (खनिज संसाधन, ऊर्जा और उद्योग / Minerals, Energy & Industries)", file: "COMMON/GK/GEOGRAPHY/09.json" },
+                { name: "पाठ 10 (राष्ट्रीय उद्यान और अभयारण्य / National Parks & Wildlife Sanctuaries)", file: "COMMON/GK/GEOGRAPHY/10.json" },
+                { name: "पाठ 11 (जनगणना और जनसंख्या वितरण / Census & Population Distribution)", file: "COMMON/GK/GEOGRAPHY/11.json" }
+            ]
+        },
+        {
+            sectionName: "GK - POLITY (भारतीय राजव्यवस्था)",
+            icon: "⚖️",
+            chapters: [
+                { name: "पाठ 01 (संविधान का निर्माण और सभा / Making of Constitution)", file: "COMMON/GK/POLITY/01.json" },
+                { name: "पाठ 02 (प्रस्तावना और प्रमुख स्रोत / Preamble & Sources of Constitution)", file: "COMMON/GK/POLITY/02.json" },
+                { name: "पाठ 03 (अनुसूचियाँ और भाग / Schedules & Parts)", file: "COMMON/GK/POLITY/03.json" },
+                { name: "पाठ 04 (नागरिकता / Citizenship)", file: "COMMON/GK/POLITY/04.json" },
+                { name: "पाठ 05 (मौलिक अधिकार और कर्तव्य / Fundamental Rights & Duties)", file: "COMMON/GK/POLITY/05.json" },
+                { name: "पाठ 06 (राज्य के नीति निदेशक तत्व / DPSP)", file: "COMMON/GK/POLITY/06.json" },
+                { name: "पाठ 07 (राष्ट्रपति, उपराष्ट्रपति और प्रधानमंत्री / President, VP & Prime Minister)", file: "COMMON/GK/POLITY/07.json" },
+                { name: "पाठ 08 (संसद - लोकसभा और राज्यसभा / Parliament - Lok Sabha & Rajya Sabha)", file: "COMMON/GK/POLITY/08.json" },
+                { name: "पाठ 09 (सर्वोच्च न्यायालय और उच्च न्यायालय / Supreme Court & High Court)", file: "COMMON/GK/POLITY/09.json" },
+                { name: "पाठ 10 (राज्यपाल और मुख्यमंत्री / Governor & Chief Minister)", file: "COMMON/GK/POLITY/10.json" },
+                { name: "पाठ 11 (पंचायती राज और स्थानीय स्वशासन / Panchayati Raj)", file: "COMMON/GK/POLITY/11.json" },
+                { name: "पाठ 12 (निर्वाचन आयोग, UPSC और CAG / Constitutional Bodies)", file: "COMMON/GK/POLITY/12.json" },
+                { name: "पाठ 13 (प्रमुख संवैधानिक संशोधन / Important Constitutional Amendments)", file: "COMMON/GK/POLITY/13.json" }
+            ]
+        },
+        {
+            sectionName: "GK - ECONOMICS (अर्थशास्त्र)",
+            icon: "💰",
+            chapters: [
+                { name: "पाठ 01 (अर्थशास्त्र के प्रकार और क्षेत्र / Types and Sectors of Economy)", file: "COMMON/GK/ECONOMICS/01.json" },
+                { name: "पाठ 02 (राष्ट्रीय आय, GDP, GNP / National Income, GDP & GNP)", file: "COMMON/GK/ECONOMICS/02.json" },
+                { name: "पाठ 03 (मुद्रास्फीति और मंदी / Inflation & Recession)", file: "COMMON/GK/ECONOMICS/03.json" },
+                { name: "पाठ 04 (भारतीय बैंकिंग प्रणाली और RBI / Indian Banking & RBI)", file: "COMMON/GK/ECONOMICS/04.json" },
+                { name: "पाठ 05 (कर प्रणाली एवं GST / Tax System & GST)", file: "COMMON/GK/ECONOMICS/05.json" },
+                { name: "पाठ 06 (बजट और वित्तीय प्रणाली / Budget & Financial System)", file: "COMMON/GK/ECONOMICS/06.json" },
+                { name: "पाठ 07 (निर्धनता, बेरोजगारी और योजनाएँ / Poverty, Unemployment & Schemes)", file: "COMMON/GK/ECONOMICS/07.json" },
+                { name: "पाठ 08 (पंचवर्षीय योजनाएँ और नीति आयोग / Five Year Plans & NITI Aayog)", file: "COMMON/GK/ECONOMICS/08.json" },
+                { name: "पाठ 09 (अंतर्राष्ट्रीय आर्थिक संगठन / International Economic Organizations)", file: "COMMON/GK/ECONOMICS/09.json" }
+            ]
+        },
+        {
+            sectionName: "GK - PHYSICS (भौतिक विज्ञान)",
+            icon: "⚡",
+            chapters: [
+                { name: "पाठ 01 (मात्रक और मापन / Units and Measurements)", file: "COMMON/GK/PHYSICS/01.json" },
+                { name: "पाठ 02 (गति, बल और न्यूटन के नियम / Motion, Force & Laws of Motion)", file: "COMMON/GK/PHYSICS/02.json" },
+                { name: "पाठ 03 (कार्य, ऊर्जा और शक्ति / Work, Energy & Power)", file: "COMMON/GK/PHYSICS/03.json" },
+                { name: "पाठ 04 (गुरुत्वाकर्षण / Gravitation)", file: "COMMON/GK/PHYSICS/04.json" },
+                { name: "पाठ 05 (द्रव के गुण / Properties of Matter & Fluids)", file: "COMMON/GK/PHYSICS/05.json" },
+                { name: "पाठ 06 (तरंगें और ध्वनि / Waves and Sound)", file: "COMMON/GK/PHYSICS/06.json" },
+                { name: "पाठ 07 (ऊष्मा और ताप / Heat and Temperature)", file: "COMMON/GK/PHYSICS/07.json" },
+                { name: "पाठ 08 (प्रकाश - परावर्तन, अपवर्तन / Light - Reflection & Refraction)", file: "COMMON/GK/PHYSICS/08.json" },
+                { name: "पाठ 09 (विद्युत और चुंबकत्व / Electricity & Magnetism)", file: "COMMON/GK/PHYSICS/09.json" },
+                { name: "पाठ 10 (आधुनिक भौतिकी और परमाणु / Modern Physics & Atomic Structure)", file: "COMMON/GK/PHYSICS/10.json" }
+            ]
+        },
+        {
+            sectionName: "GK - CHEMISTRY (रसायन विज्ञान)",
+            icon: "⚗️",
+            chapters: [
+                { name: "पाठ 01 (पदार्थ की अवस्थाएँ और वर्गीकरण / States & Classification of Matter)", file: "COMMON/GK/CHEMISTRY/01.json" },
+                { name: "पाठ 02 (परमाणु संरचना और रासायनिक बंध / Atomic Structure & Chemical Bonding)", file: "COMMON/GK/CHEMISTRY/02.json" },
+                { name: "पाठ 03 (तत्वों का आवर्त वर्गीकरण / Periodic Classification of Elements)", file: "COMMON/GK/CHEMISTRY/03.json" },
+                { name: "पाठ 04 (अम्ल, क्षार और लवण / Acids, Bases & Salts)", file: "COMMON/GK/CHEMISTRY/04.json" },
+                { name: "पाठ 05 (धातु, अधातु और उपधातु / Metals, Non-metals & Metalloids)", file: "COMMON/GK/CHEMISTRY/05.json" },
+                { name: "पाठ 06 (कार्बन और उसके यौगिक / Carbon & Its Compounds)", file: "COMMON/GK/CHEMISTRY/06.json" },
+                { name: "पाठ 07 (ईंधन और विस्फोटक पदार्थ / Fuels & Explosives)", file: "COMMON/GK/CHEMISTRY/07.json" },
+                { name: "पाठ 08 (दैनिक जीवन में रसायन / Chemistry in Everyday Life)", file: "COMMON/GK/CHEMISTRY/08.json" }
+            ]
+        },
+        {
+            sectionName: "GK - BIOLOGY (जीव विज्ञान)",
+            icon: "🧬",
+            chapters: [
+                { name: "पाठ 01 (कोशिका - संरचना और कार्य / Cell - Structure & Function)", file: "COMMON/GK/BIOLOGY/01.json" },
+                { name: "पाठ 02 (ऊतक / Tissues)", file: "COMMON/GK/BIOLOGY/02.json" },
+                { name: "पाठ 03 (मानव शरीर तंत्र / Human Organ Systems)", file: "COMMON/GK/BIOLOGY/03.json" },
+                { name: "पाठ 04 (पोषक तत्व / Nutrients - Vitamins, Proteins, Fats)", file: "COMMON/GK/BIOLOGY/04.json" },
+                { name: "पाठ 05 (मानव रोग, कारण और बचाव / Human Diseases, Causes & Cure)", file: "COMMON/GK/BIOLOGY/05.json" },
+                { name: "पाठ 06 (पादप कार्यिकी / Plant Physiology)", file: "COMMON/GK/BIOLOGY/06.json" },
+                { name: "पाठ 07 (पारिस्थितिकी और पर्यावरण / Ecology & Environment)", file: "COMMON/GK/BIOLOGY/07.json" }
+            ]
+        },
+        {
+            sectionName: "GK - STATIC GK (स्टैटिक जीके)",
+            icon: "🏛️",
+            chapters: [
+                { name: "पाठ 01 (भारत और विश्व में प्रथम / First in India & World)", file: "COMMON/GK/STATIC_GK/01.json" },
+                { name: "पाठ 02 (लोक और शास्त्रीय नृत्य / Folk & Classical Dances)", file: "COMMON/GK/STATIC_GK/02.json" },
+                { name: "पाठ 03 (प्रमुख त्योहार और मेले / Major Festivals & Fairs)", file: "COMMON/GK/STATIC_GK/03.json" },
+                { name: "पाठ 04 (प्रसिद्ध मंदिर, धरोहर और स्मारक / Famous Temples & Monuments)", file: "COMMON/GK/STATIC_GK/04.json" },
+                { name: "पाठ 05 (महत्वपूर्ण राष्ट्रीय व अंतर्राष्ट्रीय दिवस / Important Days)", file: "COMMON/GK/STATIC_GK/05.json" },
+                { name: "पाठ 06 (प्रमुख पुस्तकें और लेखक / Famous Books & Authors)", file: "COMMON/GK/STATIC_GK/06.json" },
+                { name: "पाठ 07 (अंतर्राष्ट्रीय संगठन और मुख्यालय / International Organizations & HQ)", file: "COMMON/GK/STATIC_GK/07.json" },
+                { name: "पाठ 08 (खेलकूद - कप, ट्रॉफियाँ, शब्दावली / Sports - Cups & Terms)", file: "COMMON/GK/STATIC_GK/08.json" },
+                { name: "पाठ 09 (भारत के राष्ट्रीय प्रतीक / National Symbols of India)", file: "COMMON/GK/STATIC_GK/09.json" },
+                { name: "पाठ 10 (प्रमुख पुरस्कार और सम्मान / Major Awards & Honors)", file: "COMMON/GK/STATIC_GK/10.json" }
+            ]
+        },
+        {
+            sectionName: "GK - CURRENT AFFAIRS (समसामयिकी)",
+            icon: "📰",
+            chapters: [
+                { name: "पाठ 01 (राष्ट्रीय और अंतर्राष्ट्रीय घटनाक्रम / National & International Events)", file: "COMMON/GK/CURRENT_AFFAIRS/01.json" },
+                { name: "पाठ 02 (प्रमुख नियुक्तियाँ और निधन / Appointments & Obituaries)", file: "COMMON/GK/CURRENT_AFFAIRS/02.json" },
+                { name: "पाठ 03 (खेल समाचार और विजेता / Sports News & Winners)", file: "COMMON/GK/CURRENT_AFFAIRS/03.json" },
+                { name: "पाठ 04 (सैन्य अभ्यास और सुरक्षा / Military Exercises & Security)", file: "COMMON/GK/CURRENT_AFFAIRS/04.json" },
+                { name: "पाठ 05 (विज्ञान एवं प्रौद्योगिकी, अंतरिक्ष / Science, Tech & Space)", file: "COMMON/GK/CURRENT_AFFAIRS/05.json" },
+                { name: "पाठ 06 (सरकारी योजनाएँ / Government Schemes)", file: "COMMON/GK/CURRENT_AFFAIRS/06.json" }
+            ]
+        },
+
+        // ==========================================
+        // SECTION 2: GRAMMAR (व्याकरण)
+        // ==========================================
+        {
+            sectionName: "GRAMMAR - HINDI (हिंदी व्याकरण)",
+            icon: "✍️",
+            chapters: [
+                { name: "अध्याय 01 (वर्ण विचार और उच्चारण स्थान)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/01.json" },
+                { name: "अध्याय 02 (अयोगवाह और वर्तनी शुद्धि)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/02.json" },
+                { name: "अध्याय 03 (शब्द भेद - तत्सम, तद्भव)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/03.json" },
+                { name: "अध्याय 04 (शब्द रचना - रूढ़, यौगिक)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/04.json" },
+                { name: "अध्याय 05 (विकारी शब्द - संज्ञा, सर्वनाम)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/05.json" },
+                { name: "अध्याय 06 (क्रिया, काल और वाच्य)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/06.json" },
+                { name: "अध्याय 07 (अविकारी शब्द - अव्यय और निपात)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/07.json" },
+                { name: "अध्याय 08 (उपसर्ग और प्रत्यय)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/08.json" },
+                { name: "अध्याय 09 (संधि - स्वर, व्यंजन, विसर्ग)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/09.json" },
+                { name: "अध्याय 10 (समास और उसके भेद)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/10.json" },
+                { name: "अध्याय 11 (शब्द भण्डार - पर्यायवाची, विलोम)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/11.json" },
+                { name: "अध्याय 12 (वाक्यांश के लिए एक शब्द)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/12.json" },
+                { name: "अध्याय 13 (मुहावरे और लोकोक्तियाँ)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/13.json" },
+                { name: "अध्याय 14 (वाक्य विचार और पदबंध)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/14.json" },
+                { name: "अध्याय 15 (वाक्य शुद्धि और पद परिचय)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/15.json" },
+                { name: "अध्याय 16 (विराम चिह्न)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/16.json" }
+            ]
+        },
+        {
+            sectionName: "GRAMMAR - ENGLISH",
+            icon: "📝",
+            chapters: [
+                { name: "Chapter 01 (Tenses and Aspects)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/01.json" },
+                { name: "Chapter 02 (Modals and Auxiliaries)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/02.json" },
+                { name: "Chapter 03 (Subject - Verb Concord)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/03.json" },
+                { name: "Chapter 04 (Reported Speech)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/04.json" },
+                { name: "Chapter 05 (Active and Passive Voice)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/05.json" },
+                { name: "Chapter 06 (Articles and Determiners)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/06.json" },
+                { name: "Chapter 07 (Prepositions & Phrasal Verbs)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/07.json" },
+                { name: "Chapter 08 (Nouns and Pronouns)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/08.json" },
+                { name: "Chapter 09 (Adjectives and Adverbs)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/09.json" },
+                { name: "Chapter 10 (Conjunctions & Connectors)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/10.json" },
+                { name: "Chapter 11 (Sentence Transformation)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/11.json" },
+                { name: "Chapter 12 (Clause Analysis)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/12.json" },
+                { name: "Chapter 13 (Synonyms and Antonyms)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/13.json" },
+                { name: "Chapter 14 (One Word Substitution)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/14.json" },
+                { name: "Chapter 15 (Idioms and Phrases)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/15.json" },
+                { name: "Chapter 16 (Common Errors & Correction)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/16.json" }
+            ]
+        }
+    ]
     };
 
     // State Variables
@@ -1187,28 +1335,26 @@
         }
     };
 
-    function switchCourse(courseKey) {
-        if (!coursesData[courseKey]) return;
-        
-        currentCourseKey = courseKey;
-        
-        // ओरिजिनल क्लास का डेटा डीप कॉपी (Deep Copy) करें
-        let currentData = JSON.parse(JSON.stringify(coursesData[courseKey].data));
+function switchCourse(courseKey) {
+    if (!coursesData[courseKey]) return;
+    
+    currentCourseKey = courseKey;
+    let currentData = JSON.parse(JSON.stringify(coursesData[courseKey].data));
 
-        // चेक करें कि क्या इसमें कॉमन ग्रामर पहले से जुड़ा है
-        const hasCommon = currentData.some(sub => sub.subjectName && sub.subjectName.includes("COMMON GRAMMAR"));
+    // चेक करें कि मास्टर COMMON मौजूद है या नहीं
+    const hasCommon = currentData.some(sub => sub.subjectName && sub.subjectName.includes("COMMON (सामान्य ज्ञान एवं व्याकरण)"));
 
-        // अगर नहीं जुड़ा है, तो इसे ऑटो-इन्जेक्ट कर दें
-        if (!hasCommon) {
-            currentData.push(commonGrammarSubject);
-        }
-
-        activeQuizData = currentData;
-        currentBaseDir = coursesData[courseKey].baseDir;
-        courseTagline.innerText = coursesData[courseKey].title;
-        
-        renderSubjects();
+    // अगर नहीं है, तो ऑटो-इन्जेक्ट करें
+    if (!hasCommon) {
+        currentData.push(commonMasterSubject);
     }
+
+    activeQuizData = currentData;
+    currentBaseDir = coursesData[courseKey].baseDir;
+    courseTagline.innerText = coursesData[courseKey].title;
+    
+    renderSubjects();
+}
 
     function showDashboardView() {
         portalDashboard.classList.remove('hidden');
