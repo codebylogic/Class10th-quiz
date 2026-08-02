@@ -1607,53 +1607,109 @@ function switchCourse(courseKey) {
         questionStates = new Array(questions.length).fill('default');
         renderQuestion();
     }
+function renderQuestion() {
+    answered = false;
+    const q = questions[currentQuestion];
+    const progress = ((currentQuestion) / questions.length) * 100;
 
-    function renderQuestion() {
-        answered = false;
-        const q = questions[currentQuestion];
-        const progress = ((currentQuestion) / questions.length) * 100;
+    // LocalStorage से लैंग्वेज प्रेफरेंस प्राप्त करें (डिफ़ॉल्ट: 'hi-pri')
+    const langPref = localStorage.getItem('quiz_lang_pref') || 'hi-pri';
 
-        let optionsHtml = '';
-        q.o.forEach((opt, index) => {
-            optionsHtml += `
-                <button onclick="checkAnswer(${index}, this)" class="option-btn">
-                    <span>${opt}</span>
-                    <span class="icon-container hidden"></span>
-                </button>
-            `;
-        });
+    // 1. प्रश्न (Question) रेंडरिंग लॉजिक
+    let questionTextHtml = '';
+    if (typeof q.q === 'object' && q.q !== null) {
+        let hiQ = q.q.hi || '';
+        let enQ = q.q.en || '';
 
-        appDiv.innerHTML = `
-            <div class="quiz-header">
-                <div class="flex justify-between items-center" style="margin-bottom: 12px; padding-right: 50px;">
-                    <span style="font-size: 0.85rem; font-weight: bold; color: #38bdf8; letter-spacing: 0.5px;">प्रश्न ${currentQuestion + 1} / ${questions.length}</span>
-                    <span style="font-size: 0.85rem; font-weight: bold; color: #e2e8f0; background: rgba(255,255,255,0.1); padding: 4px 14px; border-radius: 9999px;">स्कोर: ${score}</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: ${progress}%"></div>
-                </div>
-                <div class="profile-icon" onclick="openOverview()" title="प्रश्नावली नेविगेशन">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                </div>
-            </div>
-
-            <div class="flex-1 overflow-y-auto p-8 fade-in flex flex-col" style="padding: 28px 32px;">
-                <h2 style="font-size: 1.35rem; font-weight: 600; margin-bottom: 24px; line-height: 1.5; color: #f1f5f9;">${q.q}</h2>
-                <div id="options-container" class="flex-1 flex flex-col justify-center">
-                    ${optionsHtml}
-                </div>
-            </div>
-
-            <div class="flex justify-between items-center" style="padding: 20px 32px; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.1); min-height: 80px;">
-                <div>
-                    <button id="skip-btn" onclick="skipQuestion()" class="btn-action btn-skip">स्किप करें</button>
-                </div>
-                <button id="next-btn" onclick="nextQuestion()" class="hidden btn-action btn-next">
-                    ${currentQuestion === questions.length - 1 ? 'परिणाम देखें' : 'अगला प्रश्न'}
-                </button>
-            </div>
-        `;
+        if (langPref === 'hi-pri') {
+            questionTextHtml = `
+                <div class="space-y-1 mb-6">
+                    <h2 style="font-size: 1.35rem; font-weight: 800; line-height: 1.5; color: #f8fafc;">${hiQ}</h2>
+                    <p style="font-size: 1rem; font-weight: 400; color: #94a3b8; line-height: 1.4;">${enQ}</p>
+                </div>`;
+        } else if (langPref === 'en-pri') {
+            questionTextHtml = `
+                <div class="space-y-1 mb-6">
+                    <h2 style="font-size: 1.35rem; font-weight: 800; line-height: 1.5; color: #f8fafc;">${enQ}</h2>
+                    <p style="font-size: 1rem; font-weight: 400; color: #94a3b8; line-height: 1.4;">${hiQ}</p>
+                </div>`;
+        } else if (langPref === 'only-hi') {
+            questionTextHtml = `
+                <div class="mb-6">
+                    <h2 style="font-size: 1.35rem; font-weight: 800; line-height: 1.5; color: #f8fafc;">${hiQ}</h2>
+                </div>`;
+        } else if (langPref === 'only-en') {
+            questionTextHtml = `
+                <div class="mb-6">
+                    <h2 style="font-size: 1.35rem; font-weight: 800; line-height: 1.5; color: #f8fafc;">${enQ}</h2>
+                </div>`;
+        }
+    } else {
+        // सादा पुराना प्रश्न
+        questionTextHtml = `<h2 style="font-size: 1.35rem; font-weight: 600; margin-bottom: 24px; line-height: 1.5; color: #f1f5f9;">${q.q}</h2>`;
     }
+
+    // 2. विकल्पों (Options) की रेंडरिंग + कोष्ठक साफ करने का लॉजिक
+    let optionsHtml = '';
+    q.o.forEach((opt, index) => {
+        let optionText = '';
+        
+        if (typeof opt === 'object' && opt !== null) {
+            let hiOpt = (opt.hi || '').replace(/\s*\([^)]*\)/g, '').trim();
+            let enOpt = (opt.en || '').replace(/\s*\([^)]*\)/g, '').trim();
+
+            if (langPref === 'hi-pri') {
+                optionText = `${hiOpt} / ${enOpt}`;
+            } else if (langPref === 'en-pri') {
+                optionText = `${enOpt} / ${hiOpt}`;
+            } else if (langPref === 'only-hi') {
+                optionText = hiOpt;
+            } else if (langPref === 'only-en') {
+                optionText = enOpt;
+            }
+        } else {
+            optionText = String(opt).replace(/\s*\([^)]*\)/g, '').trim();
+        }
+
+        optionsHtml += `
+            <button onclick="checkAnswer(${index}, this)" class="option-btn">
+                <span>${optionText}</span>
+                <span class="icon-container hidden"></span>
+            </button>
+        `;
+    });
+
+    appDiv.innerHTML = `
+        <div class="quiz-header">
+            <div class="flex justify-between items-center" style="margin-bottom: 12px; padding-right: 50px;">
+                <span style="font-size: 0.85rem; font-weight: bold; color: #38bdf8; letter-spacing: 0.5px;">प्रश्न ${currentQuestion + 1} / ${questions.length}</span>
+                <span style="font-size: 0.85rem; font-weight: bold; color: #e2e8f0; background: rgba(255,255,255,0.1); padding: 4px 14px; border-radius: 9999px;">स्कोर: ${score}</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: ${progress}%"></div>
+            </div>
+            <div class="profile-icon" onclick="openOverview()" title="प्रश्नावली नेविगेशन">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-8 fade-in flex flex-col" style="padding: 28px 32px;">
+            ${questionTextHtml}
+            <div id="options-container" class="flex-1 flex flex-col justify-center">
+                ${optionsHtml}
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center" style="padding: 20px 32px; background: rgba(15, 23, 42, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.1); min-height: 80px;">
+            <div>
+                <button id="skip-btn" onclick="skipQuestion()" class="btn-action btn-skip">स्किप करें</button>
+            </div>
+            <button id="next-btn" onclick="nextQuestion()" class="hidden btn-action btn-next">
+                ${currentQuestion === questions.length - 1 ? 'परिणाम देखें' : 'अगला प्रश्न'}
+            </button>
+        </div>
+    `;
+}
 
     function checkAnswer(selectedIndex, btnElement) {
         if (answered) return;
@@ -1711,33 +1767,59 @@ function switchCourse(courseKey) {
             renderResultScreen();
         }
     }
+function openOverview() {
+    let gridHtml = '';
+    for(let i = 0; i < questions.length; i++) {
+        let stateClass = 'state-default';
+        if(questionStates[i] === 'correct') stateClass = 'state-correct';
+        if(questionStates[i] === 'wrong') stateClass = 'state-wrong';
+        if(questionStates[i] === 'skipped') stateClass = 'state-skipped';
+        
+        gridHtml += `<button onclick="jumpToQuestion(${i})" class="q-circle ${stateClass}">${i + 1}</button>`;
+    }
 
-    function openOverview() {
-        let gridHtml = '';
-        for(let i = 0; i < questions.length; i++) {
-            let stateClass = 'state-default';
-            if(questionStates[i] === 'correct') stateClass = 'state-correct';
-            if(questionStates[i] === 'wrong') stateClass = 'state-wrong';
-            if(questionStates[i] === 'skipped') stateClass = 'state-skipped';
-            
-            gridHtml += `<button onclick="jumpToQuestion(${i})" class="q-circle ${stateClass}">${i + 1}</button>`;
-        }
+    // जांचें कि वर्तमान प्रश्नपत्र द्विभाषी (Bilingual COMMON) है या नहीं
+    const isBilingual = questions.length > 0 && typeof questions[0].q === 'object';
+    const currentLang = localStorage.getItem('quiz_lang_pref') || 'hi-pri';
 
-        const overviewDiv = document.createElement('div');
-        overviewDiv.id = 'overview-overlay';
-        overviewDiv.className = 'overview-panel fade-in';
-        overviewDiv.innerHTML = `
-            <h3 style="font-size: 1.35rem; font-weight: bold; margin-bottom: 16px; text-align: center; color: #f8fafc;">प्रश्नावली ओवरव्यू (कुल ${questions.length} प्रश्न)</h3>
-            <div class="grid-container">
-                ${gridHtml}
-            </div>
-            <div class="flex justify-center" style="padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <button onclick="closeOverview()" class="btn-action btn-skip" style="margin: 0 8px;">वापस जाएँ</button>
-                <button onclick="submitQuizFromOverview()" class="btn-action btn-next" style="margin: 0 8px;">सबमिट करें</button>
+    let langSelectorHtml = '';
+    if (isBilingual) {
+        langSelectorHtml = `
+            <div style="margin-bottom: 16px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);" class="flex items-center justify-between">
+                <label style="font-size: 0.85rem; font-weight: bold; color: #38bdf8;">🌐 भाषा प्राथमिकता (Language):</label>
+                <select onchange="changeLanguagePreference(this.value)" style="background: #0f172a; color: #38bdf8; border: 1px solid #38bdf8; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer;">
+                    <option value="hi-pri" ${currentLang === 'hi-pri' ? 'selected' : ''}>हिंदी प्राथमिकता (Hindi Priority)</option>
+                    <option value="en-pri" ${currentLang === 'en-pri' ? 'selected' : ''}>अंग्रेज़ी प्राथमिकता (English Priority)</option>
+                    <option value="only-hi" ${currentLang === 'only-hi' ? 'selected' : ''}>केवल हिंदी (Only Hindi)</option>
+                    <option value="only-en" ${currentLang === 'only-en' ? 'selected' : ''}>केवल अंग्रेज़ी (Only English)</option>
+                </select>
             </div>
         `;
-        appDiv.appendChild(overviewDiv);
     }
+
+    const overviewDiv = document.createElement('div');
+    overviewDiv.id = 'overview-overlay';
+    overviewDiv.className = 'overview-panel fade-in';
+    overviewDiv.innerHTML = `
+        <h3 style="font-size: 1.35rem; font-weight: bold; margin-bottom: 12px; text-align: center; color: #f8fafc;">प्रश्नावली ओवरव्यू (कुल ${questions.length} प्रश्न)</h3>
+        ${langSelectorHtml}
+        <div class="grid-container">
+            ${gridHtml}
+        </div>
+        <div class="flex justify-center" style="padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <button onclick="closeOverview()" class="btn-action btn-skip" style="margin: 0 8px;">वापस जाएँ</button>
+            <button onclick="submitQuizFromOverview()" class="btn-action btn-next" style="margin: 0 8px;">सबमिट करें</button>
+        </div>
+    `;
+    appDiv.appendChild(overviewDiv);
+}
+
+// भाषा बदलने और LocalStorage में सेव करने का फ़ंक्शन
+function changeLanguagePreference(newLang) {
+    localStorage.setItem('quiz_lang_pref', newLang);
+    closeOverview();
+    renderQuestion(); // नए लेआउट के साथ प्रश्न को पुनः रेंडर करें
+}
 
     function closeOverview() {
         const overlay = document.getElementById('overview-overlay');
