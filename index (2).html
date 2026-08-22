@@ -1,0 +1,3107 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Quiz Portal - स्मार्ट अध्ययन पोर्टल</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0A0E1A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
+    <!-- Google Fonts: Space Grotesk + Inter + Mukta (Hindi) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Mukta:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+<!-- GLASSMORPHISM CSS -->
+/* ===== CSS RESET (replaces Tailwind preflight) ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+input, select, textarea { font: inherit; color: inherit; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+table { border-collapse: collapse; }
+
+:root {
+  --bg-dark: #0A0E1A;
+  --bg-light: #F0F2F8;
+  --glass-1-bg: rgba(255,255,255,0.06);
+  --glass-2-bg: rgba(255,255,255,0.12);
+  --glass-3-bg: rgba(255,255,255,0.18);
+  --glass-4-bg: rgba(255,255,255,0.25);
+  --glass-border: rgba(255,255,255,0.15);
+  --glass-border-bright: rgba(255,255,255,0.30);
+  --glass-border-active: rgba(255,255,255,0.40);
+  --blur-1: 40px;
+  --blur-2: 20px;
+  --blur-3: 30px;
+  --blur-4: 16px;
+  --indigo: #6366F1;
+  --indigo-2: #818CF8;
+  --violet: #8B5CF6;
+  --violet-2: #A78BFA;
+  --emerald: #10B981;
+  --emerald-2: #34D399;
+  --emerald-glow: rgba(16,185,129,0.25);
+  --rose: #F43F5E;
+  --rose-glow: rgba(244,63,94,0.25);
+  --amber: #F59E0B;
+  --amber-glow: rgba(245,158,11,0.25);
+  --cyan: #06B6D4;
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255,255,255,0.70);
+  --text-muted: rgba(255,255,255,0.50);
+  --shadow-contact: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-depth: 0 20px 60px -10px rgba(0,0,0,0.4);
+  --shadow-elevated: 0 12px 40px -8px rgba(0,0,0,0.3);
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 100px;
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+[data-theme="light"] {
+  --glass-1-bg: rgba(255,255,255,0.55);
+  --glass-2-bg: rgba(255,255,255,0.65);
+  --glass-3-bg: rgba(255,255,255,0.75);
+  --glass-4-bg: rgba(255,255,255,0.85);
+  --glass-border: rgba(255,255,255,0.60);
+  --glass-border-bright: rgba(99,102,241,0.20);
+  --glass-border-active: rgba(99,102,241,0.40);
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --shadow-depth: 0 20px 60px -10px rgba(0,0,0,0.15);
+  --shadow-elevated: 0 12px 40px -8px rgba(0,0,0,0.12);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+  position: relative;
+}
+
+/* ===== AURORA BACKGROUND ===== */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+[data-theme="light"] .aurora-bg { background: var(--bg-light); }
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  animation: drift 25s ease-in-out infinite;
+}
+[data-theme="light"] .aurora-orb { opacity: 0.3; }
+
+.aurora-orb:nth-child(1) {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--indigo) 0%, transparent 70%);
+  top: -200px; left: -100px;
+  animation-delay: 0s;
+}
+.aurora-orb:nth-child(2) {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--emerald) 0%, transparent 70%);
+  top: 30%; right: -150px;
+  animation-delay: -8s;
+}
+.aurora-orb:nth-child(3) {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, var(--violet) 0%, transparent 70%);
+  bottom: -100px; left: 30%;
+  animation-delay: -15s;
+}
+.aurora-orb:nth-child(4) {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
+  top: 60%; left: -100px;
+  animation-delay: -20s;
+  opacity: 0.25;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(50px, 30px) scale(1.05); }
+  50% { transform: translate(-30px, 60px) scale(0.95); }
+  75% { transform: translate(40px, -20px) scale(1.02); }
+}
+
+/* Noise texture overlay */
+.aurora-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* ===== GLASS SURFACE MIXINS ===== */
+.glass-1 {
+  background: rgba(20,24,38,0.45);
+  backdrop-filter: blur(var(--blur-1)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-1)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-depth);
+}
+.glass-2 {
+  background: rgba(20,24,38,0.55);
+  backdrop-filter: blur(var(--blur-2)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-2)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-contact), var(--shadow-elevated);
+}
+.glass-3 {
+  background: rgba(20,24,38,0.65);
+  backdrop-filter: blur(var(--blur-3)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-3)) saturate(180%);
+  border: 1px solid var(--glass-border-bright);
+  box-shadow: var(--shadow-elevated);
+}
+.glass-4 {
+  background: rgba(20,24,38,0.75);
+  backdrop-filter: blur(var(--blur-4)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-4)) saturate(180%);
+  border: 1px solid var(--glass-border-active);
+  box-shadow: var(--shadow-elevated), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* ===== LAYOUT ===== */
+.app-shell {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+}
+
+/* ===== FLOATING NAV ===== */
+.nav-float {
+  position: sticky;
+  top: 12px;
+  z-index: 100;
+  margin: 12px 16px 0;
+  max-width: 1068px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.nav-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  transition: all 0.3s var(--ease-spring);
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.nav-brand-icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--indigo), var(--violet));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.nav-brand-icon::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+}
+.nav-brand-icon svg {
+  width: 20px; height: 20px;
+  stroke: #fff; stroke-width: 2; fill: none;
+  stroke-linecap: round; stroke-linejoin: round;
+  position: relative; z-index: 1;
+}
+.nav-brand-text { display: flex; flex-direction: column; }
+.nav-brand-text .name {
+  font-size: 15px; font-weight: 700;
+  letter-spacing: -0.02em; color: var(--text-primary);
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+}
+.nav-brand-text .tag {
+  font-size: 10px; color: var(--indigo-2);
+  font-weight: 600; letter-spacing: 0.04em;
+}
+[data-theme="light"] .nav-brand-text .tag { color: var(--indigo); }
+
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+
+/* Course selector pill */
+.course-pill {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s var(--ease-spring);
+}
+.course-pill:hover { transform: scale(1.03); }
+.course-pill:active { transform: scale(0.97); }
+.course-pill .chev {
+  width: 14px; height: 14px;
+  transition: transform 0.3s var(--ease-spring);
+}
+.course-pill.open .chev { transform: rotate(180deg); }
+
+/* Course dropdown */
+.course-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  border-radius: var(--radius-md);
+  padding: 6px;
+  z-index: 200;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+  pointer-events: none;
+  transition: all 0.25s var(--ease-spring);
+}
+.course-dropdown.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.course-option {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-secondary);
+}
+.course-option:hover { background: var(--glass-2-bg); }
+.course-option.active {
+  background: var(--glass-3-bg);
+  color: var(--text-primary);
+}
+.course-option .chip {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.course-option .check {
+  margin-left: auto;
+  width: 16px; height: 16px;
+  stroke: var(--indigo-2); stroke-width: 3;
+  fill: none; stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0; transition: opacity 0.2s ease;
+}
+.course-option.active .check { opacity: 1; }
+
+/* Icon buttons */
+.icon-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  position: relative;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-2-bg);
+  backdrop-filter: blur(var(--blur-2)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-2)) saturate(180%);
+}
+.icon-btn:hover { transform: scale(1.08); border-color: var(--glass-border-bright); }
+.icon-btn:active { transform: scale(0.95); }
+.icon-btn svg {
+  width: 18px; height: 18px;
+  stroke: var(--text-secondary); stroke-width: 2;
+  fill: none; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Back button */
+.back-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+  animation: slideInLeft 0.35s var(--ease-spring);
+}
+.back-btn:hover { transform: translateX(-2px); }
+.back-btn:active { transform: scale(0.97); }
+.back-btn svg {
+  width: 16px; height: 16px;
+  stroke: var(--text-secondary); stroke-width: 2.5;
+  fill: none; stroke-linecap: round; stroke-linejoin: round;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== GREETING ===== */
+.greeting {
+  padding: 28px 4px 8px;
+  animation: fadeInUp 0.5s var(--ease-spring);
+}
+.greeting .hello {
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.03em;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  color: var(--text-primary);
+}
+.greeting .date {
+  font-size: 13px; color: var(--text-muted);
+  font-weight: 500; margin-top: 4px;
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== HERO STREAK CARD ===== */
+.hero-card {
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s var(--ease-spring) 0.1s forwards;
+}
+.hero-card::before {
+  content: "";
+  position: absolute;
+  top: -40%; right: -10%;
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, var(--emerald-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.streak-info { display: flex; align-items: center; gap: 12px; }
+.streak-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--amber), #F97316);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  animation: flicker 2s ease-in-out infinite;
+}
+@keyframes flicker {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.streak-text .v {
+  font-size: 22px; font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+}
+.streak-text .l {
+  font-size: 12px; color: var(--text-muted);
+  font-weight: 500;
+}
+.weekly-bars {
+  display: flex; align-items: flex-end; gap: 4px;
+  height: 32px;
+}
+.weekly-bars .bar {
+  width: 8px;
+  border-radius: 4px;
+  background: var(--glass-3-bg);
+  transition: height 0.4s var(--ease-spring);
+}
+.weekly-bars .bar.active {
+  background: linear-gradient(180deg, var(--indigo-2), var(--indigo));
+}
+.weekly-bars .bar.today {
+  background: linear-gradient(180deg, var(--emerald-2), var(--emerald));
+  box-shadow: 0 0 8px var(--emerald-glow);
+}
+
+.progress-line {
+  position: relative; z-index: 1;
+}
+.progress-line .label {
+  display: flex; justify-content: space-between;
+  font-size: 12px; font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.progress-line .label .pct { color: var(--emerald-2); }
+.progress-track {
+  height: 6px;
+  border-radius: 100px;
+  background: var(--glass-2-bg);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--indigo), var(--violet), var(--emerald));
+  transition: width 0.8s var(--ease-spring);
+  box-shadow: 0 0 12px rgba(99,102,241,0.4);
+}
+
+/* ===== QUICK ACTIONS ===== */
+.quick-actions {
+  display: flex; gap: 10px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.quick-actions::-webkit-scrollbar { display: none; }
+.qa-pill {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  flex-shrink: 0;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-2-bg);
+  backdrop-filter: blur(var(--blur-2));
+  -webkit-backdrop-filter: blur(var(--blur-2));
+}
+.qa-pill:hover { transform: translateY(-2px); border-color: var(--glass-border-bright); }
+.qa-pill:active { transform: scale(0.96); }
+.qa-pill.primary {
+  background: var(--glass-4-bg);
+  border-color: var(--glass-border-active);
+  color: var(--text-primary);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.2);
+}
+.qa-pill .icon { font-size: 16px; }
+
+/* ===== SECTION HEADING ===== */
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin: 28px 4px 14px;
+  flex-wrap: wrap; gap: 6px;
+  animation: fadeInUp 0.5s var(--ease-spring);
+}
+.section-head h2 {
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.section-head p {
+  font-size: 13px; color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+/* ===== SUBJECT CARD GRID ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+.subject-card {
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
+  animation: cardIn 0.5s var(--ease-spring) forwards;
+}
+@keyframes cardIn {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.subject-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-bright);
+  box-shadow: var(--shadow-elevated), 0 0 24px rgba(99,102,241,0.15);
+}
+.subject-card:active { transform: translateY(-1px); }
+
+.subject-card-top { display: flex; align-items: flex-start; gap: 12px; }
+.subject-card-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  border: 1px solid var(--glass-border);
+}
+.subject-card-icon.science { background: rgba(99,102,241,0.15); }
+.subject-card-icon.hindi { background: rgba(245,158,11,0.15); }
+.subject-card-icon.social { background: rgba(16,185,129,0.15); }
+.subject-card-icon.english { background: rgba(6,182,212,0.15); }
+.subject-card-icon.math { background: rgba(244,63,94,0.15); }
+.subject-card-icon.common { background: rgba(139,92,246,0.15); }
+
+.subject-card h3 {
+  font-size: 16px; font-weight: 700;
+  color: var(--text-primary);
+  margin: 0; letter-spacing: -0.01em;
+  line-height: 1.35;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.subject-card p {
+  font-size: 12px; color: var(--text-muted);
+  margin: 4px 0 0; line-height: 1.4;
+}
+
+.subject-card-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--glass-border);
+}
+.subject-card-foot .count {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+.subject-card-foot .chevron {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--glass-3-bg);
+  transition: transform 0.25s var(--ease-spring);
+}
+.subject-card:hover .chevron { transform: translateX(4px); }
+.subject-card-foot .chevron svg {
+  width: 14px; height: 14px;
+  stroke: var(--indigo-2); stroke-width: 2.5;
+  fill: none; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ===== CHAPTER LIST ===== */
+.chapter-list {
+  display: flex; flex-direction: column;
+  gap: 6px;
+  border-radius: var(--radius-md);
+  padding: 8px;
+}
+.chapter-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  animation: rowIn 0.4s var(--ease-spring) forwards;
+}
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.chapter-row:hover {
+  background: var(--glass-2-bg);
+  transform: translateX(4px);
+}
+.chapter-row:active { transform: scale(0.99); }
+.chapter-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px;
+  color: var(--text-secondary);
+  background: var(--glass-2-bg);
+  border: 1px solid var(--glass-border);
+  flex-shrink: 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.chapter-body { flex: 1; min-width: 0; }
+.chapter-body .status {
+  font-size: 10px; color: var(--text-muted);
+  font-weight: 700; letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.chapter-body .title {
+  font-size: 14px; font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+.chapter-play {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s var(--ease-spring);
+  background: var(--glass-3-bg);
+  border: 1px solid var(--glass-border-bright);
+}
+.chapter-play:hover {
+  background: var(--glass-4-bg);
+  box-shadow: 0 0 16px rgba(99,102,241,0.3);
+}
+.chapter-play svg {
+  width: 14px; height: 14px;
+  fill: var(--indigo-2);
+}
+
+/* ===== QUIZ ENGINE ===== */
+.quiz-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 0 40px;
+}
+.quiz-panel {
+  border-radius: var(--radius-xl);
+  min-height: 520px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  animation: fadeInUp 0.5s var(--ease-spring);
+}
+
+/* Quiz header (floating) */
+.quiz-header {
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid var(--glass-border);
+  position: relative;
+}
+.quiz-header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.q-counter {
+  font-size: 15px; font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.q-counter .current {
+  font-size: 20px; font-weight: 800;
+  color: var(--indigo-2);
+}
+.q-counter .total { color: var(--text-muted); }
+.q-score {
+  display: flex; align-items: center; gap: 8px;
+}
+.score-pill {
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 700;
+  color: var(--text-primary);
+  background: var(--glass-3-bg);
+  border: 1px solid var(--glass-border-bright);
+}
+.score-pill .v { color: var(--emerald-2); }
+
+/* Segmented progress */
+.seg-progress {
+  display: flex; gap: 3px;
+  padding: 0 50px 0 0;
+}
+.seg {
+  flex: 1;
+  height: 4px;
+  border-radius: 100px;
+  background: var(--glass-2-bg);
+  transition: background 0.3s ease;
+}
+.seg.correct { background: var(--emerald); box-shadow: 0 0 6px var(--emerald-glow); }
+.seg.wrong { background: var(--rose); box-shadow: 0 0 6px var(--rose-glow); }
+.seg.skipped { background: var(--amber); }
+.seg.current { background: var(--indigo); box-shadow: 0 0 8px rgba(99,102,241,0.5); }
+
+/* Quiz body */
+.quiz-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+  display: flex; flex-direction: column;
+}
+.question-card {
+  margin-bottom: 24px;
+  animation: slideInRight 0.35s var(--ease-spring);
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInLeftQ {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.question-card.prev { animation: slideInLeftQ 0.35s var(--ease-spring); }
+
+.question-hi {
+  font-size: 19px; font-weight: 800;
+  line-height: 1.5;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.question-en {
+  font-size: 14px; font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-muted);
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* Options */
+.options-container {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+.option-btn {
+  display: flex; align-items: center; gap: 14px;
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+  text-align: left;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-primary);
+  font-family: inherit;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-2-bg);
+  backdrop-filter: blur(var(--blur-2)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-2)) saturate(180%);
+  animation: optIn 0.4s var(--ease-spring) forwards;
+}
+@keyframes optIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.option-btn:hover:not(:disabled) {
+  border-color: var(--glass-border-bright);
+  background: var(--glass-3-bg);
+  transform: translateX(4px);
+}
+.option-btn:active:not(:disabled) { transform: scale(0.98); }
+.option-btn:disabled { cursor: default; }
+
+.option-letter {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px;
+  color: var(--text-muted);
+  background: var(--glass-3-bg);
+  border: 1px solid var(--glass-border);
+  flex-shrink: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: all 0.3s var(--ease-spring);
+}
+.option-text { flex: 1; }
+.option-icon {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.option-icon svg { width: 20px; height: 20px; }
+
+/* Answer states */
+.option-btn.correct {
+  border-color: var(--emerald);
+  background: rgba(16,185,129,0.12);
+  box-shadow: 0 0 20px var(--emerald-glow);
+}
+.option-btn.correct .option-letter {
+  background: var(--emerald);
+  color: #fff;
+  border-color: var(--emerald);
+}
+.option-btn.correct .option-icon svg {
+  stroke: var(--emerald);
+}
+.option-btn.wrong {
+  border-color: var(--rose);
+  background: rgba(244,63,94,0.12);
+  box-shadow: 0 0 20px var(--rose-glow);
+  animation: shake 0.3s ease;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+.option-btn.wrong .option-letter {
+  background: var(--rose);
+  color: #fff;
+  border-color: var(--rose);
+}
+.option-btn.wrong .option-icon svg {
+  stroke: var(--rose);
+}
+.option-btn.disabled-opt {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Quiz footer (floating) */
+.quiz-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 28px;
+  border-top: 1px solid var(--glass-border);
+  min-height: 72px;
+}
+.btn-skip {
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+}
+.btn-skip:hover { background: var(--glass-2-bg); color: var(--text-primary); }
+.btn-skip:active { transform: scale(0.96); }
+
+.btn-next {
+  padding: 11px 26px;
+  border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  font-family: inherit;
+  background: linear-gradient(135deg, var(--indigo), var(--violet));
+  border: 1px solid var(--glass-border-active);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+  animation: fadeInUp 0.3s var(--ease-spring);
+}
+.btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(99,102,241,0.4); }
+.btn-next:active { transform: scale(0.96); }
+
+.btn-prev {
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+}
+
+/* ===== START SCREEN ===== */
+.start-screen {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 40px 28px;
+  text-align: center;
+  animation: fadeInUp 0.5s var(--ease-spring);
+}
+.start-icon {
+  width: 80px; height: 80px;
+  border-radius: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+  margin-bottom: 24px;
+  background: var(--glass-3-bg);
+  border: 1px solid var(--glass-border-bright);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); }
+  50% { box-shadow: 0 0 30px 8px rgba(99,102,241,0.15); }
+}
+.start-title {
+  font-size: 26px; font-weight: 800;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.start-subtitle {
+  font-size: 15px; color: var(--emerald-2);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.start-desc {
+  font-size: 13px; color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 440px;
+  margin-bottom: 24px;
+}
+.quiz-info-strip {
+  display: flex; gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.info-chip {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 12px; font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--glass-2-bg);
+  border: 1px solid var(--glass-border);
+}
+.info-chip .icon { font-size: 14px; }
+
+/* Language pills */
+.lang-pills {
+  display: flex; gap: 6px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.lang-pill {
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 11px; font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  background: var(--glass-2-bg);
+  border: 1px solid var(--glass-border);
+}
+.lang-pill:hover { color: var(--text-secondary); }
+.lang-pill.active {
+  background: var(--glass-4-bg);
+  color: var(--text-primary);
+  border-color: var(--glass-border-active);
+  box-shadow: 0 4px 16px rgba(99,102,241,0.2);
+}
+
+.btn-start {
+  padding: 14px 40px;
+  border-radius: var(--radius-md);
+  font-size: 15px; font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  font-family: inherit;
+  background: linear-gradient(135deg, var(--indigo), var(--violet));
+  border: 1px solid var(--glass-border-active);
+  box-shadow: 0 6px 28px rgba(99,102,241,0.3);
+  animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+.btn-start:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 36px rgba(99,102,241,0.4); }
+.btn-start:active { transform: scale(0.97); }
+
+/* ===== LOADING SKELETON ===== */
+.skeleton-card {
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.skel-line {
+  height: 16px;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--glass-2-bg) 0%, var(--glass-3-bg) 50%, var(--glass-2-bg) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  margin-bottom: 12px;
+}
+.skel-line.w60 { width: 60%; }
+.skel-line.w40 { width: 40%; }
+.skel-line.w80 { width: 80%; }
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skel-spinner {
+  width: 44px; height: 44px;
+  border: 3px solid var(--glass-2-bg);
+  border-top-color: var(--indigo-2);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== BOTTOM SHEET (Overview) ===== */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.sheet-overlay.open { opacity: 1; pointer-events: auto; }
+
+.bottom-sheet {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 20px 24px 32px;
+  max-height: 70vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.4s var(--ease-spring);
+}
+.bottom-sheet.open { transform: translateY(0); }
+.sheet-handle {
+  width: 40px; height: 4px;
+  border-radius: 100px;
+  background: var(--glass-border-bright);
+  margin: 0 auto 16px;
+}
+.sheet-title {
+  font-size: 18px; font-weight: 700;
+  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.sheet-sub {
+  font-size: 12px; color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Navigator grid */
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+@media (min-width: 640px) {
+  .nav-grid { grid-template-columns: repeat(8, 1fr); }
+}
+.nav-cell {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s var(--ease-spring);
+  background: var(--glass-2-bg);
+  border: 1px solid var(--glass-border);
+  border-bottom: 3px solid transparent;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.nav-cell:hover { transform: scale(1.08); }
+.nav-cell.correct { border-bottom-color: var(--emerald); color: var(--emerald-2); }
+.nav-cell.wrong { border-bottom-color: var(--rose); color: var(--rose); }
+.nav-cell.skipped { border-bottom-color: var(--amber); color: var(--amber); }
+.nav-cell.current { border-bottom-color: var(--indigo-2); color: var(--indigo-2); background: var(--glass-3-bg); }
+
+.sheet-actions {
+  display: flex; justify-content: center; gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* ===== RESULT SCREEN ===== */
+.result-screen {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px 28px;
+  text-align: center;
+  overflow-y: auto;
+}
+.result-chapter {
+  font-size: 16px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.result-sub {
+  font-size: 12px; color: var(--text-muted);
+  margin-bottom: 20px;
+}
+.result-complete {
+  font-size: 18px; font-weight: 700;
+  color: var(--emerald-2);
+  margin-bottom: 24px;
+}
+.score-ring-wrap {
+  position: relative;
+  width: 180px; height: 180px;
+  margin-bottom: 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.score-ring { width: 100%; height: 100%; }
+.score-ring .ring-bg {
+  fill: none;
+  stroke: var(--glass-2-bg);
+  stroke-width: 3;
+}
+.score-ring .ring-fill {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dasharray 1.2s var(--ease-spring);
+}
+.score-center {
+  position: absolute;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.score-pct {
+  font-size: 42px; font-weight: 900;
+  color: var(--text-primary);
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+}
+.score-grade {
+  font-size: 13px; font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Stat tiles */
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 420px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+@media (max-width: 480px) {
+  .stat-tiles { grid-template-columns: repeat(2, 1fr); }
+}
+.stat-tile {
+  padding: 16px 8px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  opacity: 1;
+  animation: cardIn 0.5s var(--ease-spring) forwards;
+}
+.stat-tile:nth-child(1) { animation-delay: 0.1s; }
+.stat-tile:nth-child(2) { animation-delay: 0.2s; }
+.stat-tile:nth-child(3) { animation-delay: 0.3s; }
+.stat-tile:nth-child(4) { animation-delay: 0.4s; }
+.stat-tile .stat-icon { font-size: 18px; margin-bottom: 6px; }
+.stat-tile .stat-label {
+  font-size: 10px; font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+.stat-tile .stat-val {
+  font-size: 22px; font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.stat-tile.correct { border: 1px solid rgba(16,185,129,0.2); }
+.stat-tile.correct .stat-val { color: var(--emerald-2); }
+.stat-tile.wrong { border: 1px solid rgba(244,63,94,0.2); }
+.stat-tile.wrong .stat-val { color: var(--rose); }
+.stat-tile.skipped { border: 1px solid rgba(245,158,11,0.2); }
+.stat-tile.skipped .stat-val { color: var(--amber); }
+.stat-tile.total .stat-val { color: var(--text-primary); }
+
+.result-msg {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 380px;
+  margin-bottom: 28px;
+}
+
+.result-actions {
+  display: flex; flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+}
+.btn-action-primary {
+  padding: 13px 28px;
+  border-radius: var(--radius-md);
+  font-size: 14px; font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  font-family: inherit;
+  background: linear-gradient(135deg, var(--indigo), var(--violet));
+  border: 1px solid var(--glass-border-active);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+}
+.btn-action-primary:hover { transform: translateY(-2px); }
+.btn-action-primary:active { transform: scale(0.97); }
+
+.btn-action-ghost {
+  padding: 13px 28px;
+  border-radius: var(--radius-md);
+  font-size: 14px; font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  font-family: inherit;
+  background: var(--glass-2-bg);
+  border: 1px solid var(--glass-border);
+}
+.btn-action-ghost:hover { background: var(--glass-3-bg); color: var(--text-primary); }
+.btn-action-ghost:active { transform: scale(0.97); }
+
+/* ===== DEV MODAL ===== */
+.dev-modal-bg {
+  position: fixed; inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.dev-modal-bg.open { opacity: 1; pointer-events: auto; }
+.dev-modal {
+  max-width: 380px; width: 100%;
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  text-align: center;
+  transform: scale(0.9);
+  transition: transform 0.3s var(--ease-spring);
+}
+.dev-modal-bg.open .dev-modal { transform: scale(1); }
+.dev-modal-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  background: rgba(99,102,241,0.15);
+  border: 1px solid var(--glass-border-bright);
+}
+.dev-modal h3 {
+  font-size: 18px; font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.dev-modal p {
+  font-size: 13px; color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+/* ===== FOOTER ===== */
+.app-footer {
+  text-align: center;
+  padding: 20px 16px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* ===== UTILITIES ===== */
+.hidden { display: none !important; }
+.fade-in { animation: fadeInUp 0.3s var(--ease-spring); }
+
+/* Swipe hint */
+.swipe-hint {
+  font-size: 11px; color: var(--text-muted);
+  text-align: center;
+  padding: 4px;
+  animation: fadeOut 3s ease forwards;
+  animation-delay: 2s;
+}
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .app-shell { padding: 0 12px 40px; }
+  .greeting .hello { font-size: 24px; }
+  .card-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .subject-card { padding: 16px; }
+  .subject-card h3 { font-size: 14px; }
+  .nav-brand-text .name { font-size: 13px; }
+  .nav-brand-text .tag { display: none; }
+  .quiz-body { padding: 20px 18px; }
+  .question-hi { font-size: 17px; }
+  .option-btn { padding: 14px 14px; font-size: 13px; }
+}
+
+@media (min-width: 1024px) {
+  .card-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .aurora-orb { animation: none !important; }
+}
+
+/* Focus states */
+:focus-visible {
+  outline: 2px solid var(--indigo-2);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Glass shimmer (ambient) */
+.glass-2, .glass-3 {
+  position: relative;
+}
+.subject-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  animation: shimmerSweep 10s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shimmerSweep {
+  0%, 100% { left: -100%; }
+  50% { left: 200%; }
+}
+
+</style>
+
+</head>
+
+<body data-theme="dark">
+
+<!-- AURORA BACKGROUND -->
+<div class="aurora-bg">
+    <div class="aurora-orb"></div>
+    <div class="aurora-orb"></div>
+    <div class="aurora-orb"></div>
+    <div class="aurora-orb"></div>
+</div>
+
+<!-- FLOATING NAVIGATION -->
+<header class="nav-float">
+    <div class="nav-pill glass-3">
+        <div class="nav-brand" onclick="goHome()">
+            <div class="nav-brand-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <div class="nav-brand-text">
+                <span class="name">Smart Quiz Portal</span>
+                <span class="tag">डिजिटल लर्निंग प्लेटफॉर्म</span>
+            </div>
+        </div>
+        <div class="nav-actions">
+            <button id="back-btn" onclick="handleNavigationBack()" class="back-btn glass-2 hidden">
+                <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                <span>वापस</span>
+            </button>
+            <div class="course-pill glass-2" id="course-pill" onclick="toggleCourseDropdown(event)">
+                <span id="course-label">BSEB 10th</span>
+                <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="course-dropdown glass-3" id="course-dropdown">
+                <div class="course-option active" data-course="bseb10" onclick="selectCourse('bseb10')">
+                    <div class="chip" style="background:var(--indigo)"></div>
+                    <span>BSEB 10th</span>
+                    <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="course-option" data-course="bseb11" onclick="selectCourse('bseb11')">
+                    <div class="chip" style="background:var(--violet)"></div>
+                    <span>BSEB 11th</span>
+                    <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="course-option" data-course="bseb9" onclick="selectCourse('bseb9')">
+                    <div class="chip" style="background:var(--emerald)"></div>
+                    <span>BSEB 9th</span>
+                    <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="course-option" data-course="cbse10" onclick="selectCourse('cbse10')">
+                    <div class="chip" style="background:var(--cyan)"></div>
+                    <span>CBSE 10th</span>
+                    <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="course-option" data-course="cbse9" onclick="selectCourse('cbse9')">
+                    <div class="chip" style="background:var(--rose)"></div>
+                    <span>CBSE 9th</span>
+                    <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- DASHBOARD VIEW -->
+<main id="portal-dashboard" class="app-shell" style="padding-top:4px;">
+    <div class="greeting">
+        <div class="hello">नमस्ते, छात्र 👋</div>
+        <div class="date" id="today-date"></div>
+    </div>
+
+    <div class="hero-card glass-2">
+        <div class="hero-top">
+            <div class="streak-info">
+                <div class="streak-icon">🔥</div>
+                <div class="streak-text">
+                    <div class="v">7 दिन</div>
+                    <div class="l">लर्निंग स्ट्रीक</div>
+                </div>
+            </div>
+            <div class="weekly-bars">
+                <div class="bar" style="height:40%"></div>
+                <div class="bar" style="height:60%"></div>
+                <div class="bar active" style="height:30%"></div>
+                <div class="bar active" style="height:80%"></div>
+                <div class="bar" style="height:50%"></div>
+                <div class="bar active" style="height:70%"></div>
+                <div class="bar today" style="height:90%"></div>
+            </div>
+        </div>
+        <div class="progress-line">
+            <div class="label">
+                <span>पाठ्यक्रम प्रगति</span>
+                <span class="pct">65%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width:65%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quick-actions">
+        <div class="qa-pill primary" onclick="goHome()">
+            <span class="icon">▶</span> क्विज़ जारी रखें
+        </div>
+        <div class="qa-pill" onclick="goHome()">
+            <span class="icon">📝</span> रिवीजन टेस्ट
+        </div>
+        <div class="qa-pill" onclick="goHome()">
+            <span class="icon">⚠️</span> कमज़ोर टॉपिक
+        </div>
+        <div class="qa-pill" onclick="goHome()">
+            <span class="icon">🎯</span> मॉक टेस्ट
+        </div>
+    </div>
+
+    <div class="section-head">
+        <h2 id="dashboard-title">स्मार्ट अभ्यास, उत्कृष्ट परिणाम</h2>
+        <p id="dashboard-desc">विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस।</p>
+    </div>
+
+    <div id="quiz-grid" class="card-grid"></div>
+</main>
+
+<!-- QUIZ ENGINE VIEW -->
+<main id="quiz-engine-view" class="quiz-shell hidden" style="padding-top:20px;">
+    <div id="app" class="quiz-panel glass-1" style="position:relative;"></div>
+</main>
+
+<!-- BOTTOM SHEET OVERLAY -->
+<div class="sheet-overlay" id="sheet-overlay" onclick="closeOverview()"></div>
+<div class="bottom-sheet glass-3" id="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">प्रश्न नेविगेटर</div>
+    <div class="sheet-sub" id="sheet-sub"></div>
+    <div id="sheet-lang-area"></div>
+    <div class="nav-grid" id="nav-grid"></div>
+    <div class="sheet-actions">
+        <button onclick="closeOverview()" class="btn-skip">वापस जाएँ</button>
+        <button onclick="submitQuizFromOverview()" class="btn-next">सबमिट करें</button>
+    </div>
+</div>
+
+<!-- DEV MODAL -->
+<div class="dev-modal-bg" id="dev-modal">
+    <div class="dev-modal glass-3">
+        <div class="dev-modal-icon">⚙️</div>
+        <h3>सामग्री तैयार हो रही है!</h3>
+        <p>इस अध्याय के प्रश्नपत्र पर कार्य जारी है, यह शीघ्र ही लाइव कर दिया जाएगा। कृपया अन्य उपलब्ध क्विज़ का अभ्यास करें।</p>
+        <button onclick="closeDevModal()" class="btn-start" style="width:100%;">ठीक है, वापस जाएँ</button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="app-footer">
+    &copy; 2026 Smart Quiz Portal | Code By Logic — Created By SHIVAM KUMAR
+</footer>
+
+<script>
+    // =========================================================
+    // COMPLETE QUIZ DATA CONFIGURATION (All Boards & Classes)
+    // =========================================================
+
+    const coursesData = {
+        // -----------------------------------------------------
+        // 1. BSEB CLASS 10TH
+        // -----------------------------------------------------
+        bseb10: {
+            title: "🚀 बिहार बोर्ड कक्षा 10वीं सफलता पोर्टल",
+            baseDir: "data/BSEB/10th/",
+            data: [
+                {
+                    subjectName: "HINDI (हिंदी - गोधूलि)",
+                    icon: "📔",
+                    description: "कक्षा 10वीं बिहार बोर्ड हिंदी गद्यखंड एवं काव्यखंड।",
+                    sections: [
+                        {
+                            sectionName: "गद्यखंड (PROSE)",
+                            icon: "📖",
+                            chapters: [
+                                { name: "पाठ 01 (श्रम विभाजन और जाति प्रथा)", file: "HINDI/PROSE/01.json" },
+                                { name: "पाठ 02 (विष के दांत)", file: "HINDI/PROSE/02.json" },
+                                { name: "पाठ 03 (भारत से हम क्या सीखें)", file: "HINDI/PROSE/03.json" },
+                                { name: "पाठ 04 (नाखून क्यों बढ़ते हैं)", file: "HINDI/PROSE/04.json" },
+                                { name: "पाठ 05 (नागरी लिपि)", file: "HINDI/PROSE/05.json" },
+                                { name: "पाठ 06 (बहादुर)", file: "HINDI/PROSE/06.json" },
+                                { name: "पाठ 07 (परंपरा का मूल्यांकन)", file: "HINDI/PROSE/07.json" },
+                                { name: "पाठ 08 (जीत-जीत मैं निरखत हूँ)", file: "HINDI/PROSE/08.json" },
+                                { name: "पाठ 09 (अविन्यों)", file: "HINDI/PROSE/09.json" },
+                                { name: "पाठ 10 (मछली)", file: "HINDI/PROSE/10.json" },
+                                { name: "पाठ 11 (नौबतखाने में इबादत)", file: "HINDI/PROSE/11.json" },
+                                { name: "पाठ 12 (शिक्षा और संस्कृति)", file: "HINDI/PROSE/12.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "काव्यखंड (POETRY)",
+                            icon: "✍️",
+                            chapters: [
+                                { name: "पाठ 01 (राम नाम बिनु बिरथे जगि जन्मा)", file: "HINDI/POETRY/01.json" },
+                                { name: "पाठ 02 (प्रेम अयनि श्री राधिका)", file: "HINDI/POETRY/02.json" },
+                                { name: "पाठ 03 (अति सूधो सनेह को मारगु है)", file: "HINDI/POETRY/03.json" },
+                                { name: "पाठ 04 (स्वदेशी)", file: "HINDI/POETRY/04.json" },
+                                { name: "पाठ 05 (भारतमाता)", file: "HINDI/POETRY/05.json" },
+                                { name: "पाठ 06 (जनतंत्र का जन्म)", file: "HINDI/POETRY/06.json" },
+                                { name: "पाठ 07 (हिरोशिमा)", file: "HINDI/POETRY/07.json" },
+                                { name: "पाठ 08 (एक वृक्ष की हत्या)", file: "HINDI/POETRY/08.json" },
+                                { name: "पाठ 09 (हमारी नींद)", file: "HINDI/POETRY/09.json" },
+                                { name: "पाठ 10 (अक्षर-ज्ञान)", file: "HINDI/POETRY/10.json" },
+                                { name: "पाठ 11 (लौटकर आऊँगा फिर)", file: "HINDI/POETRY/11.json" },
+                                { name: "पाठ 12 (मेरे बिना तुम प्रभु)", file: "HINDI/POETRY/12.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "SCIENCE (विज्ञान)",
+                    icon: "🧪",
+                    description: "भौतिकी, रसायनशास्त्र और जीवविज्ञान के वस्तुनिष्ठ प्रश्न।",
+                    sections: [
+                        {
+                            sectionName: "PHYSICS (भौतिक विज्ञान)",
+                            icon: "⚡",
+                            chapters: [
+                                { name: "अध्याय 01 (प्रकाश का परावर्तन एवं अपवर्तन)", file: "SCIENCE/PHYSICS/01.json" },
+                                { name: "अध्याय 02 (मानव नेत्र और रंगबिरंगा संसार)", file: "SCIENCE/PHYSICS/02.json" },
+                                { name: "अध्याय 03 (विद्युत धारा)", file: "SCIENCE/PHYSICS/03.json" },
+                                { name: "अध्याय 04 (विद्युत धारा का चुंबकीय प्रभाव)", file: "SCIENCE/PHYSICS/04.json" },
+                                { name: "अध्याय 05 (ऊर्जा के स्रोत)", file: "SCIENCE/PHYSICS/05.json" },
+                                { name: "अध्याय 06 (प्रायोगिक एवं अति-महत्वपूर्ण)", file: "SCIENCE/PHYSICS/06.json" },
+                                { name: "अध्याय 07 (भौतिकी रिवीजन मॉडल)", file: "SCIENCE/PHYSICS/07.json" },
+                                { name: "मेगा टेस्ट (Mega Physics Test)", file: "SCIENCE/PHYSICS/mega.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "CHEMISTRY (रसायन विज्ञान)",
+                            icon: "⚗️",
+                            chapters: [
+                                { name: "अध्याय 01 (रासायनिक अभिक्रियाएं एवं समीकरण)", file: "SCIENCE/CHEMISTRY/01.json" },
+                                { name: "अध्याय 02 (अम्ल, क्षारक एवं लवण)", file: "SCIENCE/CHEMISTRY/02.json" },
+                                { name: "अध्याय 03 (धातु एवं अधातु)", file: "SCIENCE/CHEMISTRY/03.json" },
+                                { name: "अध्याय 04 (कार्बन एवं इसके यौगिक)", file: "SCIENCE/CHEMISTRY/04.json" },
+                                { name: "अध्याय 05 (तत्वों का आवर्त वर्गीकरण)", file: "SCIENCE/CHEMISTRY/05.json" },
+                                { name: "अध्याय 06 (प्राकृतिक संसाधन प्रबंधन)", file: "SCIENCE/CHEMISTRY/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "BIOLOGY (जीव विज्ञान)",
+                            icon: "🧬",
+                            chapters: [
+                                { name: "अध्याय 01 (जैव प्रक्रम)", file: "SCIENCE/BIOLOGY/01.json" },
+                                { name: "अध्याय 02 (नियंत्रण एवं समन्वय)", file: "SCIENCE/BIOLOGY/02.json" },
+                                { name: "अध्याय 03 (जीव जनन कैसे करते हैं)", file: "SCIENCE/BIOLOGY/03.json" },
+                                { name: "अध्याय 04 (आनुवंशिकता एवं जैव विकास)", file: "SCIENCE/BIOLOGY/04.json" },
+                                { name: "अध्याय 05 (हमारा पर्यावरण)", file: "SCIENCE/BIOLOGY/05.json" },
+                                { name: "अध्याय 06 (श्वसन और पोषण)", file: "SCIENCE/BIOLOGY/06.json" },
+                                { name: "अध्याय 07 (परिवहन और उत्सर्जन)", file: "SCIENCE/BIOLOGY/07.json" },
+                                { name: "अध्याय 08 (जीव विज्ञान रिवीजन)", file: "SCIENCE/BIOLOGY/08.json" },
+                                { name: "मेगा टेस्ट (Mega Biology Test)", file: "SCIENCE/BIOLOGY/mega.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "SOCIAL SCIENCE (सामाजिक विज्ञान)",
+                    icon: "🌍",
+                    description: "इतिहास, भूगोल, राजनीति, अर्थशास्त्र एवं आपदा प्रबंधन।",
+                    sections: [
+                        {
+                            sectionName: "HISTORY (इतिहास)",
+                            icon: "📜",
+                            chapters: [
+                                { name: "पाठ 01 (यूरोप में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/01.json" },
+                                { name: "पाठ 02 (समाजवाद एवं साम्यवाद)", file: "SOCIAL_SCIENCE/HISTORY/02.json" },
+                                { name: "पाठ 03 (हिन्द-चीन में राष्ट्रवादी आंदोलन)", file: "SOCIAL_SCIENCE/HISTORY/03.json" },
+                                { name: "पाठ 04 (भारत में राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/04.json" },
+                                { name: "पाठ 05 (अर्थव्यवस्था और आजीविका)", file: "SOCIAL_SCIENCE/HISTORY/05.json" },
+                                { name: "पाठ 06 (शहरीकरण एवं शहरी जीवन)", file: "SOCIAL_SCIENCE/HISTORY/06.json" },
+                                { name: "पाठ 07 (व्यापार और भूमंडलीकरण)", file: "SOCIAL_SCIENCE/HISTORY/07.json" },
+                                { name: "पाठ 08 (प्रेस-संस्कृति और राष्ट्रवाद)", file: "SOCIAL_SCIENCE/HISTORY/08.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "GEOGRAPHY (भूगोल)",
+                            icon: "🗺️",
+                            chapters: [
+                                { name: "इकाई 1: संसाधन एवं उपयोग", file: "SOCIAL_SCIENCE/GEOGRAPHY/010.json" },
+                                { name: "इकाई 1(क): प्राकृतिक संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/011.json" },
+                                { name: "इकाई 1(ख): जल संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/012.json" },
+                                { name: "इकाई 1(ग): वन एवं वन्य प्राणी", file: "SOCIAL_SCIENCE/GEOGRAPHY/013.json" },
+                                { name: "इकाई 1(घ): खनिज संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/014.json" },
+                                { name: "इकाई 1(ङ): शक्ति/ऊर्जा संसाधन", file: "SOCIAL_SCIENCE/GEOGRAPHY/015.json" },
+                                { name: "इकाई 2: कृषि", file: "SOCIAL_SCIENCE/GEOGRAPHY/020.json" },
+                                { name: "इकाई 3: निर्माण उद्योग", file: "SOCIAL_SCIENCE/GEOGRAPHY/030.json" },
+                                { name: "इकाई 4: परिवहन, संचार एवं व्यापार", file: "SOCIAL_SCIENCE/GEOGRAPHY/040.json" },
+                                { name: "इकाई 5: बिहार : कृषि एवं वन", file: "SOCIAL_SCIENCE/GEOGRAPHY/051.json" },
+                                { name: "इकाई 5(क): बिहार : खनिज एवं ऊर्जा", file: "SOCIAL_SCIENCE/GEOGRAPHY/052.json" },
+                                { name: "इकाई 5(ख): बिहार : उद्योग एवं परिवहन", file: "SOCIAL_SCIENCE/GEOGRAPHY/053.json" },
+                                { name: "इकाई 5(ग): बिहार : जनसंख्या एवं नगरीकरण", file: "SOCIAL_SCIENCE/GEOGRAPHY/054.json" },
+                                { name: "इकाई 6: मानचित्र अध्ययन", file: "SOCIAL_SCIENCE/GEOGRAPHY/060.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "POLITICAL SCIENCE (राजनीति विज्ञान)",
+                            icon: "⚖️",
+                            chapters: [
+                                { name: "पाठ 01 (लोकतंत्र में साझेदारी)", file: "SOCIAL_SCIENCE/POLITICS/01.json" },
+                                { name: "पाठ 02 (सत्ता में साझेदारी की कार्यप्रणाली)", file: "SOCIAL_SCIENCE/POLITICS/02.json" },
+                                { name: "पाठ 03 (लोकतंत्र की प्रतिस्पर्धा)", file: "SOCIAL_SCIENCE/POLITICS/03.json" },
+                                { name: "पाठ 04 (लोकतंत्र की उपलब्धियां)", file: "SOCIAL_SCIENCE/POLITICS/04.json" },
+                                { name: "पाठ 05 (लोकतंत्र की चुनौतियां)", file: "SOCIAL_SCIENCE/POLITICS/05.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "ECONOMICS (अर्थशास्त्र)",
+                            icon: "💰",
+                            chapters: [
+                                { name: "पाठ 01 (अर्थव्यवस्था एवं इसके विकास का इतिहास)", file: "SOCIAL_SCIENCE/ECONOMICS/01.json" },
+                                { name: "पाठ 02 (राज्य एवं राष्ट्र की आय)", file: "SOCIAL_SCIENCE/ECONOMICS/02.json" },
+                                { name: "पाठ 03 (मुद्रा, बचत एवं साख)", file: "SOCIAL_SCIENCE/ECONOMICS/03.json" },
+                                { name: "पाठ 04 (हमारी वित्तीय संस्थाएं)", file: "SOCIAL_SCIENCE/ECONOMICS/04.json" },
+                                { name: "पाठ 05 (रोजगार एवं सेवाएँ)", file: "SOCIAL_SCIENCE/ECONOMICS/05.json" },
+                                { name: "पाठ 06 (वैश्वीकरण)", file: "SOCIAL_SCIENCE/ECONOMICS/06.json" },
+                                { name: "पाठ 07 (उपभोक्ता जागरण एवं संरक्षण)", file: "SOCIAL_SCIENCE/ECONOMICS/07.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "DISASTER MANAGEMENT (आपदा प्रबंधन)",
+                            icon: "🚨",
+                            chapters: [
+                                { name: "पाठ 01 (प्राकृतिक आपदा : परिचय)", file: "SOCIAL_SCIENCE/DISASTER/01.json" },
+                                { name: "पाठ 02 (बाढ़ और सुखाड़)", file: "SOCIAL_SCIENCE/DISASTER/02.json" },
+                                { name: "पाठ 03 (भूकंप एवं सुनामी)", file: "SOCIAL_SCIENCE/DISASTER/03.json" },
+                                { name: "पाठ 04 (जीवन रक्षक आकस्मिक प्रबंधन)", file: "SOCIAL_SCIENCE/DISASTER/04.json" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+
+        // -----------------------------------------------------
+        // 2. BSEB CLASS 9TH
+        // -----------------------------------------------------
+        bseb9: {
+            title: "📘 बिहार बोर्ड कक्षा 9वीं ऑनलाइन पोर्टल",
+            baseDir: "data/BSEB/9th/",
+            data: [
+                {
+                    subjectName: "SCIENCE (विज्ञान)",
+                    icon: "🔬",
+                    sections: [
+                        {
+                            sectionName: "PHYSICS (भौतिकी)",
+                            icon: "⚡",
+                            chapters: [
+                                { name: "पाठ 01 (गति)", file: "SCIENCE/PHYSICS/01.json" },
+                                { name: "पाठ 02 (बल तथा गति के नियम)", file: "SCIENCE/PHYSICS/02.json" },
+                                { name: "पाठ 03 (गुरुत्वाकर्षण)", file: "SCIENCE/PHYSICS/03.json" },
+                                { name: "पाठ 04 (कार्य, ऊर्जा तथा शक्ति)", file: "SCIENCE/PHYSICS/04.json" },
+                                { name: "पाठ 05 (ध्वनि)", file: "SCIENCE/PHYSICS/05.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "CHEMISTRY (रसायन शास्त्र)",
+                            icon: "🧪",
+                            chapters: [
+                                { name: "पाठ 01 (हमारे आस-पास के पदार्थ)", file: "SCIENCE/CHEMISTRY/01.json" },
+                                { name: "पाठ 02 (क्या हमारे आस-पास के पदार्थ शुद्ध हैं)", file: "SCIENCE/CHEMISTRY/02.json" },
+                                { name: "पाठ 03 (परमाणु एवं अणु)", file: "SCIENCE/CHEMISTRY/03.json" },
+                                { name: "पाठ 04 (परमाणु की संरचना)", file: "SCIENCE/CHEMISTRY/04.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "BIOLOGY (जीव विज्ञान)",
+                            icon: "🧬",
+                            chapters: [
+                                { name: "पाठ 01 (जीवन की मौलिक इकाई)", file: "SCIENCE/BIOLOGY/01.json" },
+                                { name: "पाठ 02 (ऊतक)", file: "SCIENCE/BIOLOGY/02.json" },
+                                { name: "पाठ 03 (जीवों में विविधता)", file: "SCIENCE/BIOLOGY/03.json" },
+                                { name: "पाठ 04 (हम बीमार क्यों होते हैं)", file: "SCIENCE/BIOLOGY/04.json" },
+                                { name: "पाठ 05 (प्राकृतिक संपदा)", file: "SCIENCE/BIOLOGY/05.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "SOCIAL SCIENCE (सामाजिक विज्ञान)",
+                    icon: "🌍",
+                    sections: [
+                        {
+                            sectionName: "HISTORY (इतिहास)",
+                            icon: "📜",
+                            chapters: [
+                                { name: "पाठ 01 (भौगोलिक खोजें)", file: "SST/HISTORY/01.json" },
+                                { name: "पाठ 02 (अमेरिकी स्वतंत्रता संग्राम)", file: "SST/HISTORY/02.json" },
+                                { name: "पाठ 03 (फ्रांस की क्रांति)", file: "SST/HISTORY/03.json" },
+                                { name: "पाठ 04 (विश्वयुद्धों का इतिहास)", file: "SST/HISTORY/04.json" },
+                                { name: "पाठ 05 (नाज़ीवाद और हिटलर)", file: "SST/HISTORY/05.json" },
+                                { name: "पाठ 06 (वन्य समाज और उपनिवेशवाद)", file: "SST/HISTORY/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "GEOGRAPHY (भूगोल)",
+                            icon: "🗺️",
+                            chapters: [
+                                { name: "पाठ 01 (भारत : आकार और स्थिति)", file: "SST/GEOGRAPHY/01.json" },
+                                { name: "पाठ 02 (भारत का भौतिक स्वरूप)", file: "SST/GEOGRAPHY/02.json" },
+                                { name: "पाठ 03 (अपवाह)", file: "SST/GEOGRAPHY/03.json" },
+                                { name: "पाठ 04 (जलवायु)", file: "SST/GEOGRAPHY/04.json" },
+                                { name: "पाठ 05 (प्राकृतिक वनस्पति तथा वन्य प्राणी)", file: "SST/GEOGRAPHY/05.json" },
+                                { name: "पाठ 06 (जनसंख्या)", file: "SST/GEOGRAPHY/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "POLITICAL SCIENCE (राजनीतिक शास्त्र)",
+                            icon: "⚖️",
+                            chapters: [
+                                { name: "पाठ 01 (लोकतंत्र का क्रमिक विकास)", file: "SST/POLITICAL_SCIENCE/01.json" },
+                                { name: "पाठ 02 (लोकतंत्र क्या? लोकतंत्र क्यों?)", file: "SST/POLITICAL_SCIENCE/02.json" },
+                                { name: "पाठ 03 (संविधान निर्माण)", file: "SST/POLITICAL_SCIENCE/03.json" },
+                                { name: "पाठ 04 (चुनावी राजनीति)", file: "SST/POLITICAL_SCIENCE/04.json" },
+                                { name: "पाठ 05 (संस्थाओं का कामकाज)", file: "SST/POLITICAL_SCIENCE/05.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "ECONOMICS (अर्थशास्त्र)",
+                            icon: "💰",
+                            chapters: [
+                                { name: "पाठ 01 (बिहार के एक गाँव की कहानी)", file: "SST/ECONOMICS/01.json" },
+                                { name: "पाठ 02 (मानव एक संसाधन के रूप में)", file: "SST/ECONOMICS/02.json" },
+                                { name: "पाठ 03 (निर्धनता : एक चुनौती)", file: "SST/ECONOMICS/03.json" },
+                                { name: "पाठ 04 (भारत में खाद्य सुरक्षा)", file: "SST/ECONOMICS/04.json" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+
+        // -----------------------------------------------------
+        // 3. BSEB CLASS 11TH (SCIENCE)
+        // -----------------------------------------------------
+        bseb11: {
+            title: "🧪 बिहार बोर्ड कक्षा 11वीं (Science Stream)",
+            baseDir: "data/BSEB/11th/SCIENCE/",
+            data: [
+                {
+                    subjectName: "PHYSICS (भौतिक विज्ञान)",
+                    icon: "⚡",
+                    chapters: [
+                        { name: "अध्याय 01 (भौतिक जगत)", file: "PHYSICS/01.json" },
+                        { name: "अध्याय 02 (मात्रक और मापन)", file: "PHYSICS/02.json" },
+                        { name: "अध्याय 03 (सरल रेखा में गति)", file: "PHYSICS/03.json" },
+                        { name: "अध्याय 04 (समतल में गति)", file: "PHYSICS/04.json" },
+                        { name: "अध्याय 05 (गति के नियम)", file: "PHYSICS/05.json" },
+                        { name: "अध्याय 06 (कार्य, ऊर्जा और शक्ति)", file: "PHYSICS/06.json" },
+                        { name: "अध्याय 07 (कणों के निकाय तथा घूर्णी गति)", file: "PHYSICS/07.json" },
+                        { name: "अध्याय 08 (गुरुत्वाकर्षण)", file: "PHYSICS/08.json" },
+                        { name: "अध्याय 09 (ठोसों के यांत्रिक गुण)", file: "PHYSICS/09.json" },
+                        { name: "अध्याय 10 (तरलों के यांत्रिकी गुण)", file: "PHYSICS/10.json" },
+                        { name: "अध्याय 11 (द्रव्य के तापीय गुण)", file: "PHYSICS/11.json" },
+                        { name: "अध्याय 12 (ऊष्मागतिकी)", file: "PHYSICS/12.json" },
+                        { name: "अध्याय 13 (अणुगति सिद्धांत)", file: "PHYSICS/13.json" },
+                        { name: "अध्याय 14 (दोलन)", file: "PHYSICS/14.json" },
+                        { name: "अध्याय 15 (तरंगें)", file: "PHYSICS/15.json" }
+                    ]
+                },
+                {
+                    subjectName: "CHEMISTRY (रसायन विज्ञान)",
+                    icon: "⚗️",
+                    chapters: [
+                        { name: "अध्याय 01 (रसायन विज्ञान की मूल अवधारणाएं)", file: "CHEMISTRY/01.json" },
+                        { name: "अध्याय 02 (परमाणु की संरचना)", file: "CHEMISTRY/02.json" },
+                        { name: "अध्याय 03 (तत्वों का वर्गीकरण एवं आवर्तिता)", file: "CHEMISTRY/03.json" },
+                        { name: "अध्याय 04 (रासायनिक आबंधन तथा आण्विक संरचना)", file: "CHEMISTRY/04.json" },
+                        { name: "अध्याय 05 (ऊष्मागतिकी)", file: "CHEMISTRY/05.json" },
+                        { name: "अध्याय 06 (साम्यावस्था)", file: "CHEMISTRY/06.json" },
+                        { name: "अध्याय 07 (अपचयोपचय अभिक्रियाएं - Redox)", file: "CHEMISTRY/07.json" },
+                        { name: "अध्याय 08 (कार्बनिक रसायन: आधारभूत सिद्धांत)", file: "CHEMISTRY/08.json" },
+                        { name: "अध्याय 09 (हाइड्रोकार्बन)", file: "CHEMISTRY/09.json" }
+                    ]
+                },
+                {
+                    subjectName: "BIOLOGY (जीव विज्ञान)",
+                    icon: "🧬",
+                    chapters: [
+                        { name: "अध्याय 01 (जीव जगत)", file: "BIOLOGY/01.json" },
+                        { name: "अध्याय 02 (जीव जगत का वर्गीकरण)", file: "BIOLOGY/02.json" },
+                        { name: "अध्याय 03 (वनस्पति जगत)", file: "BIOLOGY/03.json" },
+                        { name: "अध्याय 04 (प्राणि जगत)", file: "BIOLOGY/04.json" },
+                        { name: "अध्याय 05 (पुष्पी पादपों की आकारिकी)", file: "BIOLOGY/05.json" },
+                        { name: "अध्याय 06 (पुष्पी पादपों का शरीर)", file: "BIOLOGY/06.json" },
+                        { name: "अध्याय 07 (प्राणियों में संरचनात्मक संगठन)", file: "BIOLOGY/07.json" },
+                        { name: "अध्याय 08 (कोशिका: जीवन की इकाई)", file: "BIOLOGY/08.json" },
+                        { name: "अध्याय 09 (जैव अणु)", file: "BIOLOGY/09.json" },
+                        { name: "अध्याय 10 (कोशिका चक्र और कोशिका विभाजन)", file: "BIOLOGY/10.json" },
+                        { name: "अध्याय 11 (उच्च पादपों में प्रकाश-संश्लेषण)", file: "BIOLOGY/11.json" },
+                        { name: "अध्याय 12 (पादप में श्वसन)", file: "BIOLOGY/12.json" },
+                        { name: "अध्याय 13 (पादप वृद्धि एवं परिवर्धन)", file: "BIOLOGY/13.json" },
+                        { name: "अध्याय 14 (श्वसन और गैसों का विनिमय)", file: "BIOLOGY/14.json" },
+                        { name: "अध्याय 15 (शरीर द्रव तथा परिसंचरण)", file: "BIOLOGY/15.json" },
+                        { name: "अध्याय 16 (उत्सर्जी उत्पाद एवं निष्कासन)", file: "BIOLOGY/16.json" },
+                        { name: "अध्याय 17 (गमन एवं संचलन)", file: "BIOLOGY/17.json" },
+                        { name: "अध्याय 18 (तंत्रकीय नियंत्रण एवं समन्वय)", file: "BIOLOGY/18.json" },
+                        { name: "अध्याय 19 (रासायनिक समन्वय तथा एकीकरण)", file: "BIOLOGY/19.json" }
+                    ]
+                }
+            ]
+        },
+
+        // -----------------------------------------------------
+        // 4. CBSE CLASS 10TH
+        // -----------------------------------------------------
+        cbse10: {
+            title: "🎓 CBSE Class 10th Online Portal",
+            baseDir: "data/CBSE/10th/",
+            data: [
+                {
+                    subjectName: "SCIENCE",
+                    icon: "🧪",
+                    sections: [
+                        {
+                            sectionName: "PHYSICS",
+                            icon: "⚡",
+                            chapters: [
+                                { name: "Chapter 01 (Light - Reflection and Refraction)", file: "SCIENCE/PHYSICS/01.json" },
+                                { name: "Chapter 02 (Human Eye and Colourful World)", file: "SCIENCE/PHYSICS/02.json" },
+                                { name: "Chapter 03 (Electricity)", file: "SCIENCE/PHYSICS/03.json" },
+                                { name: "Chapter 04 (Magnetic Effects of Electric Current)", file: "SCIENCE/PHYSICS/04.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "CHEMISTRY",
+                            icon: "⚗️",
+                            chapters: [
+                                { name: "Chapter 01 (Chemical Reactions and Equations)", file: "SCIENCE/CHEMISTRY/01.json" },
+                                { name: "Chapter 02 (Acids, Bases and Salts)", file: "SCIENCE/CHEMISTRY/02.json" },
+                                { name: "Chapter 03 (Metals and Non-metals)", file: "SCIENCE/CHEMISTRY/03.json" },
+                                { name: "Chapter 04 (Carbon and its Compounds)", file: "SCIENCE/CHEMISTRY/04.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "BIOLOGY",
+                            icon: "🧬",
+                            chapters: [
+                                { name: "Chapter 01 (Life Processes)", file: "SCIENCE/BIOLOGY/01.json" },
+                                { name: "Chapter 02 (Control and Coordination)", file: "SCIENCE/BIOLOGY/02.json" },
+                                { name: "Chapter 03 (How do Organisms Reproduce?)", file: "SCIENCE/BIOLOGY/03.json" },
+                                { name: "Chapter 04 (Heredity and Evolution)", file: "SCIENCE/BIOLOGY/04.json" },
+                                { name: "Chapter 05 (Our Environment)", file: "SCIENCE/BIOLOGY/05.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "ENGLISH",
+                    icon: "📖",
+                    sections: [
+                        {
+                            sectionName: "FIRST FLIGHT - PROSE",
+                            icon: "📘",
+                            chapters: [
+                                { name: "Chapter 01 (A Letter to God)", file: "ENGLISH/FIRST_FLIGHT/PROSE/01.json" },
+                                { name: "Chapter 02 (Nelson Mandela: Long Walk to Freedom)", file: "ENGLISH/FIRST_FLIGHT/PROSE/02.json" },
+                                { name: "Chapter 03 (Two Stories about Flying)", file: "ENGLISH/FIRST_FLIGHT/PROSE/03.json" },
+                                { name: "Chapter 04 (From the Diary of Anne Frank)", file: "ENGLISH/FIRST_FLIGHT/PROSE/04.json" },
+                                { name: "Chapter 05 (Glimpses of India)", file: "ENGLISH/FIRST_FLIGHT/PROSE/05.json" },
+                                { name: "Chapter 06 (Mijbil the Otter)", file: "ENGLISH/FIRST_FLIGHT/PROSE/06.json" },
+                                { name: "Chapter 07 (Madam Rides the Bus)", file: "ENGLISH/FIRST_FLIGHT/PROSE/07.json" },
+                                { name: "Chapter 08 (The Sermon at Benares)", file: "ENGLISH/FIRST_FLIGHT/PROSE/08.json" },
+                                { name: "Chapter 09 (The Proposal)", file: "ENGLISH/FIRST_FLIGHT/PROSE/09.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "FIRST FLIGHT - POETRY",
+                            icon: "✍️",
+                            chapters: [
+                                { name: "Poem 01 (Dust of Snow)", file: "ENGLISH/FIRST_FLIGHT/POETRY/01.json" },
+                                { name: "Poem 02 (Fire and Ice)", file: "ENGLISH/FIRST_FLIGHT/POETRY/02.json" },
+                                { name: "Poem 03 (A Tiger in the Zoo)", file: "ENGLISH/FIRST_FLIGHT/POETRY/03.json" },
+                                { name: "Poem 04 (How to Tell Wild Animals)", file: "ENGLISH/FIRST_FLIGHT/POETRY/04.json" },
+                                { name: "Poem 05 (The Ball Poem)", file: "ENGLISH/FIRST_FLIGHT/POETRY/05.json" },
+                                { name: "Poem 06 (Amanda!)", file: "ENGLISH/FIRST_FLIGHT/POETRY/06.json" },
+                                { name: "Poem 07 (The Trees)", file: "ENGLISH/FIRST_FLIGHT/POETRY/07.json" },
+                                { name: "Poem 08 (Fog)", file: "ENGLISH/FIRST_FLIGHT/POETRY/08.json" },
+                                { name: "Poem 09 (The Tale of Custard the Dragon)", file: "ENGLISH/FIRST_FLIGHT/POETRY/09.json" },
+                                { name: "Poem 10 (For Anne Gregory)", file: "ENGLISH/FIRST_FLIGHT/POETRY/10.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "FOOTPRINTS WITHOUT FEET",
+                            icon: "📕",
+                            chapters: [
+                                { name: "Chapter 01 (A Triumph of Surgery)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/01.json" },
+                                { name: "Chapter 02 (The Thief's Story)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/02.json" },
+                                { name: "Chapter 03 (The Midnight Visitor)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/03.json" },
+                                { name: "Chapter 04 (A Question of Trust)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/04.json" },
+                                { name: "Chapter 05 (Footprints without Feet)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/05.json" },
+                                { name: "Chapter 06 (The Making of a Scientist)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/06.json" },
+                                { name: "Chapter 07 (The Necklace)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/07.json" },
+                                { name: "Chapter 08 (Bholi)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/08.json" },
+                                { name: "Chapter 09 (The Book That Saved the Earth)", file: "ENGLISH/FOOTPRINTS_WITHOUT_FEET/09.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "HINDI",
+                    icon: "📔",
+                    sections: [
+                        {
+                            sectionName: "KSHITIJ - GADYA KHAND",
+                            icon: "📖",
+                            chapters: [
+                                { name: "पाठ 01 (नेताजी का चश्मा)", file: "HINDI/KSHITIJ/GADYA_KHAND/01.json" },
+                                { name: "पाठ 02 (बालगोबिन भगत)", file: "HINDI/KSHITIJ/GADYA_KHAND/02.json" },
+                                { name: "पाठ 03 (लखनवी अंदाज)", file: "HINDI/KSHITIJ/GADYA_KHAND/03.json" },
+                                { name: "पाठ 04 (एक कहानी यह भी)", file: "HINDI/KSHITIJ/GADYA_KHAND/04.json" },
+                                { name: "पाठ 05 (नौबतखाने में इबादत)", file: "HINDI/KSHITIJ/GADYA_KHAND/05.json" },
+                                { name: "पाठ 06 (संस्कृति)", file: "HINDI/KSHITIJ/GADYA_KHAND/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "KSHITIJ - KAVYA KHAND",
+                            icon: "✍️",
+                            chapters: [
+                                { name: "पाठ 01 (पद - सूरदास)", file: "HINDI/KSHITIJ/KAVYA_KHAND/01.json" },
+                                { name: "पाठ 02 (राम-लक्ष्मण-परशुराम संवाद)", file: "HINDI/KSHITIJ/KAVYA_KHAND/02.json" },
+                                { name: "पाठ 03 (आत्मकथ्य)", file: "HINDI/KSHITIJ/KAVYA_KHAND/03.json" },
+                                { name: "पाठ 04 (उत्साह और अट नहीं रही)", file: "HINDI/KSHITIJ/KAVYA_KHAND/04.json" },
+                                { name: "पाठ 05 (यह दंतुरित मुसकान और फसल)", file: "HINDI/KSHITIJ/KAVYA_KHAND/05.json" },
+                                { name: "पाठ 06 (संगतकार)", file: "HINDI/KSHITIJ/KAVYA_KHAND/Sangkatkar.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "KRITIKA",
+                            icon: "📚",
+                            chapters: [
+                                { name: "पाठ 01 (माता का आँचल)", file: "HINDI/KRITIKA/01.json" },
+                                { name: "पाठ 02 (साना-साना हाथ जोड़ि...)", file: "HINDI/KRITIKA/02.json" },
+                                { name: "पाठ 03 (मैं क्यों लिखता हूँ?)", file: "HINDI/KRITIKA/03.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "SST (SOCIAL SCIENCE)",
+                    icon: "🌍",
+                    sections: [
+                        {
+                            sectionName: "HISTORY",
+                            icon: "📜",
+                            chapters: [
+                                { name: "Chapter 01 (The Rise of Nationalism in Europe)", file: "SST/HISTORY/01.json" },
+                                { name: "Chapter 02 (Nationalism in India)", file: "SST/HISTORY/02.json" },
+                                { name: "Chapter 03 (The Making of a Global World)", file: "SST/HISTORY/03.json" },
+                                { name: "Chapter 04 (The Age of Industrialisation)", file: "SST/HISTORY/04.json" },
+                                { name: "Chapter 05 (Print Culture and Modern World)", file: "SST/HISTORY/05.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "GEOGRAPHY",
+                            icon: "🗺️",
+                            chapters: [
+                                { name: "Chapter 01 (Resources and Development)", file: "SST/GEOGRAPHY/01.json" },
+                                { name: "Chapter 02 (Forest and Wildlife Resources)", file: "SST/GEOGRAPHY/02.json" },
+                                { name: "Chapter 03 (Water Resources)", file: "SST/GEOGRAPHY/03.json" },
+                                { name: "Chapter 04 (Agriculture)", file: "SST/GEOGRAPHY/04.json" },
+                                { name: "Chapter 05 (Minerals and Energy Resources)", file: "SST/GEOGRAPHY/05.json" },
+                                { name: "Chapter 06 (Manufacturing Industries)", file: "SST/GEOGRAPHY/06.json" },
+                                { name: "Chapter 07 (Lifelines of National Economy)", file: "SST/GEOGRAPHY/07.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "POLITICAL SCIENCE",
+                            icon: "⚖️",
+                            chapters: [
+                                { name: "Chapter 01 (Power Sharing)", file: "SST/POLITICAL_SCIENCE/01.json" },
+                                { name: "Chapter 02 (Federalism)", file: "SST/POLITICAL_SCIENCE/02.json" },
+                                { name: "Chapter 03 (Gender, Religion and Caste)", file: "SST/POLITICAL_SCIENCE/03.json" },
+                                { name: "Chapter 04 (Political Parties)", file: "SST/POLITICAL_SCIENCE/04.json" },
+                                { name: "Chapter 05 (Outcomes of Democracy)", file: "SST/POLITICAL_SCIENCE/05.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "ECONOMICS",
+                            icon: "💰",
+                            chapters: [
+                                { name: "Chapter 01 (Development)", file: "SST/ECONOMICS/01.json" },
+                                { name: "Chapter 02 (Sectors of the Indian Economy)", file: "SST/ECONOMICS/02.json" },
+                                { name: "Chapter 03 (Money and Credit)", file: "SST/ECONOMICS/03.json" },
+                                { name: "Chapter 04 (Globalization and the Indian Economy)", file: "SST/ECONOMICS/04.json" },
+                                { name: "Chapter 05 (Consumer Rights)", file: "SST/ECONOMICS/05.json" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+
+        // -----------------------------------------------------
+        // 5. CBSE CLASS 9TH
+        // -----------------------------------------------------
+        cbse9: {
+            title: "📘 CBSE Class 9th Online Portal",
+            baseDir: "data/CBSE/9th/",
+            data: [
+                {
+                    subjectName: "SCIENCE",
+                    icon: "🔬",
+                    sections: [
+                        {
+                            sectionName: "PHYSICS",
+                            icon: "⚡",
+                            chapters: [
+                                { name: "Chapter 01 (Motion)", file: "SCIENCE/PHYSICS/01.json" },
+                                { name: "Chapter 02 (Force and Laws of Motion)", file: "SCIENCE/PHYSICS/02.json" },
+                                { name: "Chapter 03 (Gravitation)", file: "SCIENCE/PHYSICS/03.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "CHEMISTRY",
+                            icon: "🧪",
+                            chapters: [
+                                { name: "Chapter 01 (Matter in Our Surroundings)", file: "SCIENCE/CHEMISTRY/01.json" },
+                                { name: "Chapter 02 (Is Matter Around Us Pure)", file: "SCIENCE/CHEMISTRY/02.json" },
+                                { name: "Chapter 03 (Atoms and Molecules)", file: "SCIENCE/CHEMISTRY/03.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "BIOLOGY",
+                            icon: "🧬",
+                            chapters: [
+                                { name: "Chapter 01 (The Fundamental Unit of Life)", file: "SCIENCE/BIOLOGY/01.json" },
+                                { name: "Chapter 02 (Tissues)", file: "SCIENCE/BIOLOGY/02.json" },
+                                { name: "Chapter 03 (Improvement in Food Resources)", file: "SCIENCE/BIOLOGY/03.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "SST (SOCIAL SCIENCE)",
+                    icon: "🌍",
+                    sections: [
+                        {
+                            sectionName: "HISTORY",
+                            icon: "📜",
+                            chapters: [
+                                { name: "Chapter 01 (The French Revolution)", file: "SST/HISTORY/01.json" },
+                                { name: "Chapter 02 (Socialism in Europe)", file: "SST/HISTORY/02.json" },
+                                { name: "Chapter 03 (Nazism and the Rise of Hitler)", file: "SST/HISTORY/03.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "GEOGRAPHY",
+                            icon: "🗺️",
+                            chapters: [
+                                { name: "Chapter 01 (India - Size and Location)", file: "SST/GEOGRAPHY/01.json" },
+                                { name: "Chapter 02 (Physical Features of India)", file: "SST/GEOGRAPHY/02.json" },
+                                { name: "Chapter 03 (Drainage)", file: "SST/GEOGRAPHY/03.json" },
+                                { name: "Chapter 04 (Climate)", file: "SST/GEOGRAPHY/04.json" },
+                                { name: "Chapter 05 (Natural Vegetation and Wildlife)", file: "SST/GEOGRAPHY/05.json" },
+                                { name: "Chapter 06 (Population)", file: "SST/GEOGRAPHY/06.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "POLITICAL SCIENCE",
+                            icon: "⚖️",
+                            chapters: [
+                                { name: "Chapter 01 (What is Democracy?)", file: "SST/POLITICAL_SCIENCE/01.json" },
+                                { name: "Chapter 02 (Constitutional Design)", file: "SST/POLITICAL_SCIENCE/02.json" },
+                                { name: "Chapter 03 (Electoral Politics)", file: "SST/POLITICAL_SCIENCE/03.json" },
+                                { name: "Chapter 04 (Working of Institutions)", file: "SST/POLITICAL_SCIENCE/04.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "ECONOMICS",
+                            icon: "💰",
+                            chapters: [
+                                { name: "Chapter 01 (The Story of Village Palampur)", file: "SST/ECONOMICS/01.json" },
+                                { name: "Chapter 02 (People as Resource)", file: "SST/ECONOMICS/02.json" },
+                                { name: "Chapter 03 (Poverty as a Challenge)", file: "SST/ECONOMICS/03.json" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+
+    const commonMasterSubject = {
+    subjectName: "📚 COMMON (सामान्य ज्ञान एवं व्याकरण)",
+    icon: "🌐",
+    description: "सभी कक्षाओं एवं प्रतियोगी परीक्षाओं हेतु सामान्य ज्ञान, सामान्य अध्ययन और व्याकरण।",
+    sections: [
+        // ==========================================
+        // SECTION 1: GENERAL KNOWLEDGE (GK)
+        // ==========================================
+        {
+            sectionName: "GK - HISTORY (इतिहास)",
+            icon: "📜",
+            chapters: [
+                { name: "पाठ 01 (सिंधु घाटी सभ्यता / Indus Valley Civilization)", file: "COMMON/GK/HISTORY/01.json" },
+                { name: "पाठ 02 (वैदिक संस्कृति एवं सभ्यता / Vedic Culture)", file: "COMMON/GK/HISTORY/02.json" },
+                { name: "पाठ 03 (महाजनपद काल, बौद्ध एवं जैन धर्म / Mahajanapadas, Buddhism & Jainism)", file: "COMMON/GK/HISTORY/03.json" },
+                { name: "पाठ 04 (मौर्य साम्राज्य और गुप्त साम्राज्य / Mauryan & Gupta Empire)", file: "COMMON/GK/HISTORY/04.json" },
+                { name: "पाठ 05 (दक्षिण भारत के प्रमुख राजवंश / South Indian Dynasties)", file: "COMMON/GK/HISTORY/05.json" },
+                { name: "पाठ 06 (दिल्ली सल्तनत / Delhi Sultanate)", file: "COMMON/GK/HISTORY/06.json" },
+                { name: "पाठ 07 (मुगल साम्राज्य और मराठा साम्राज्य / Mughal & Maratha Empire)", file: "COMMON/GK/HISTORY/07.json" },
+                { name: "पाठ 08 (भारत में यूरोपीय कंपनियों का आगमन / Arrival of European Companies)", file: "COMMON/GK/HISTORY/08.json" },
+                { name: "पाठ 09 (1857 की क्रांति / Revolt of 1857)", file: "COMMON/GK/HISTORY/09.json" },
+                { name: "पाठ 10 (सामाजिक और धार्मिक सुधार आंदोलन / Socio-Religious Reform Movements)", file: "COMMON/GK/HISTORY/10.json" },
+                { name: "पाठ 11 (भारतीय राष्ट्रीय कांग्रेस और प्रमुख अधिवेशन / INC & Important Sessions)", file: "COMMON/GK/HISTORY/11.json" },
+                { name: "पाठ 12 (स्वतंत्रता संग्राम और प्रमुख आंदोलन / Freedom Movement)", file: "COMMON/GK/HISTORY/12.json" },
+                { name: "पाठ 13 (भारत का विभाजन और स्वतंत्रता / Partition and Independence)", file: "COMMON/GK/HISTORY/13.json" }
+            ]
+        },
+        {
+            sectionName: "GK - GEOGRAPHY (भूगोल)",
+            icon: "🗺️",
+            chapters: [
+                { name: "पाठ 01 (सौरमंडल, पृथ्वी की गति और अक्षांश-देशांतर / Solar System & Earth Movements)", file: "COMMON/GK/GEOGRAPHY/01.json" },
+                { name: "पाठ 02 (पृथ्वी की आंतरिक संरचना, भूकंप और ज्वालामुखी / Earth Interior, Volcanoes & Earthquakes)", file: "COMMON/GK/GEOGRAPHY/02.json" },
+                { name: "पाठ 03 (वायुमंडल की संरचना और दाबांतर / Atmosphere & Pressure)", file: "COMMON/GK/GEOGRAPHY/03.json" },
+                { name: "पाठ 04 (महाद्वीप, महासागर और जलधाराएँ / Continents, Oceans & Currents)", file: "COMMON/GK/GEOGRAPHY/04.json" },
+                { name: "पाठ 05 (भारत की भौतिक बनावट / Physical Features of India)", file: "COMMON/GK/GEOGRAPHY/05.json" },
+                { name: "पाठ 06 (भारत की नदियाँ, झीलें और जलप्रपात / Rivers, Lakes & Waterfalls)", file: "COMMON/GK/GEOGRAPHY/06.json" },
+                { name: "पाठ 07 (भारत की जलवायु और मृदा के प्रकार / Climate & Soil Types of India)", file: "COMMON/GK/GEOGRAPHY/07.json" },
+                { name: "पाठ 08 (कृषि, सिंचाई और प्रमुख फसलें / Agriculture & Major Crops)", file: "COMMON/GK/GEOGRAPHY/08.json" },
+                { name: "पाठ 09 (खनिज संसाधन, ऊर्जा और उद्योग / Minerals, Energy & Industries)", file: "COMMON/GK/GEOGRAPHY/09.json" },
+                { name: "पाठ 10 (राष्ट्रीय उद्यान और अभयारण्य / National Parks & Wildlife Sanctuaries)", file: "COMMON/GK/GEOGRAPHY/10.json" },
+                { name: "पाठ 11 (जनगणना और जनसंख्या वितरण / Census & Population Distribution)", file: "COMMON/GK/GEOGRAPHY/11.json" }
+            ]
+        },
+        {
+            sectionName: "GK - POLITY (भारतीय राजव्यवस्था)",
+            icon: "⚖️",
+            chapters: [
+                { name: "पाठ 01 (संविधान का निर्माण और सभा / Making of Constitution)", file: "COMMON/GK/POLITY/01.json" },
+                { name: "पाठ 02 (प्रस्तावना और प्रमुख स्रोत / Preamble & Sources of Constitution)", file: "COMMON/GK/POLITY/02.json" },
+                { name: "पाठ 03 (अनुसूचियाँ और भाग / Schedules & Parts)", file: "COMMON/GK/POLITY/03.json" },
+                { name: "पाठ 04 (नागरिकता / Citizenship)", file: "COMMON/GK/POLITY/04.json" },
+                { name: "पाठ 05 (मौलिक अधिकार और कर्तव्य / Fundamental Rights & Duties)", file: "COMMON/GK/POLITY/05.json" },
+                { name: "पाठ 06 (राज्य के नीति निदेशक तत्व / DPSP)", file: "COMMON/GK/POLITY/06.json" },
+                { name: "पाठ 07 (राष्ट्रपति, उपराष्ट्रपति और प्रधानमंत्री / President, VP & Prime Minister)", file: "COMMON/GK/POLITY/07.json" },
+                { name: "पाठ 08 (संसद - लोकसभा और राज्यसभा / Parliament - Lok Sabha & Rajya Sabha)", file: "COMMON/GK/POLITY/08.json" },
+                { name: "पाठ 09 (सर्वोच्च न्यायालय और उच्च न्यायालय / Supreme Court & High Court)", file: "COMMON/GK/POLITY/09.json" },
+                { name: "पाठ 10 (राज्यपाल और मुख्यमंत्री / Governor & Chief Minister)", file: "COMMON/GK/POLITY/10.json" },
+                { name: "पाठ 11 (पंचायती राज और स्थानीय स्वशासन / Panchayati Raj)", file: "COMMON/GK/POLITY/11.json" },
+                { name: "पाठ 12 (निर्वाचन आयोग, UPSC और CAG / Constitutional Bodies)", file: "COMMON/GK/POLITY/12.json" },
+                { name: "पाठ 13 (प्रमुख संवैधानिक संशोधन / Important Constitutional Amendments)", file: "COMMON/GK/POLITY/13.json" }
+            ]
+        },
+        {
+            sectionName: "GK - ECONOMICS (अर्थशास्त्र)",
+            icon: "💰",
+            chapters: [
+                { name: "पाठ 01 (अर्थशास्त्र के प्रकार और क्षेत्र / Types and Sectors of Economy)", file: "COMMON/GK/ECONOMICS/01.json" },
+                { name: "पाठ 02 (राष्ट्रीय आय, GDP, GNP / National Income, GDP & GNP)", file: "COMMON/GK/ECONOMICS/02.json" },
+                { name: "पाठ 03 (मुद्रास्फीति और मंदी / Inflation & Recession)", file: "COMMON/GK/ECONOMICS/03.json" },
+                { name: "पाठ 04 (भारतीय बैंकिंग प्रणाली और RBI / Indian Banking & RBI)", file: "COMMON/GK/ECONOMICS/04.json" },
+                { name: "पाठ 05 (कर प्रणाली एवं GST / Tax System & GST)", file: "COMMON/GK/ECONOMICS/05.json" },
+                { name: "पाठ 06 (बजट और वित्तीय प्रणाली / Budget & Financial System)", file: "COMMON/GK/ECONOMICS/06.json" },
+                { name: "पाठ 07 (निर्धनता, बेरोजगारी और योजनाएँ / Poverty, Unemployment & Schemes)", file: "COMMON/GK/ECONOMICS/07.json" },
+                { name: "पाठ 08 (पंचवर्षीय योजनाएँ और नीति आयोग / Five Year Plans & NITI Aayog)", file: "COMMON/GK/ECONOMICS/08.json" },
+                { name: "पाठ 09 (अंतर्राष्ट्रीय आर्थिक संगठन / International Economic Organizations)", file: "COMMON/GK/ECONOMICS/09.json" }
+            ]
+        },
+        {
+            sectionName: "GK - PHYSICS (भौतिक विज्ञान)",
+            icon: "⚡",
+            chapters: [
+                { name: "पाठ 01 (मात्रक और मापन / Units and Measurements)", file: "COMMON/GK/PHYSICS/01.json" },
+                { name: "पाठ 02 (गति, बल और न्यूटन के नियम / Motion, Force & Laws of Motion)", file: "COMMON/GK/PHYSICS/02.json" },
+                { name: "पाठ 03 (कार्य, ऊर्जा और शक्ति / Work, Energy & Power)", file: "COMMON/GK/PHYSICS/03.json" },
+                { name: "पाठ 04 (गुरुत्वाकर्षण / Gravitation)", file: "COMMON/GK/PHYSICS/04.json" },
+                { name: "पाठ 05 (द्रव के गुण / Properties of Matter & Fluids)", file: "COMMON/GK/PHYSICS/05.json" },
+                { name: "पाठ 06 (तरंगें और ध्वनि / Waves and Sound)", file: "COMMON/GK/PHYSICS/06.json" },
+                { name: "पाठ 07 (ऊष्मा और ताप / Heat and Temperature)", file: "COMMON/GK/PHYSICS/07.json" },
+                { name: "पाठ 08 (प्रकाश - परावर्तन, अपवर्तन / Light - Reflection & Refraction)", file: "COMMON/GK/PHYSICS/08.json" },
+                { name: "पाठ 09 (विद्युत और चुंबकत्व / Electricity & Magnetism)", file: "COMMON/GK/PHYSICS/09.json" },
+                { name: "पाठ 10 (आधुनिक भौतिकी और परमाणु / Modern Physics & Atomic Structure)", file: "COMMON/GK/PHYSICS/10.json" }
+            ]
+        },
+        {
+            sectionName: "GK - CHEMISTRY (रसायन विज्ञान)",
+            icon: "⚗️",
+            chapters: [
+                { name: "पाठ 01 (पदार्थ की अवस्थाएँ और वर्गीकरण / States & Classification of Matter)", file: "COMMON/GK/CHEMISTRY/01.json" },
+                { name: "पाठ 02 (परमाणु संरचना और रासायनिक बंध / Atomic Structure & Chemical Bonding)", file: "COMMON/GK/CHEMISTRY/02.json" },
+                { name: "पाठ 03 (तत्वों का आवर्त वर्गीकरण / Periodic Classification of Elements)", file: "COMMON/GK/CHEMISTRY/03.json" },
+                { name: "पाठ 04 (अम्ल, क्षार और लवण / Acids, Bases & Salts)", file: "COMMON/GK/CHEMISTRY/04.json" },
+                { name: "पाठ 05 (धातु, अधातु और उपधातु / Metals, Non-metals & Metalloids)", file: "COMMON/GK/CHEMISTRY/05.json" },
+                { name: "पाठ 06 (कार्बन और उसके यौगिक / Carbon & Its Compounds)", file: "COMMON/GK/CHEMISTRY/06.json" },
+                { name: "पाठ 07 (ईंधन और विस्फोटक पदार्थ / Fuels & Explosives)", file: "COMMON/GK/CHEMISTRY/07.json" },
+                { name: "पाठ 08 (दैनिक जीवन में रसायन / Chemistry in Everyday Life)", file: "COMMON/GK/CHEMISTRY/08.json" }
+            ]
+        },
+        {
+            sectionName: "GK - BIOLOGY (जीव विज्ञान)",
+            icon: "🧬",
+            chapters: [
+                { name: "पाठ 01 (कोशिका - संरचना और कार्य / Cell - Structure & Function)", file: "COMMON/GK/BIOLOGY/01.json" },
+                { name: "पाठ 02 (ऊतक / Tissues)", file: "COMMON/GK/BIOLOGY/02.json" },
+                { name: "पाठ 03 (मानव शरीर तंत्र / Human Organ Systems)", file: "COMMON/GK/BIOLOGY/03.json" },
+                { name: "पाठ 04 (पोषक तत्व / Nutrients - Vitamins, Proteins, Fats)", file: "COMMON/GK/BIOLOGY/04.json" },
+                { name: "पाठ 05 (मानव रोग, कारण और बचाव / Human Diseases, Causes & Cure)", file: "COMMON/GK/BIOLOGY/05.json" },
+                { name: "पाठ 06 (पादप कार्यिकी / Plant Physiology)", file: "COMMON/GK/BIOLOGY/06.json" },
+                { name: "पाठ 07 (पारिस्थितिकी और पर्यावरण / Ecology & Environment)", file: "COMMON/GK/BIOLOGY/07.json" }
+            ]
+        },
+        {
+            sectionName: "GK - STATIC GK (स्टैटिक जीके)",
+            icon: "🏛️",
+            chapters: [
+                { name: "पाठ 01 (भारत और विश्व में प्रथम / First in India & World)", file: "COMMON/GK/STATIC_GK/01.json" },
+                { name: "पाठ 02 (लोक और शास्त्रीय नृत्य / Folk & Classical Dances)", file: "COMMON/GK/STATIC_GK/02.json" },
+                { name: "पाठ 03 (प्रमुख त्योहार और मेले / Major Festivals & Fairs)", file: "COMMON/GK/STATIC_GK/03.json" },
+                { name: "पाठ 04 (प्रसिद्ध मंदिर, धरोहर और स्मारक / Famous Temples & Monuments)", file: "COMMON/GK/STATIC_GK/04.json" },
+                { name: "पाठ 05 (महत्वपूर्ण राष्ट्रीय व अंतर्राष्ट्रीय दिवस / Important Days)", file: "COMMON/GK/STATIC_GK/05.json" },
+                { name: "पाठ 06 (प्रमुख पुस्तकें और लेखक / Famous Books & Authors)", file: "COMMON/GK/STATIC_GK/06.json" },
+                { name: "पाठ 07 (अंतर्राष्ट्रीय संगठन और मुख्यालय / International Organizations & HQ)", file: "COMMON/GK/STATIC_GK/07.json" },
+                { name: "पाठ 08 (खेलकूद - कप, ट्रॉफियाँ, शब्दावली / Sports - Cups & Terms)", file: "COMMON/GK/STATIC_GK/08.json" },
+                { name: "पाठ 09 (भारत के राष्ट्रीय प्रतीक / National Symbols of India)", file: "COMMON/GK/STATIC_GK/09.json" },
+                { name: "पाठ 10 (प्रमुख पुरस्कार और सम्मान / Major Awards & Honors)", file: "COMMON/GK/STATIC_GK/10.json" }
+            ]
+        },
+        {
+            sectionName: "GK - CURRENT AFFAIRS (समसामयिकी)",
+            icon: "📰",
+            chapters: [
+                { name: "पाठ 01 (राष्ट्रीय और अंतर्राष्ट्रीय घटनाक्रम / National & International Events)", file: "COMMON/GK/CURRENT_AFFAIRS/01.json" },
+                { name: "पाठ 02 (प्रमुख नियुक्तियाँ और निधन / Appointments & Obituaries)", file: "COMMON/GK/CURRENT_AFFAIRS/02.json" },
+                { name: "पाठ 03 (खेल समाचार और विजेता / Sports News & Winners)", file: "COMMON/GK/CURRENT_AFFAIRS/03.json" },
+                { name: "पाठ 04 (सैन्य अभ्यास और सुरक्षा / Military Exercises & Security)", file: "COMMON/GK/CURRENT_AFFAIRS/04.json" },
+                { name: "पाठ 05 (विज्ञान एवं प्रौद्योगिकी, अंतरिक्ष / Science, Tech & Space)", file: "COMMON/GK/CURRENT_AFFAIRS/05.json" },
+                { name: "पाठ 06 (सरकारी योजनाएँ / Government Schemes)", file: "COMMON/GK/CURRENT_AFFAIRS/06.json" }
+            ]
+        },
+
+        // ==========================================
+        // SECTION 2: GRAMMAR (व्याकरण)
+        // ==========================================
+        {
+            sectionName: "GRAMMAR - HINDI (हिंदी व्याकरण)",
+            icon: "✍️",
+            chapters: [
+                { name: "अध्याय 01 (वर्ण विचार और उच्चारण स्थान)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/01.json" },
+                { name: "अध्याय 02 (अयोगवाह और वर्तनी शुद्धि)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/02.json" },
+                { name: "अध्याय 03 (शब्द भेद - तत्सम, तद्भव)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/03.json" },
+                { name: "अध्याय 04 (शब्द रचना - रूढ़, यौगिक)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/04.json" },
+                { name: "अध्याय 05 (विकारी शब्द - संज्ञा, सर्वनाम)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/05.json" },
+                { name: "अध्याय 06 (क्रिया, काल और वाच्य)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/06.json" },
+                { name: "अध्याय 07 (अविकारी शब्द - अव्यय और निपात)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/07.json" },
+                { name: "अध्याय 08 (उपसर्ग और प्रत्यय)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/08.json" },
+                { name: "अध्याय 09 (संधि - स्वर, व्यंजन, विसर्ग)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/09.json" },
+                { name: "अध्याय 10 (समास और उसके भेद)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/10.json" },
+                { name: "अध्याय 11 (शब्द भण्डार - पर्यायवाची, विलोम)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/11.json" },
+                { name: "अध्याय 12 (वाक्यांश के लिए एक शब्द)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/12.json" },
+                { name: "अध्याय 13 (मुहावरे और लोकोक्तियाँ)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/13.json" },
+                { name: "अध्याय 14 (वाक्य विचार और पदबंध)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/14.json" },
+                { name: "अध्याय 15 (वाक्य शुद्धि और पद परिचय)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/15.json" },
+                { name: "अध्याय 16 (विराम चिह्न)", file: "COMMON/GRAMMAR/HINDI_GRAMMAR/16.json" }
+            ]
+        },
+        {
+            sectionName: "GRAMMAR - ENGLISH",
+            icon: "📝",
+            chapters: [
+                { name: "Chapter 01 (Tenses and Aspects)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/01.json" },
+                { name: "Chapter 02 (Modals and Auxiliaries)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/02.json" },
+                { name: "Chapter 03 (Subject - Verb Concord)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/03.json" },
+                { name: "Chapter 04 (Reported Speech)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/04.json" },
+                { name: "Chapter 05 (Active and Passive Voice)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/05.json" },
+                { name: "Chapter 06 (Articles and Determiners)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/06.json" },
+                { name: "Chapter 07 (Prepositions & Phrasal Verbs)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/07.json" },
+                { name: "Chapter 08 (Nouns and Pronouns)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/08.json" },
+                { name: "Chapter 09 (Adjectives and Adverbs)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/09.json" },
+                { name: "Chapter 10 (Conjunctions & Connectors)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/10.json" },
+                { name: "Chapter 11 (Sentence Transformation)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/11.json" },
+                { name: "Chapter 12 (Clause Analysis)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/12.json" },
+                { name: "Chapter 13 (Synonyms and Antonyms)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/13.json" },
+                { name: "Chapter 14 (One Word Substitution)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/14.json" },
+                { name: "Chapter 15 (Idioms and Phrases)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/15.json" },
+                { name: "Chapter 16 (Common Errors & Correction)", file: "COMMON/GRAMMAR/ENGLISH_GRAMMAR/16.json" }
+            ]
+        }
+    ]
+    }
+
+    // State Variables
+    let currentCourseKey = "bseb10";
+    let activeQuizData = [];
+    let currentBaseDir = "";
+
+    // DOM Elements
+    const gridContainer = document.getElementById('quiz-grid');
+    const mainTitle = document.getElementById('dashboard-title');
+    const mainDesc = document.getElementById('dashboard-desc');
+    const backBtn = document.getElementById('back-btn');
+    const devModal = document.getElementById('dev-modal');
+    const portalDashboard = document.getElementById('portal-dashboard');
+    const quizEngineView = document.getElementById('quiz-engine-view');
+    const appDiv = document.getElementById('app');
+    const coursePill = document.getElementById('course-pill');
+    const courseDropdown = document.getElementById('course-dropdown');
+    const courseLabel = document.getElementById('course-label');
+    const sheetOverlay = document.getElementById('sheet-overlay');
+    const bottomSheet = document.getElementById('bottom-sheet');
+
+    // Navigation State
+    let currentViewState = { stage: "subjects", subjectIndex: null, secIndex: null };
+
+    // Quiz Engine State Variables
+    let chapterMeta = { title: "क्विज़ पोर्टल", subtitle: "लोड हो रहा है...", description: "कृपया प्रतीक्षा करें..." };
+    let rawQuestions = [];
+    let questions = [];
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+    let questionStates = [];
+
+    // ===== COURSE DROPDOWN =====
+    function toggleCourseDropdown(e) {
+        e.stopPropagation();
+        coursePill.classList.toggle('open');
+        courseDropdown.classList.toggle('open');
+    }
+    
+    function selectCourse(courseKey) {
+        coursePill.classList.remove('open');
+        courseDropdown.classList.remove('open');
+        // Update label
+        const labels = {bseb10:'BSEB 10th', bseb11:'BSEB 11th', bseb9:'BSEB 9th', cbse10:'CBSE 10th', cbse9:'CBSE 9th'};
+        courseLabel.innerText = labels[courseKey] || courseKey;
+        // Update active states
+        document.querySelectorAll('.course-option').forEach(opt => {
+            opt.classList.toggle('active', opt.dataset.course === courseKey);
+        });
+        switchCourse(courseKey);
+    }
+    
+    document.addEventListener('click', function(e) {
+        if (!coursePill.contains(e.target) && !courseDropdown.contains(e.target)) {
+            coursePill.classList.remove('open');
+            courseDropdown.classList.remove('open');
+        }
+    });
+
+    function switchCourse(courseKey) {
+        if (!coursesData[courseKey]) return;
+        currentCourseKey = courseKey;
+        let currentData = JSON.parse(JSON.stringify(coursesData[courseKey].data));
+        const hasCommon = currentData.some(sub => sub.subjectName && sub.subjectName.includes("COMMON (सामान्य ज्ञान एवं व्याकरण)"));
+        if (!hasCommon) { currentData.push(commonMasterSubject); }
+        activeQuizData = currentData;
+        currentBaseDir = coursesData[courseKey].baseDir;
+        renderSubjects();
+    }
+
+    function showDashboardView() {
+        portalDashboard.classList.remove('hidden');
+        quizEngineView.classList.add('hidden');
+    }
+    function showQuizEngineView() {
+        portalDashboard.classList.add('hidden');
+        quizEngineView.classList.remove('hidden');
+    }
+    function goHome() {
+        showDashboardView();
+        renderSubjects();
+    }
+
+    function handleSubjectClick(subIndex) {
+        const sub = activeQuizData[subIndex];
+        if (sub.sections) { renderSections(subIndex); }
+        else { renderChapters(sub.chapters, sub.subjectName, "subjects", subIndex); }
+    }
+
+    function renderSectionChapters(subIndex, secIndex) {
+        const sec = activeQuizData[subIndex].sections[secIndex];
+        renderChapters(sec.chapters, sec.sectionName, "sections", subIndex, secIndex);
+    }
+
+    function runQuizFile(jsonRelativePath) {
+        let targetUrl = "";
+        if (jsonRelativePath.startsWith("COMMON/")) {
+            targetUrl = `./data/${jsonRelativePath}`;
+        } else {
+            targetUrl = `./${currentBaseDir}${jsonRelativePath}`;
+        }
+        fetch(targetUrl, { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) { loadAndStartQuiz(targetUrl); }
+            else { showDevModal(); }
+        })
+        .catch(() => { showDevModal(); });
+    }
+
+    function showDevModal() { devModal.classList.add('open'); }
+    function closeDevModal() { devModal.classList.remove('open'); }
+
+    function handleNavigationBack() {
+        if (currentViewState.stage === "chapters") {
+            if (currentViewState.backTo === "sections") {
+                renderSections(currentViewState.subjectIndex, true);
+            } else {
+                renderSubjects(true);
+            }
+        } else if (currentViewState.stage === "sections" || !quizEngineView.classList.contains('hidden')) {
+            renderSubjects(true);
+        } else {
+            renderSubjects(true);
+        }
+    }
+
+    function shuffleQuestionsAndOptions(array) {
+        const shuffled = JSON.parse(JSON.stringify(array));
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        shuffled.forEach(item => {
+            const correctAnswerText = item.o[item.a];
+            for (let i = item.o.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [item.o[i], item.o[j]] = [item.o[j], item.o[i]];
+            }
+            item.a = item.o.indexOf(correctAnswerText);
+        });
+        return shuffled;
+    }
+
+    // ===== RENDERING: SUBJECTS =====
+    function renderSubjects(isBackAction = false) {
+        showDashboardView();
+        gridContainer.innerHTML = '';
+        gridContainer.className = 'card-grid';
+        mainTitle.innerHTML = 'स्मार्ट अभ्यास, <span style="color:var(--emerald-2);">उत्कृष्ट परिणाम</span>';
+        mainDesc.innerText = 'विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस।';
+        backBtn.classList.add('hidden');
+        currentViewState = { stage: "subjects", subjectIndex: null };
+        if (!isBackAction) { history.pushState({ stage: "subjects" }, "", "#subjects"); }
+
+        activeQuizData.forEach((sub, subIndex) => {
+            const card = document.createElement('div');
+            card.className = 'subject-card glass-2';
+            card.style.animationDelay = (subIndex * 0.08) + 's';
+            card.setAttribute('onclick', `handleSubjectClick(${subIndex})`);
+
+            // Determine icon class
+            let iconClass = 'science';
+            let sn = (sub.subjectName || '').toUpperCase();
+            if (sn.includes('HINDI')) iconClass = 'hindi';
+            else if (sn.includes('SOCIAL')) iconClass = 'social';
+            else if (sn.includes('ENGLISH')) iconClass = 'english';
+            else if (sn.includes('MATH')) iconClass = 'math';
+            else if (sn.includes('COMMON')) iconClass = 'common';
+
+            let countText = sub.sections ? `${sub.sections.length} सेक्शंस` : `${sub.chapters.length} चैप्टर्स`;
+
+            card.innerHTML = `
+                <div class="subject-card-top">
+                    <div class="subject-card-icon ${iconClass}">${sub.icon}</div>
+                    <div>
+                        <h3>${sub.subjectName}</h3>
+                        <p>${sub.description || ''}</p>
+                    </div>
+                </div>
+                <div class="subject-card-foot">
+                    <span class="count">${countText}</span>
+                    <div class="chevron">
+                        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                    </div>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+    }
+
+    // ===== RENDERING: SECTIONS =====
+    function renderSections(subIndex, isBackAction = false) {
+        showDashboardView();
+        gridContainer.innerHTML = '';
+        gridContainer.className = 'card-grid';
+        const currentSub = activeQuizData[subIndex];
+        mainTitle.innerHTML = `<span style="color:var(--indigo-2);">${currentSub.subjectName}</span>`;
+        mainDesc.innerText = 'अपनी तैयारी के लिए सेक्शन चुनें।';
+        backBtn.classList.remove('hidden');
+        currentViewState = { stage: "sections", subjectIndex: subIndex };
+        if (!isBackAction) { history.pushState({ stage: "sections", subjectIndex: subIndex }, "", `#sections-${subIndex}`); }
+
+        currentSub.sections.forEach((sec, secIndex) => {
+            const card = document.createElement('div');
+            card.className = 'subject-card glass-2';
+            card.style.animationDelay = (secIndex * 0.08) + 's';
+            card.setAttribute('onclick', `renderSectionChapters(${subIndex}, ${secIndex})`);
+
+            let iconClass = 'science';
+            let sn = (sec.sectionName || '').toUpperCase();
+            if (sn.includes('HISTORY') || sn.includes('इतिहास')) iconClass = 'social';
+            else if (sn.includes('GEO') || sn.includes('भूगोल')) iconClass = 'social';
+            else if (sn.includes('PHYSICS') || sn.includes('भौतिक')) iconClass = 'science';
+            else if (sn.includes('CHEM') || sn.includes('रसायन')) iconClass = 'science';
+            else if (sn.includes('BIO') || sn.includes('जीव')) iconClass = 'science';
+            else if (sn.includes('POLIT') || sn.includes('राजनीति')) iconClass = 'social';
+            else if (sn.includes('ECONO') || sn.includes('अर्थ')) iconClass = 'social';
+            else if (sn.includes('DISASTER')) iconClass = 'social';
+
+            card.innerHTML = `
+                <div class="subject-card-top">
+                    <div class="subject-card-icon ${iconClass}">${sec.icon || '📁'}</div>
+                    <div>
+                        <h3>${sec.sectionName}</h3>
+                        <p>विशेष महत्वपूर्ण प्रश्न संग्रह।</p>
+                    </div>
+                </div>
+                <div class="subject-card-foot">
+                    <span class="count">${sec.chapters.length} चैप्टर्स</span>
+                    <div class="chevron">
+                        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                    </div>
+                </div>
+            `;
+            gridContainer.appendChild(card);
+        });
+    }
+
+    // ===== RENDERING: CHAPTERS =====
+    function renderChapters(chaptersList, titleName, backToStage, subIndex = null, secIndex = null, isBackAction = false) {
+        showDashboardView();
+        gridContainer.innerHTML = '';
+        gridContainer.className = 'chapter-list glass-2';
+        mainTitle.innerHTML = `<span style="color:var(--indigo-2);">${titleName}</span> — अध्यायवार क्विज़`;
+        mainDesc.innerText = 'जिस अध्याय का टेस्ट देना चाहते हैं, उस पर क्लिक करें।';
+        backBtn.classList.remove('hidden');
+        currentViewState = { stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex };
+        if (!isBackAction) { history.pushState({ stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex }, "", "#chapters"); }
+
+        chaptersList.forEach((chap, chapIndex) => {
+            const row = document.createElement('div');
+            row.className = 'chapter-row';
+            row.style.animationDelay = (chapIndex * 0.05) + 's';
+            row.setAttribute('onclick', `runQuizFile('${chap.file}')`);
+            row.innerHTML = `
+                <div class="chapter-num">${chapIndex + 1}</div>
+                <div class="chapter-body">
+                    <div class="status">ऑनलाइन लाइव टेस्ट</div>
+                    <div class="title">${chap.name}</div>
+                </div>
+                <div class="chapter-play">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            `;
+            gridContainer.appendChild(row);
+        });
+    }
+
+    // ===== QUIZ: LOAD & START =====
+    function loadAndStartQuiz(fullPath) {
+        showQuizEngineView();
+        backBtn.classList.remove('hidden');
+        appDiv.innerHTML = `
+            <div class="start-screen">
+                <div class="skel-spinner"></div>
+                <p style="color:var(--indigo-2);font-weight:600;font-size:14px;">क्विज़ प्रश्नपत्र लोड हो रहा है...</p>
+            </div>
+        `;
+        fetch(fullPath)
+            .then(res => res.json())
+            .then(data => {
+                chapterMeta.title = data.title || "ऑनलाइन क्विज़";
+                chapterMeta.subtitle = data.subtitle || "";
+                chapterMeta.description = data.description || "";
+                rawQuestions = data.questions || [];
+                renderStartScreen();
+            })
+            .catch(err => {
+                appDiv.innerHTML = `<div class="start-screen"><div class="dev-modal-icon" style="background:rgba(244,63,94,0.15);">⚠️</div><h3 style="color:var(--rose);">त्रुटि</h3><p>क्विज़ लोड नहीं हो सकी। कृपया पुनः प्रयास करें।</p></div>`;
+                console.error("Data load error:", err);
+            });
+    }
+
+    function renderStartScreen() {
+        const langPref = localStorage.getItem('quiz_lang_pref') || 'hi-pri';
+        const isBilingual = rawQuestions.length > 0 && typeof rawQuestions[0].q === 'object';
+        
+        let langPillsHtml = '';
+        if (isBilingual) {
+            const langs = [
+                {v:'hi-pri', l:'हिंदी प्राथमिकता'},
+                {v:'en-pri', l:'अंग्रेज़ी प्राथमिकता'},
+                {v:'only-hi', l:'केवल हिंदी'},
+                {v:'only-en', l:'केवल अंग्रेज़ी'}
+            ];
+            langPillsHtml = '<div class="lang-pills">';
+            langs.forEach(l => {
+                langPillsHtml += `<div class="lang-pill ${l.v === langPref ? 'active' : ''}" onclick="setLangPref('${l.v}')">${l.l}</div>`;
+            });
+            langPillsHtml += '</div>';
+        }
+
+        appDiv.innerHTML = `
+            <div class="start-screen">
+                <div class="start-icon">📚</div>
+                <div class="start-title">${chapterMeta.title}</div>
+                <div class="start-subtitle">${chapterMeta.subtitle}</div>
+                <p class="start-desc">${chapterMeta.description}</p>
+                <div class="quiz-info-strip">
+                    <div class="info-chip"><span class="icon">📝</span> ${rawQuestions.length} प्रश्न</div>
+                    <div class="info-chip"><span class="icon">⏱️</span> ~${Math.ceil(rawQuestions.length * 0.7)} मिनट</div>
+                    <div class="info-chip"><span class="icon">🎯</span> ${rawQuestions.length} अंक</div>
+                </div>
+                ${langPillsHtml}
+                <button onclick="startQuiz()" class="btn-start">शुरू करें →</button>
+            </div>
+        `;
+    }
+
+    function setLangPref(lang) {
+        localStorage.setItem('quiz_lang_pref', lang);
+        renderStartScreen();
+    }
+
+    function startQuiz() {
+        if(!rawQuestions || rawQuestions.length === 0) { alert("कोई प्रश्न उपलब्ध नहीं है!"); return; }
+        questions = shuffleQuestionsAndOptions(rawQuestions);
+        currentQuestion = 0;
+        score = 0;
+        questionStates = new Array(questions.length).fill('default');
+        renderQuestion();
+    }
+
+    // ===== QUIZ: RENDER QUESTION =====
+    function renderQuestion() {
+        answered = false;
+        const q = questions[currentQuestion];
+        const progress = ((currentQuestion) / questions.length) * 100;
+        const langPref = localStorage.getItem('quiz_lang_pref') || 'hi-pri';
+
+        // Question text
+        let questionTextHtml = '';
+        if (typeof q.q === 'object' && q.q !== null) {
+            let hiQ = q.q.hi || '';
+            let enQ = q.q.en || '';
+            if (langPref === 'hi-pri') {
+                questionTextHtml = `<div class="question-card"><div class="question-hi">${hiQ}</div><div class="question-en">${enQ}</div></div>`;
+            } else if (langPref === 'en-pri') {
+                questionTextHtml = `<div class="question-card"><div class="question-hi">${enQ}</div><div class="question-en">${hiQ}</div></div>`;
+            } else if (langPref === 'only-hi') {
+                questionTextHtml = `<div class="question-card"><div class="question-hi">${hiQ}</div></div>`;
+            } else if (langPref === 'only-en') {
+                questionTextHtml = `<div class="question-card"><div class="question-hi">${enQ}</div></div>`;
+            }
+        } else {
+            questionTextHtml = `<div class="question-card"><div class="question-hi">${q.q}</div></div>`;
+        }
+
+        // Options
+        let optionsHtml = '';
+        const letters = ['A','B','C','D','E','F'];
+        q.o.forEach((opt, index) => {
+            let optionText = '';
+            if (typeof opt === 'object' && opt !== null) {
+                let hiOpt = (opt.hi || '').replace(/\s*\([^)]*\)/g, '').trim();
+                let enOpt = (opt.en || '').replace(/\s*\([^)]*\)/g, '').trim();
+                if (langPref === 'hi-pri') { optionText = `${hiOpt} / ${enOpt}`; }
+                else if (langPref === 'en-pri') { optionText = `${enOpt} / ${hiOpt}`; }
+                else if (langPref === 'only-hi') { optionText = hiOpt; }
+                else if (langPref === 'only-en') { optionText = enOpt; }
+            } else {
+                optionText = String(opt).replace(/\s*\([^)]*\)/g, '').trim();
+            }
+            optionsHtml += `
+                <button onclick="checkAnswer(${index}, this)" class="option-btn" style="animation-delay:${index * 0.06}s">
+                    <div class="option-letter">${letters[index]}</div>
+                    <span class="option-text">${optionText}</span>
+                    <span class="option-icon"></span>
+                </button>
+            `;
+        });
+
+        // Segmented progress
+        let segHtml = '';
+        for (let i = 0; i < questions.length; i++) {
+            let cls = 'seg';
+            if (questionStates[i] === 'correct') cls += ' correct';
+            else if (questionStates[i] === 'wrong') cls += ' wrong';
+            else if (questionStates[i] === 'skipped') cls += ' skipped';
+            else if (i === currentQuestion) cls += ' current';
+            segHtml += `<div class="${cls}"></div>`;
+        }
+
+        appDiv.innerHTML = `
+            <div class="quiz-header">
+                <div class="quiz-header-top">
+                    <div class="q-counter">
+                        <span class="current">${currentQuestion + 1}</span>
+                        <span class="total"> / ${questions.length}</span>
+                    </div>
+                    <div class="q-score">
+                        <div class="score-pill">स्कोर: <span class="v">${score}</span></div>
+                        <div class="icon-btn" onclick="openOverview()" title="नेविगेटर">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="seg-progress">${segHtml}</div>
+            </div>
+            <div class="quiz-body">
+                ${questionTextHtml}
+                <div class="options-container">${optionsHtml}</div>
+            </div>
+            <div class="quiz-footer">
+                <button id="skip-btn" onclick="skipQuestion()" class="btn-skip">स्किप करें</button>
+                <button id="next-btn" onclick="nextQuestion()" class="btn-next hidden">
+                    ${currentQuestion === questions.length - 1 ? 'परिणाम देखें →' : 'अगला प्रश्न →'}
+                </button>
+            </div>
+        `;
+
+        // Swipe support
+        setupSwipe();
+    }
+
+    // ===== SWIPE GESTURES =====
+    function setupSwipe() {
+        const body = appDiv.querySelector('.quiz-body');
+        if (!body) return;
+        let startX = 0, startY = 0;
+        body.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }, {passive: true});
+        body.addEventListener('touchend', function(e) {
+            const dx = e.changedTouches[0].clientX - startX;
+            const dy = e.changedTouches[0].clientY - startY;
+            if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                if (dx < 0) { // swipe left = next
+                    if (answered) nextQuestion();
+                } else { // swipe right = prev
+                    if (currentQuestion > 0) {
+                        currentQuestion--;
+                        renderQuestion();
+                    }
+                }
+            }
+        }, {passive: true});
+    }
+
+    // ===== CHECK ANSWER =====
+    function checkAnswer(selectedIndex, btnElement) {
+        if (answered) return;
+        answered = true;
+        const q = questions[currentQuestion];
+        const allBtns = document.querySelectorAll('.option-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const skipBtn = document.getElementById('skip-btn');
+        if(skipBtn) skipBtn.classList.add('hidden');
+
+        allBtns.forEach((btn, index) => {
+            btn.classList.add('disabled-opt');
+            btn.disabled = true;
+            const iconSlot = btn.querySelector('.option-icon');
+
+            if (index === q.a) {
+                btn.classList.add('correct');
+                btn.classList.remove('disabled-opt');
+                if(iconSlot) iconSlot.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+            }
+            if (index === selectedIndex && selectedIndex !== q.a) {
+                btn.classList.add('wrong');
+                btn.classList.remove('disabled-opt');
+                if(iconSlot) iconSlot.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+            }
+        });
+
+        if (selectedIndex === q.a) {
+            score++;
+            questionStates[currentQuestion] = 'correct';
+            if(navigator.vibrate) navigator.vibrate(30);
+        } else {
+            questionStates[currentQuestion] = 'wrong';
+            if(navigator.vibrate) navigator.vibrate([20,40,20]);
+        }
+
+        if(nextBtn) { nextBtn.classList.remove('hidden'); nextBtn.classList.add('fade-in'); }
+    }
+
+    function skipQuestion() {
+        questionStates[currentQuestion] = 'skipped';
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            renderQuestion();
+        } else {
+            renderResultScreen();
+        }
+    }
+
+    // ===== OVERVIEW (BOTTOM SHEET) =====
+    function openOverview() {
+        let gridHtml = '';
+        for(let i = 0; i < questions.length; i++) {
+            let cls = 'nav-cell';
+            if(questionStates[i] === 'correct') cls += ' correct';
+            if(questionStates[i] === 'wrong') cls += ' wrong';
+            if(questionStates[i] === 'skipped') cls += ' skipped';
+            if(i === currentQuestion) cls += ' current';
+            gridHtml += `<div class="${cls}" onclick="jumpToQuestion(${i})">${i + 1}</div>`;
+        }
+        
+        let correctCount = questionStates.filter(s => s === 'correct').length;
+        let wrongCount = questionStates.filter(s => s === 'wrong').length;
+        let skippedCount = questionStates.filter(s => s === 'skipped').length;
+        
+        document.getElementById('nav-grid').innerHTML = gridHtml;
+        document.getElementById('sheet-sub').innerText = `कुल ${questions.length} प्रश्न — ${correctCount} सही, ${wrongCount} गलत, ${skippedCount} स्किप`;
+        
+        // Language selector in sheet
+        const isBilingual = questions.length > 0 && typeof questions[0].q === 'object';
+        const currentLang = localStorage.getItem('quiz_lang_pref') || 'hi-pri';
+        let langHtml = '';
+        if (isBilingual) {
+            const langs = [
+                {v:'hi-pri', l:'हिंदी प्राथमिकता'},
+                {v:'en-pri', l:'अंग्रेज़ी प्राथमिकता'},
+                {v:'only-hi', l:'केवल हिंदी'},
+                {v:'only-en', l:'केवल अंग्रेज़ी'}
+            ];
+            langHtml = '<div class="lang-pills" style="margin-bottom:16px;">';
+            langs.forEach(l => {
+                langHtml += `<div class="lang-pill ${l.v === currentLang ? 'active' : ''}" onclick="changeLanguagePreference('${l.v}')">${l.l}</div>`;
+            });
+            langHtml += '</div>';
+        }
+        document.getElementById('sheet-lang-area').innerHTML = langHtml;
+        
+        sheetOverlay.classList.add('open');
+        bottomSheet.classList.add('open');
+    }
+
+    function closeOverview() {
+        sheetOverlay.classList.remove('open');
+        bottomSheet.classList.remove('open');
+    }
+
+    function changeLanguagePreference(newLang) {
+        localStorage.setItem('quiz_lang_pref', newLang);
+        closeOverview();
+        renderQuestion();
+    }
+
+    function jumpToQuestion(index) {
+        currentQuestion = index;
+        closeOverview();
+        renderQuestion();
+    }
+
+    function submitQuizFromOverview() {
+        closeOverview();
+        renderResultScreen();
+    }
+
+    // ===== RESULT SCREEN =====
+    function renderResultScreen() {
+        const percentage = Math.round((score / questions.length) * 100);
+        let message = "";
+        let grade = "";
+        let gradeColor = "";
+        
+        if (percentage === 100) { message = "उत्कृष्ट! आपने पूरे अंक प्राप्त किए हैं!"; grade = "उत्कृष्ट"; gradeColor = "var(--emerald-2)"; }
+        else if (percentage >= 80) { message = "शानदार प्रदर्शन! आपकी तैयारी बहुत अच्छी है।"; grade = "शानदार"; gradeColor = "var(--emerald-2)"; }
+        else if (percentage >= 50) { message = "अच्छा प्रयास! पाठ को एक बार और दोहराएँ।"; grade = "अच्छा"; gradeColor = "var(--amber)"; }
+        else { message = "अभ्यास जारी रखें! पाठ्यपुस्तक को ध्यान से पढ़ें और पुनः प्रयास करें।"; grade = "प्रयास जारी रखें"; gradeColor = "var(--rose)"; }
+
+        const strokeDasharray = `${percentage}, 100`;
+        const ringColor = percentage >= 80 ? '#10B981' : percentage >= 50 ? '#F59E0B' : '#F43F5E';
+
+        let correctCount = questionStates.filter(st => st === 'correct').length;
+        let wrongCount = questionStates.filter(st => st === 'wrong').length;
+        let skippedCount = questionStates.filter(st => st === 'skipped').length;
+
+        appDiv.innerHTML = `
+            <div class="result-screen">
+                <div class="result-chapter">${chapterMeta.title}</div>
+                <div class="result-sub">${chapterMeta.subtitle} (कुल प्रश्न: ${questions.length})</div>
+                <div class="result-complete">क्विज़ पूर्ण हुई! 🎉</div>
+                
+                <div class="score-ring-wrap">
+                    <svg viewBox="0 0 36 36" class="score-ring">
+                        <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        <path class="ring-fill" stroke="${ringColor}" stroke-dasharray="${strokeDasharray}" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <div class="score-center">
+                        <div class="score-pct" id="score-pct">0%</div>
+                        <div class="score-grade" style="color:${gradeColor}">${grade}</div>
+                    </div>
+                </div>
+
+                <div class="stat-tiles">
+                    <div class="stat-tile glass-2 correct">
+                        <div class="stat-icon">✓</div>
+                        <div class="stat-label">सही</div>
+                        <div class="stat-val">${correctCount}</div>
+                    </div>
+                    <div class="stat-tile glass-2 wrong">
+                        <div class="stat-icon">✗</div>
+                        <div class="stat-label">गलत</div>
+                        <div class="stat-val">${wrongCount}</div>
+                    </div>
+                    <div class="stat-tile glass-2 skipped">
+                        <div class="stat-icon">⏭</div>
+                        <div class="stat-label">छोड़े</div>
+                        <div class="stat-val">${skippedCount}</div>
+                    </div>
+                    <div class="stat-tile glass-2 total">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-label">कुल</div>
+                        <div class="stat-val">${questions.length}</div>
+                    </div>
+                </div>
+
+                <p class="result-msg">${message}</p>
+                
+                <div class="result-actions">
+                    <button onclick="startQuiz()" class="btn-action-primary">पुनः प्रयास करें</button>
+                    <button onclick="goHome()" class="btn-action-ghost">मुख्य पृष्ठ पर जाएँ</button>
+                </div>
+            </div>
+        `;
+
+        // Animate score count-up
+        const pctEl = document.getElementById('score-pct');
+        if (pctEl) {
+            let current = 0;
+            const target = percentage;
+            const interval = setInterval(() => {
+                current += Math.max(1, Math.ceil((target - current) / 8));
+                if (current >= target) { current = target; clearInterval(interval); }
+                pctEl.innerText = current + '%';
+            }, 40);
+        }
+    }
+
+    // ===== INIT =====
+    window.onload = function() {
+        // Set today's date
+        const today = new Date();
+        const months = ['जनवरी','फरवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'];
+        const days = ['रवि','सोम','मंगल','बुध','गुरु','शुक्र','शनि'];
+        document.getElementById('today-date').innerText = 
+            days[today.getDay()] + ', ' + today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
+
+        history.replaceState({ stage: "subjects" }, "", "#subjects");
+        switchCourse('bseb10');
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((reg) => console.log('Service Worker Registered:', reg.scope))
+                    .catch((err) => console.log('Service Worker Reg Failed:', err));
+            });
+        }
+    };
+
+    // Popstate handler
+    window.addEventListener('popstate', function(event) {
+        const state = event.state;
+        if (state) {
+            if (state.stage === "subjects") { renderSubjects(true); }
+            else if (state.stage === "sections") { renderSections(state.subjectIndex, true); }
+            else if (state.stage === "chapters") {
+                if (state.backTo === "sections") {
+                    const sec = activeQuizData[state.subjectIndex].sections[state.secIndex];
+                    renderChapters(sec.chapters, sec.sectionName, "sections", state.subjectIndex, state.secIndex, true);
+                } else {
+                    const sub = activeQuizData[state.subjectIndex];
+                    renderChapters(sub.chapters, sub.subjectName, "subjects", state.subjectIndex, null, true);
+                }
+            }
+        } else { renderSubjects(true); }
+    });
+
+    </script>
+</body>
+</html>
