@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Quiz Portal - स्मार्ट अध्ययन पोर्टल</title>
-    
+    <title>Smart Quiz Portal — स्मार्ट अध्ययन पोर्टल</title>
+
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#4f46e5">
+    <meta name="theme-color" content="#0A7B5A">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="./icon-192.png">
@@ -15,491 +15,429 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            950: '#090d16',
-                        }
-                    }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { colors: {
+            brand: { 50:'#eef2ff',100:'#e0e7ff',500:'#6366f1',600:'#4f46e5',700:'#4338ca',950:'#090d16' }
+        } } } }
     </script>
-    
+
 <style>
   :root {
-    --bg: #F5F5F7;
+    --bg: #F4F5F7;
     --surface: #FFFFFF;
+    --surface-2: #FAFAFC;
     --ink: #0B0B0D;
     --ink-2: #1D1D1F;
-    --muted: #6E6E73;
-    --muted-2: #8E8E93;
-    --line: #E8E8ED;
+    --muted: #6B7280;
+    --muted-2: #9AA0A6;
+    --line: #E7E8EC;
     --line-2: #EFEFF3;
+
     --emerald: #0A7B5A;
     --emerald-2: #0E9A70;
+    --emerald-3: #14B884;
     --emerald-soft: #E8F5F0;
+    --emerald-mint: #7FE3BE;
+
+    --amber: #B45309;
+    --amber-soft: #FEF3C7;
+    --danger: #DC2626;
+    --danger-soft: #FEE2E2;
     --graphite: #2C2C2E;
+
+    --ring: rgba(10,123,90,.35);
+
+    --shadow-xs: 0 1px 2px rgba(16,24,40,.05);
     --shadow-sm: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
     --shadow-md: 0 4px 12px rgba(16,24,40,.06), 0 2px 4px rgba(16,24,40,.04);
     --shadow-lg: 0 24px 48px -12px rgba(16,24,40,.18), 0 8px 16px -8px rgba(16,24,40,.08);
-    --radius-sm: 12px;
-    --radius-md: 18px;
-    --radius-lg: 24px;
-    --radius-xl: 32px;
+    --shadow-emerald: 0 8px 20px -6px rgba(10,123,90,.45);
+
+    --r-sm: 12px; --r-md: 16px; --r-lg: 20px; --r-xl: 28px; --r-2xl: 32px;
   }
 
-  * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-  }
+  *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
     background:
-      radial-gradient(1200px 600px at 10% -10%, #EEF2F0 0%, transparent 60%),
-      radial-gradient(900px 500px at 110% 10%, #E9F1EE 0%, transparent 55%),
+      radial-gradient(1200px 600px at 12% -12%, #EEF3F0 0%, transparent 58%),
+      radial-gradient(900px 520px at 108% 8%, #E9F1EE 0%, transparent 55%),
       #ECEEF1;
     color: var(--ink);
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.01em;
   }
 
-  /* Stage Container */
-  .stage {
-    width: 100%;
-    max-width: 420px;
-    aspect-ratio: 9/19.5;
-    max-height: calc(100vh - 48px);
-    background: var(--bg);
-    border-radius: 48px;
-    overflow: hidden;
-    position: relative;
-    box-shadow:
-      0 0 0 1px rgba(0,0,0,.04),
-      0 40px 80px -20px rgba(16,24,40,.25),
-      0 20px 40px -10px rgba(16,24,40,.15);
-  }
+  ::selection { background: rgba(10,123,90,.18); }
 
-  .stage::before {
-    content: "";
-    position: absolute; inset: 0;
-    border-radius: 48px;
-    border: 10px solid #0B0B0D;
-    pointer-events: none;
-    z-index: 60;
+  /* Focus ring — keyboard accessibility */
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ring);
+    border-radius: 12px;
   }
+  button:focus-visible, .qp-select:focus-visible { border-radius: 14px; }
 
-  .stage::after {
-    content: "";
-    position: absolute;
-    top: 14px; left: 50%;
-    transform: translateX(-50%);
-    width: 110px; height: 30px;
-    background: #0B0B0D;
-    border-radius: 20px;
-    z-index: 61;
-  }
+  /* ---------- Layout shell ---------- */
+  .qp-shell { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 
-  .app {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    overflow: hidden;
-  }
-
-  /* Status Bar & Header */
-  .statusbar {
-    height: 54px;
-    padding: 20px 28px 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    flex-shrink: 0;
-  }
-  .statusbar .right { display: flex; gap: 6px; align-items: center; }
-  .statusbar svg { width: 16px; height: 11px; }
-
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 0 20px;
-  }
-  .greet { display: flex; flex-direction: column; gap: 2px; }
-  .greet .small { font-size: 13px; color: var(--muted); font-weight: 500; }
-  .greet .name { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
-
-  /* Interactive Elements & Buttons */
-  .icon-btn {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: transform .2s ease, background .2s ease;
-    position: relative;
-  }
-  .icon-btn:hover { background: #F0F0F4; }
-  .icon-btn:active { transform: scale(.95); }
-  .icon-btn svg { width: 18px; height: 18px; stroke: var(--ink-2); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-
-  .pay-btn {
-    width: 100%;
-    background: var(--ink);
-    color: #fff;
-    border: none;
-    border-radius: 16px;
-    padding: 16px;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    cursor: pointer;
-    margin-top: 16px;
-    transition: transform .2s ease, background .2s ease;
-    font-family: inherit;
-  }
-  .pay-btn:hover { background: #2C2C2E; }
-  .pay-btn:active { transform: scale(.98); }
-  .pay-btn.emerald { background: var(--emerald); }
-  .pay-btn.emerald:hover { background: #086B4E; }
-
-  /* Quiz Engine / Glass Containers */
-  .glass-panel {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: 20px;
-  }
-
-  .option-btn {
-    width: 100%;
-    text-align: left;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--line);
-    background: var(--surface);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink-2);
-    cursor: pointer;
-    transition: all .2s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .option-btn:hover:not(:disabled) {
-    background: #FAFAFC;
-    border-color: var(--emerald);
-  }
-
-  .correct {
-    background: var(--emerald-soft) !important;
-    border-color: var(--emerald) !important;
-    color: var(--emerald) !important;
-  }
-
-  .wrong {
-    background: #FEE2E2 !important;
-    border-color: #EF4444 !important;
-    color: #DC2626 !important;
-  }
-
-  /* Navigation Tabbar */
-  .tabbar {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 10px 16px 22px;
-    background: linear-gradient(180deg, rgba(245,245,247,0) 0%, rgba(245,245,247,.85) 30%, rgba(245,245,247,1) 60%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 50;
-  }
-  .tabbar-inner {
-    display: flex; justify-content: space-around; align-items: center;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 28px;
-    padding: 8px;
-    box-shadow: var(--shadow-md);
-  }
-  .tab {
-    flex: 1;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    padding: 8px 4px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all .25s ease;
-    color: var(--muted);
-  }
-  .tab.active {
-    background: var(--ink);
-    color: #fff;
-  }
-  .tab.active svg { stroke: #fff; }
-
-  /* ============ Quiz Portal Skin (test.html design language) ============ */
-
-  html, body.qp-body {
-    background:
-      radial-gradient(1200px 600px at 10% -10%, #EEF2F0 0%, transparent 60%),
-      radial-gradient(900px 500px at 110% 10%, #E9F1EE 0%, transparent 55%),
-      #ECEEF1;
-    display: block;
-    padding: 0;
-  }
-
-  .qp-shell { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-
-  /* Top nav */
+  /* ---------- Top nav ---------- */
   .qp-nav {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(245,245,247,.85);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    background: rgba(244,245,247,.78);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid var(--line);
   }
   .qp-nav-inner {
-    max-width: 1100px; margin: 0 auto; padding: 14px 20px;
+    max-width: 1120px; margin: 0 auto; padding: 12px 20px;
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
   }
-  .qp-brand { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  .qp-brand { display: flex; align-items: center; gap: 12px; cursor: pointer; border-radius: 12px; }
   .qp-brand-icon {
-    width: 42px; height: 42px; border-radius: 14px;
-    background: linear-gradient(135deg,#0A7B5A,#0E9A70 60%,#14B884);
+    width: 42px; height: 42px; border-radius: 13px;
+    background: linear-gradient(135deg, #0A7B5A 0%, #0E9A70 55%, #14B884 100%);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(10,123,90,.25); flex-shrink: 0;
+    box-shadow: 0 6px 16px -4px rgba(10,123,90,.5); flex-shrink: 0;
   }
   .qp-brand-icon svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-  .qp-brand .name { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
-  .qp-brand .tag { font-size: 11px; color: var(--emerald); font-weight: 600; letter-spacing: .04em; }
+  .qp-brand .name { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin: 0; line-height: 1.1; }
+  .qp-brand .tag { font-size: 11px; color: var(--emerald); font-weight: 600; letter-spacing: .04em; margin: 2px 0 0; }
   .qp-nav-actions { display: flex; align-items: center; gap: 10px; }
 
   .qp-select {
     appearance: none; -webkit-appearance: none;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    color: var(--ink-2);
-    font-size: 12.5px; font-weight: 600;
-    padding: 9px 30px 9px 14px;
-    border-radius: 100px;
-    cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236E6E73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
-    background-repeat: no-repeat; background-position: right 10px center; background-size: 14px;
+    background: var(--surface); border: 1px solid var(--line);
+    color: var(--ink-2); font-size: 12.5px; font-weight: 600;
+    padding: 9px 32px 9px 14px; border-radius: 100px; cursor: pointer;
+    box-shadow: var(--shadow-sm); transition: border-color .2s ease, box-shadow .2s ease;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat: no-repeat; background-position: right 11px center; background-size: 14px;
   }
+  .qp-select:hover { border-color: var(--emerald); }
 
   .qp-back-btn {
-    display: flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; gap: 6px;
     background: var(--surface); border: 1px solid var(--line);
     color: var(--ink-2); font-size: 12.5px; font-weight: 700;
     padding: 9px 14px; border-radius: 100px; cursor: pointer;
-    box-shadow: var(--shadow-sm); transition: background .2s ease;
+    box-shadow: var(--shadow-sm); transition: background .2s ease, border-color .2s ease;
   }
-  .qp-back-btn:hover { background: #F0F0F4; }
+  .qp-back-btn:hover { background: var(--surface-2); border-color: var(--emerald); }
+  .qp-back-btn svg { width: 15px; height: 15px; stroke: var(--ink-2); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* Hero / course card */
-  .qp-hero { padding: 24px 0 8px; }
+  /* ---------- Hero ---------- */
+  .qp-hero { padding: 28px 0 8px; }
   .qp-hero-card {
-    background: linear-gradient(160deg,#0B0B0D 0%,#1A1A1D 55%,#232326 100%);
-    border-radius: var(--radius-xl);
-    padding: 28px 26px;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(155deg, #0B0B0D 0%, #18181B 52%, #232326 100%);
+    border-radius: var(--r-2xl);
+    padding: 32px 30px; color: #fff; position: relative; overflow: hidden;
     box-shadow: var(--shadow-lg);
   }
   .qp-hero-card::before {
-    content: ""; position: absolute; top: -40%; right: -15%;
-    width: 320px; height: 320px;
-    background: radial-gradient(circle, rgba(10,123,90,.35) 0%, transparent 70%);
+    content: ""; position: absolute; top: -42%; right: -14%;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(20,184,132,.32) 0%, transparent 68%);
+    pointer-events: none;
+  }
+  .qp-hero-card::after {
+    content: ""; position: absolute; bottom: -30%; left: -10%;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(127,227,190,.10) 0%, transparent 70%);
     pointer-events: none;
   }
   .qp-hero-tag {
     display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(127,227,190,.12); color: #7FE3BE;
-    font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
-    padding: 6px 12px; border-radius: 100px; position: relative; z-index: 1;
+    background: rgba(127,227,190,.12); color: var(--emerald-mint);
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 7px 13px; border-radius: 100px; position: relative; z-index: 1;
+    border: 1px solid rgba(127,227,190,.18);
   }
   .qp-hero-title {
-    font-size: 26px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3;
-    margin-top: 14px; position: relative; z-index: 1; max-width: 640px;
+    font-size: clamp(24px, 3.4vw, 30px); font-weight: 800; letter-spacing: -0.025em;
+    line-height: 1.25; margin: 16px 0 0; position: relative; z-index: 1; max-width: 640px;
   }
   .qp-hero-desc {
-    font-size: 13.5px; color: rgba(255,255,255,.6); line-height: 1.6;
-    margin-top: 8px; max-width: 560px; position: relative; z-index: 1;
+    font-size: 13.5px; color: rgba(255,255,255,.62); line-height: 1.6;
+    margin: 10px 0 0; max-width: 560px; position: relative; z-index: 1;
   }
   .qp-hero-stats {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-    margin-top: 22px; position: relative; z-index: 1; max-width: 480px;
+    margin-top: 24px; position: relative; z-index: 1; max-width: 480px;
   }
   .qp-stat-chip {
-    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-    border-radius: 14px; padding: 10px 8px; text-align: center;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.09);
+    border-radius: 14px; padding: 12px 8px; text-align: center;
   }
-  .qp-stat-chip .v { font-size: 15px; font-weight: 700; color: #7FE3BE; }
-  .qp-stat-chip .l { font-size: 10px; color: rgba(255,255,255,.55); margin-top: 2px; }
+  .qp-stat-chip .v { font-size: 16px; font-weight: 800; color: var(--emerald-mint); margin: 0; }
+  .qp-stat-chip .l { font-size: 10px; color: rgba(255,255,255,.58); margin: 3px 0 0; letter-spacing: .02em; }
 
-  /* Section heading */
-  .qp-section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 28px 2px 14px; flex-wrap: wrap; gap: 6px; }
+  /* ---------- Section heading ---------- */
+  .qp-section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 30px 2px 16px; flex-wrap: wrap; gap: 6px; }
   .qp-section-head h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
   .qp-section-head p { font-size: 12.5px; color: var(--muted); margin: 2px 0 0; }
 
-  /* Card grid (subjects / sections) */
-  .qp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; padding-bottom: 8px; }
-  .qp-grid.qp-grid-2 { grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); }
+  /* ---------- Card grid ---------- */
+  .qp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; padding-bottom: 8px; }
 
   .qp-card {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 18px;
-    box-shadow: var(--shadow-sm);
-    cursor: pointer;
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-    display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
+    --i: 0;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-sm);
+    cursor: pointer; position: relative;
+    transition: transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s ease, border-color .22s ease;
+    display: flex; flex-direction: column; justify-content: space-between; gap: 16px;
+    animation: fadeUp .5s cubic-bezier(.2,.7,.3,1) both; animation-delay: calc(var(--i) * 45ms);
   }
-  .qp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--emerald); }
-  .qp-card:active { transform: translateY(0); }
+  .qp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(10,123,90,.55); }
+  .qp-card:active { transform: translateY(-1px); }
   .qp-card-icon {
-    width: 46px; height: 46px; border-radius: 14px;
+    width: 46px; height: 46px; border-radius: 13px;
     background: var(--emerald-soft); color: var(--emerald);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px; line-height: 1;
   }
-  .qp-card h3 { font-size: 14.5px; font-weight: 700; color: var(--ink); margin: 0; letter-spacing: -0.01em; line-height: 1.35; }
-  .qp-card p { font-size: 12px; color: var(--muted); margin: 4px 0 0; line-height: 1.4; }
+  .qp-card h3 { font-size: 15px; font-weight: 700; color: var(--ink); margin: 14px 0 0; letter-spacing: -0.01em; line-height: 1.35; }
+  .qp-card p { font-size: 12.5px; color: var(--muted); margin: 5px 0 0; line-height: 1.45; }
   .qp-card-foot {
     display: flex; align-items: center; justify-content: space-between;
-    padding-top: 12px; border-top: 1px solid var(--line-2);
+    padding-top: 14px; border-top: 1px solid var(--line-2);
     font-size: 11px; font-weight: 700; letter-spacing: .03em; color: var(--emerald); text-transform: uppercase;
   }
-  .qp-card-foot span.arrow { transition: transform .2s ease; }
-  .qp-card:hover .qp-card-foot span.arrow { transform: translateX(3px); }
+  .qp-card-foot .chip-count { color: var(--muted); }
+  .qp-card-foot .arrow { display: inline-flex; align-items: center; gap: 5px; transition: gap .2s ease; }
+  .qp-card-foot .arrow svg { width: 14px; height: 14px; stroke: var(--emerald); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s ease; }
+  .qp-card:hover .qp-card-foot .arrow svg { transform: translateX(2px); }
 
-  /* Chapter list (menu style) */
-  .qp-list { display: flex; flex-direction: column; gap: 2px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
-  .qp-list-item { display: flex; align-items: center; gap: 12px; padding: 14px; cursor: pointer; transition: background .2s ease; }
-  .qp-list-item:hover { background: #FAFAFC; }
+  /* ---------- Chapter list ---------- */
+  .qp-list { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .qp-list-item {
+    display: flex; align-items: center; gap: 14px; padding: 16px 18px; cursor: pointer;
+    transition: background .2s ease; border: none; background: transparent; width: 100%; text-align: left;
+    font-family: inherit; animation: fadeUp .4s cubic-bezier(.2,.7,.3,1) both; animation-delay: calc(var(--i) * 35ms);
+  }
+  .qp-list-item:hover { background: var(--surface-2); }
   .qp-list-item + .qp-list-item { border-top: 1px solid var(--line-2); }
   .qp-list-icon {
-    width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
+    width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
     background: var(--emerald-soft); color: var(--emerald);
     display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;
   }
   .qp-list-body { flex: 1; min-width: 0; }
-  .qp-list-body .t { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
-  .qp-list-body .s { font-size: 11px; color: var(--muted); margin-top: 2px; letter-spacing: .03em; text-transform: uppercase; font-weight: 700; }
+  .qp-list-body .t { font-size: 14px; font-weight: 600; color: var(--ink-2); line-height: 1.35; }
+  .qp-list-body .s { font-size: 10.5px; color: var(--muted); margin-top: 3px; letter-spacing: .04em; text-transform: uppercase; font-weight: 700; }
+  .qp-list-go {
+    width: 32px; height: 32px; border-radius: 10px; flex-shrink: 0;
+    background: var(--emerald-soft); color: var(--emerald);
+    display: flex; align-items: center; justify-content: center; transition: transform .2s ease, background .2s ease;
+  }
+  .qp-list-item:hover .qp-list-go { transform: translateX(2px); background: var(--emerald); }
+  .qp-list-item:hover .qp-list-go svg { stroke: #fff; }
+  .qp-list-go svg { width: 16px; height: 16px; stroke: var(--emerald); stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: stroke .2s ease; }
 
-  /* Quiz engine (light theme) */
-  #quiz-engine-view .glass-panel { padding: 0; overflow: hidden; min-height: 520px; display: flex; flex-direction: column; }
+  /* ---------- Quiz engine ---------- */
+  #quiz-engine-view .glass-panel {
+    padding: 0; overflow: hidden; min-height: 540px; display: flex; flex-direction: column;
+    border-radius: var(--r-xl); position: relative;
+  }
+
   .btn-start {
     background: var(--emerald); color: #fff; border: none;
-    padding: 14px 32px; border-radius: 16px; font-size: 14.5px; font-weight: 700;
-    cursor: pointer; transition: background .2s ease, transform .2s ease; font-family: inherit;
+    padding: 14px 32px; border-radius: 14px; font-size: 14.5px; font-weight: 700;
+    cursor: pointer; transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+    font-family: inherit; box-shadow: var(--shadow-emerald);
   }
   .btn-start:hover { background: var(--emerald-2); }
   .btn-start:active { transform: scale(.98); }
 
-  .quiz-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--line); position: relative; }
-  .progress-bar-bg { width: 100%; height: 6px; background: var(--line-2); border-radius: 100px; overflow: hidden; }
-  .progress-bar-fill { height: 100%; background: var(--emerald); border-radius: 100px; transition: width .3s ease; }
-  .profile-icon {
-    position: absolute; top: 16px; right: 20px;
-    width: 34px; height: 34px; border-radius: 50%;
-    background: var(--surface); border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center; cursor: pointer;
-    transition: background .2s ease;
+  .quiz-header { padding: 22px 26px 16px; border-bottom: 1px solid var(--line); position: relative; }
+  .quiz-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-right: 46px; }
+  .q-counter { font-size: 12.5px; font-weight: 700; color: var(--emerald); letter-spacing: .04em; }
+  .score-pill {
+    font-size: 12px; font-weight: 700; color: var(--ink-2);
+    background: var(--surface-2); border: 1px solid var(--line);
+    padding: 5px 12px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 6px;
   }
-  .profile-icon:hover { background: #F0F0F4; }
+  .score-pill b { color: var(--emerald); }
+  .progress-bar-bg { width: 100%; height: 6px; background: var(--line-2); border-radius: 100px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--emerald), var(--emerald-3)); border-radius: 100px; transition: width .4s cubic-bezier(.2,.7,.3,1); }
+  .icon-btn-sm {
+    position: absolute; top: 16px; right: 18px;
+    width: 36px; height: 36px; border-radius: 11px;
+    background: var(--surface); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s ease, border-color .2s ease;
+  }
+  .icon-btn-sm:hover { background: var(--surface-2); border-color: var(--emerald); }
+  .icon-btn-sm svg { width: 17px; height: 17px; stroke: var(--ink-2); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
+  .quiz-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 26px 28px; }
+  .q-text-hi { font-size: 21px; font-weight: 800; line-height: 1.45; color: var(--ink); margin: 0; letter-spacing: -0.015em; }
+  .q-text-en { font-size: 14px; font-weight: 400; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
+  .options-container { flex: 1; display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+
+  .option-btn {
+    width: 100%; text-align: left; padding: 14px 16px; border-radius: var(--r-md);
+    border: 1px solid var(--line); background: var(--surface);
+    font-size: 14.5px; font-weight: 500; color: var(--ink-2); cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, transform .15s ease, box-shadow .2s ease;
+    display: flex; align-items: center; gap: 12px; font-family: inherit;
+  }
+  .option-btn:hover:not(:disabled) { background: var(--surface-2); border-color: var(--emerald); transform: translateY(-1px); }
+  .option-badge {
+    width: 28px; height: 28px; border-radius: 9px; flex-shrink: 0;
+    background: var(--surface-2); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; color: var(--muted); transition: all .2s ease;
+  }
+  .option-btn:hover:not(:disabled) .option-badge { background: var(--emerald-soft); border-color: var(--emerald); color: var(--emerald); }
+  .option-label { flex: 1; line-height: 1.4; }
+  .option-mark { width: 22px; height: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .option-mark svg { width: 20px; height: 20px; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .option-btn.correct { background: var(--emerald-soft); border-color: var(--emerald); color: var(--emerald); }
+  .option-btn.correct .option-badge { background: var(--emerald); border-color: var(--emerald); color: #fff; }
+  .option-btn.correct .option-mark svg { stroke: var(--emerald); }
+  .option-btn.wrong { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
+  .option-btn.wrong .option-badge { background: var(--danger); border-color: var(--danger); color: #fff; }
+  .option-btn.wrong .option-mark svg { stroke: var(--danger); }
+  .disabled-option { opacity: .5; }
+
+  .quiz-footer {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 16px 26px; background: var(--surface); border-top: 1px solid var(--line); min-height: 74px;
+  }
   .btn-action {
-    border: none; border-radius: 14px; padding: 12px 22px;
+    border: none; border-radius: 13px; padding: 12px 22px;
     font-size: 13.5px; font-weight: 700; cursor: pointer; font-family: inherit;
-    transition: background .2s ease, transform .2s ease;
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease; display: inline-flex; align-items: center; gap: 8px;
   }
   .btn-action:active { transform: scale(.97); }
-  .btn-skip { background: var(--line-2); color: var(--ink-2); }
-  .btn-skip:hover { background: var(--line); }
-  .btn-next { background: var(--emerald); color: #fff; }
+  .btn-action svg { width: 16px; height: 16px; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-ghost { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .btn-ghost:hover { background: var(--line); }
+  .btn-next { background: var(--emerald); color: #fff; box-shadow: var(--shadow-emerald); }
   .btn-next:hover { background: var(--emerald-2); }
+  .btn-next svg { stroke: #fff; }
 
-  .disabled-option { opacity: .55; pointer-events: none; }
-  .icon-container { display: flex; align-items: center; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { animation: fadeIn .3s ease both; }
 
+  /* ---------- Overview overlay ---------- */
   .overview-panel {
-    position: absolute; inset: 0; z-index: 40;
-    background: var(--bg);
-    padding: 24px; display: flex; flex-direction: column;
-    overflow-y: auto;
+    position: absolute; inset: 0; z-index: 40; background: var(--bg);
+    padding: 24px; display: flex; flex-direction: column; overflow-y: auto; animation: fadeIn .25s ease both;
   }
-  .grid-container { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 16px 0; }
+  .overview-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .overview-head h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin: 0; letter-spacing: -0.01em; }
+  .overview-head .close-x { background: var(--surface); border: 1px solid var(--line); width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .overview-head .close-x svg { width: 16px; height: 16px; stroke: var(--ink-2); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .overview-legend { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-bottom: 16px; font-size: 11.5px; color: var(--muted); font-weight: 600; }
+  .overview-legend .dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 6px; vertical-align: middle; }
+
+  .lang-card {
+    margin-bottom: 16px; padding: 12px 14px; background: var(--emerald-soft);
+    border-radius: var(--r-md); border: 1px solid rgba(10,123,90,.18);
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  }
+  .lang-card label { font-size: 12.5px; font-weight: 700; color: var(--emerald); display: inline-flex; align-items: center; gap: 7px; }
+  .lang-card label svg { width: 15px; height: 15px; stroke: var(--emerald); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .lang-select {
+    background: #fff; color: var(--emerald); border: 1px solid var(--emerald);
+    padding: 7px 12px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+  }
+
+  .grid-container { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 4px 0 16px; }
   .q-circle {
-    aspect-ratio: 1; border-radius: 10px; border: 1px solid var(--line);
+    aspect-ratio: 1; border-radius: 11px; border: 1px solid var(--line);
     background: var(--surface); color: var(--ink-2); font-weight: 700; font-size: 13px;
-    cursor: pointer; transition: transform .15s ease;
+    cursor: pointer; transition: transform .15s ease, box-shadow .2s ease; font-family: inherit;
   }
-  .q-circle:hover { transform: scale(1.06); }
+  .q-circle:hover { transform: scale(1.06); box-shadow: var(--shadow-sm); }
   .q-circle.state-correct { background: var(--emerald-soft); border-color: var(--emerald); color: var(--emerald); }
-  .q-circle.state-wrong { background: #FEE2E2; border-color: #EF4444; color: #DC2626; }
-  .q-circle.state-skipped { background: #FEF3C7; border-color: #F59E0B; color: #B45309; }
+  .q-circle.state-wrong { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
+  .q-circle.state-skipped { background: var(--amber-soft); border-color: #F59E0B; color: var(--amber); }
+  .q-circle.state-current { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-  .stats-box {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius-md); padding: 18px 12px; width: 100%; max-width: 420px;
-    margin: 0 auto 20px; box-shadow: var(--shadow-sm);
+  .overview-foot { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); display: flex; gap: 10px; justify-content: flex-end; }
+
+  /* ---------- Result screen ---------- */
+  .result-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow-y: auto; padding: 36px 28px; }
+  .result-eyebrow { font-size: 13px; font-weight: 700; color: var(--emerald); letter-spacing: .04em; }
+  .result-title { font-size: 24px; font-weight: 800; color: var(--ink); margin: 4px 0 2px; letter-spacing: -0.02em; }
+  .result-sub { font-size: 13px; color: var(--muted); margin: 0 0 22px; }
+
+  .donut { position: relative; width: 180px; height: 180px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
+  .donut svg { width: 100%; height: 100%; }
+  .circular-chart .circle-bg { fill: none; stroke: var(--line-2); stroke-width: 2.6; }
+  .circular-chart .circle { fill: none; stroke-width: 2.8; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; transition: stroke-dasharray .8s cubic-bezier(.2,.7,.3,1); }
+  .donut-center { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .donut-pct { font-size: 34px; font-weight: 800; color: var(--ink); letter-spacing: -0.03em; line-height: 1; }
+  .donut-label { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 4px; letter-spacing: .03em; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; max-width: 440px; width: 100%;
+    background: var(--line); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; margin-bottom: 22px; box-shadow: var(--shadow-sm); }
+  .stat-cell { background: var(--surface); padding: 14px 8px; text-align: center; }
+  .stat-cell .num { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+  .stat-cell .cap { font-size: 10.5px; color: var(--muted); font-weight: 700; margin-top: 6px; letter-spacing: .03em; text-transform: uppercase; }
+
+  .result-msg { font-size: 14px; color: var(--ink-2); margin: 0 0 24px; max-width: 420px; line-height: 1.55; }
+  .result-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+  /* ---------- Dev modal ---------- */
+  .modal-overlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px;
+    background: rgba(11,11,13,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: fadeIn .2s ease both; }
+  .modal-overlay.hidden { display: none; }
+  .modal-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl);
+    max-width: 380px; width: 100%; text-align: center; padding: 30px 26px; box-shadow: var(--shadow-lg); animation: popIn .28s cubic-bezier(.2,.7,.3,1) both; }
+  .modal-icon { width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 18px; background: var(--emerald-soft); display: flex; align-items: center; justify-content: center; }
+  .modal-icon svg { width: 30px; height: 30px; stroke: var(--emerald); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .modal-card h3 { font-size: 18px; font-weight: 800; color: var(--ink); margin: 0 0 8px; letter-spacing: -0.01em; }
+  .modal-card p { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0 0 22px; }
+
+  /* ---------- Footer ---------- */
+  .qp-footer { border-top: 1px solid var(--line); padding: 22px 16px; text-align: center; color: var(--muted); }
+  .qp-footer .f-line1 { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+  .qp-footer .f-line2 { font-size: 11px; font-weight: 500; letter-spacing: .03em; margin-top: 4px; }
+
+  /* ---------- Animations ---------- */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes popIn { from { opacity: 0; transform: scale(.94) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .spinner { width: 44px; height: 44px; border: 4px solid var(--emerald-soft); border-top-color: var(--emerald); border-radius: 50%; animation: spin .8s linear infinite; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 640px) {
+    .qp-shell { padding: 0 16px; }
+    .qp-nav-inner { padding: 12px 16px; gap: 8px; }
+    .qp-brand .tag { display: none; }
+    .qp-hero { padding: 20px 0 8px; }
+    .qp-hero-card { padding: 24px 22px; border-radius: var(--r-xl); }
+    .qp-hero-stats { gap: 8px; }
+    .qp-grid { grid-template-columns: 1fr; gap: 12px; }
+    .quiz-body { padding: 22px 18px; }
+    .quiz-header { padding: 18px 18px 14px; }
+    .quiz-footer { padding: 14px 18px; }
+    .grid-container { grid-template-columns: repeat(6, 1fr); gap: 6px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
   }
-  .circular-chart .circle-bg { fill: none; stroke: var(--line-2); stroke-width: 2.8; }
-  .circular-chart .circle { fill: none; stroke-width: 2.8; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; transition: stroke-dasharray .6s ease; }
+  @media (max-width: 360px) {
+    .grid-container { grid-template-columns: repeat(5, 1fr); }
+  }
 
-  /* Responsive Fixes */
-  @media (max-width: 480px) {
-    body { padding: 0; background: var(--bg); }
-    .stage {
-      max-width: 100%;
-      max-height: 100vh;
-      width: 100%;
-      height: 100vh;
-      aspect-ratio: unset;
-      border-radius: 0;
-    }
-    .stage::before, .stage::after { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   }
 </style>
-
 </head>
-
-<body class="qp-body">
+<body>
 
     <!-- TOP NAVIGATION BAR -->
     <header class="qp-nav">
         <div class="qp-nav-inner">
-            <div class="qp-brand" onclick="goHome()">
+            <div class="qp-brand" onclick="goHome()" role="button" tabindex="0" aria-label="होम पर जाएँ">
                 <div class="qp-brand-icon">
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
@@ -512,8 +450,7 @@
             </div>
 
             <div class="qp-nav-actions">
-                <!-- COURSE SELECTOR DROPDOWN MENU -->
-                <select id="course-selector" onchange="switchCourse(this.value)" class="qp-select">
+                <select id="course-selector" onchange="switchCourse(this.value)" class="qp-select" aria-label="कोर्स चुनें">
                     <option value="bseb10">BSEB 10th</option>
                     <option value="bseb11">BSEB 11th</option>
                     <option value="bseb9">BSEB 9th</option>
@@ -521,82 +458,65 @@
                     <option value="cbse9">CBSE 9th</option>
                 </select>
 
-                <button id="back-btn" onclick="handleNavigationBack()" class="hidden qp-back-btn">
-                    <span>⬅ वापस</span>
+                <button id="back-btn" onclick="handleNavigationBack()" class="hidden qp-back-btn" aria-label="वापस जाएँ">
+                    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+                    <span>वापस</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- DASHBOARD VIEW CONTAINER -->
-    <main id="portal-dashboard" class="qp-shell" style="padding-top: 4px; padding-bottom: 40px;">
+    <!-- DASHBOARD VIEW -->
+    <main id="portal-dashboard" class="qp-shell" style="padding-top:4px; padding-bottom:48px;">
 
-        <!-- HERO & APP TAGLINE SECTION -->
         <section class="qp-hero">
             <div class="qp-hero-card">
-                <span id="course-tagline" class="qp-hero-tag">🚀 परीक्षा सफलता पोर्टल</span>
+                <span id="course-tagline" class="qp-hero-tag">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5L3 22l5.5-1.5"/><path d="M14.5 5.5l4 4-9 9-4-4 9-9z"/><path d="M13 7l4 4"/></svg>
+                    परीक्षा सफलता पोर्टल
+                </span>
                 <h2 id="dashboard-title" class="qp-hero-title">
-                    स्मार्ट अभ्यास, <span style="color:#7FE3BE;">उत्कृष्ट परिणाम</span>
+                    स्मार्ट अभ्यास, <span style="color:var(--emerald-mint);">उत्कृष्ट परिणाम</span>
                 </h2>
                 <p id="dashboard-desc" class="qp-hero-desc">
-                    बोर्ड परीक्षा के सभी विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त साथी।
+                    बोर्ड परीक्षा के सभी विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त डिजिटल साथी।
                 </p>
 
-                <!-- STATS COUNTER BAR -->
                 <div id="quick-stats" class="qp-hero-stats">
-                    <div class="qp-stat-chip">
-                        <p class="v">100%</p>
-                        <p class="l">पाठ्यक्रम कवरेज</p>
-                    </div>
-                    <div class="qp-stat-chip">
-                        <p class="v">मुफ़्त</p>
-                        <p class="l">अनलिमिटेड टेस्ट</p>
-                    </div>
-                    <div class="qp-stat-chip">
-                        <p class="v">लाइव</p>
-                        <p class="l">स्कोर रिपोर्ट</p>
-                    </div>
+                    <div class="qp-stat-chip"><p class="v">100%</p><p class="l">पाठ्यक्रम कवरेज</p></div>
+                    <div class="qp-stat-chip"><p class="v">मुफ़्त</p><p class="l">अनलिमिटेड टेस्ट</p></div>
+                    <div class="qp-stat-chip"><p class="v">लाइव</p><p class="l">स्कोर रिपोर्ट</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- DYNAMIC CARDS GRID CONTAINER -->
-        <div id="quiz-grid" class="qp-grid">
-            <!-- Dynamic Subject / Chapter cards load here -->
-        </div>
+        <div id="quiz-grid" class="qp-grid"><!-- dynamic cards --></div>
     </main>
 
-    <!-- QUIZ ENGINE INTERFACE CONTAINER -->
-    <main id="quiz-engine-view" class="qp-shell hidden" style="padding-top: 20px; padding-bottom: 40px; max-width: 720px;">
-        <div id="app" class="glass-panel" style="position: relative;"></div>
+    <!-- QUIZ ENGINE VIEW -->
+    <main id="quiz-engine-view" class="qp-shell hidden" style="padding-top:24px; padding-bottom:48px; max-width:760px;">
+        <div id="app" class="glass-panel" style="position:relative;"></div>
     </main>
 
-    <!-- DEVELOPMENT POPUP MODAL -->
-    <div id="dev-modal" class="fixed inset-0 hidden flex items-center justify-center p-4" style="background: rgba(11,11,13,.55); backdrop-filter: blur(6px); z-index: 100;">
-        <div class="glass-panel" style="max-width: 380px; width: 100%; text-align: center; padding: 28px 24px;">
-            <div style="width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%; background: var(--emerald-soft); display: flex; align-items: center; justify-content: center; font-size: 26px;">
-                ⚙️
+    <!-- DEV MODAL -->
+    <div id="dev-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeDevModal()">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-label="सामग्री तैयार हो रही है">
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.36.36.59.85.6 1.36V11a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             </div>
-            <h3 style="font-size: 18px; font-weight: 800; color: var(--ink); margin-bottom: 8px;">सामग्री तैयार हो रही है!</h3>
-            <p style="font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-bottom: 20px;">
-                इस अध्याय के प्रश्नपत्र पर कार्य जारी है, यह शीघ्र ही लाइव कर दिया जाएगा। कृपया अन्य उपलब्ध क्विज़ का अभ्यास करें।
-            </p>
-            <button onclick="closeDevModal()" class="btn-start" style="width: 100%;">
-                ठीक है, वापस जाएँ
-            </button>
+            <h3>सामग्री तैयार हो रही है!</h3>
+            <p>इस अध्याय के प्रश्नपत्र पर कार्य जारी है, यह शीघ्र ही लाइव कर दिया जाएगा। कृपया अन्य उपलब्ध क्विज़ का अभ्यास करें।</p>
+            <button onclick="closeDevModal()" class="btn-start" style="width:100%;">ठीक है, वापस जाएँ</button>
         </div>
     </div>
 
-    <!-- GLOBAL FOOTER -->
-    <footer style="border-top: 1px solid var(--line); padding: 16px; text-align: center; color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .03em;">
-        &copy; 2026 Smart Quiz Portal | Code By Logic -Created By - SHIVAM KUMAR |
+    <!-- FOOTER -->
+    <footer class="qp-footer">
+        <div class="f-line1">© 2026 Smart Quiz Portal</div>
+        <div class="f-line2">Code by Logic · Created by Shivam Kumar</div>
     </footer>
 
-    <!-- SCRIPT SECTION -->
     <script>
-    // =========================================================
-    // 🎓 COMPLETE QUIZ DATA CONFIGURATION (All Boards & Classes)
-    // =========================================================
 
     const coursesData = {
         // -----------------------------------------------------
@@ -1426,12 +1346,11 @@ const commonMasterSubject = {
     ]
     };
 
-    // State Variables
+    // ============ State ============
     let currentCourseKey = "bseb10";
     let activeQuizData = [];
     let currentBaseDir = "";
 
-    // DOM Elements
     const gridContainer = document.getElementById('quiz-grid');
     const mainTitle = document.getElementById('dashboard-title');
     const mainDesc = document.getElementById('dashboard-desc');
@@ -1439,15 +1358,11 @@ const commonMasterSubject = {
     const backBtn = document.getElementById('back-btn');
     const devModal = document.getElementById('dev-modal');
     const quickStats = document.getElementById('quick-stats');
-
     const portalDashboard = document.getElementById('portal-dashboard');
     const quizEngineView = document.getElementById('quiz-engine-view');
     const appDiv = document.getElementById('app');
 
-    // Navigation State
     let currentViewState = { stage: "subjects", subjectIndex: null, secIndex: null };
-
-    // Quiz Engine State Variables
     let chapterMeta = { title: "क्विज़ पोर्टल", subtitle: "लोड हो रहा है...", description: "कृपया प्रतीक्षा करें..." };
     let rawQuestions = [];
     let questions = [];
@@ -1456,13 +1371,22 @@ const commonMasterSubject = {
     let answered = false;
     let questionStates = [];
 
+    // shared SVG icons
+    const IC = {
+        chevron: '<svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>',
+        play: '<svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>',
+        check: '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+        cross: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+        grid: '<svg viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>',
+        globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+        xclose: '<svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>',
+        arrowRight: '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+        skip: '<svg viewBox="0 0 24 24"><path d="M5 4l10 8-10 8V4z"/><line x1="19" y1="5" x2="19" y2="19"/></svg>'
+    };
+
     window.onload = function() {
         history.replaceState({ stage: "subjects" }, "", "#subjects");
-        
-        // फिक्स 1: पेज लोड होते ही 'bseb10' में कॉमन ग्रामर ऑटो-इन्जेक्ट करके रेंडर करना
         switchCourse('bseb10');
-        
-        // PWA Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -1470,122 +1394,103 @@ const commonMasterSubject = {
                     .catch((err) => console.log('Service Worker Reg Failed:', err));
             });
         }
+        // keyboard: Enter/Space on brand
+        const brand = document.querySelector('.qp-brand');
+        brand.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goHome(); } });
+        // Escape closes modal
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && !devModal.classList.contains('hidden')) closeDevModal(); });
     };
 
 function switchCourse(courseKey) {
     if (!coursesData[courseKey]) return;
-    
     currentCourseKey = courseKey;
     let currentData = JSON.parse(JSON.stringify(coursesData[courseKey].data));
-
-    // चेक करें कि मास्टर COMMON मौजूद है या नहीं
     const hasCommon = currentData.some(sub => sub.subjectName && sub.subjectName.includes("COMMON (सामान्य ज्ञान एवं व्याकरण)"));
-
-    // अगर नहीं है, तो ऑटो-इन्जेक्ट करें
-    if (!hasCommon) {
-        currentData.push(commonMasterSubject);
-    }
-
+    if (!hasCommon) currentData.push(commonMasterSubject);
     activeQuizData = currentData;
     currentBaseDir = coursesData[courseKey].baseDir;
     courseTagline.innerText = coursesData[courseKey].title;
-    
     renderSubjects();
 }
 
-    function showDashboardView() {
-        portalDashboard.classList.remove('hidden');
-        quizEngineView.classList.add('hidden');
-    }
+    function showDashboardView() { portalDashboard.classList.remove('hidden'); quizEngineView.classList.add('hidden'); }
+    function showQuizEngineView() { portalDashboard.classList.add('hidden'); quizEngineView.classList.remove('hidden'); }
+    function goHome() { showDashboardView(); renderSubjects(); }
 
-    function showQuizEngineView() {
-        portalDashboard.classList.add('hidden');
-        quizEngineView.classList.remove('hidden');
-    }
-
-    function goHome() {
-        showDashboardView();
-        renderSubjects();
+    function makeCard(elem, handler) {
+        elem.setAttribute('role', 'button');
+        elem.setAttribute('tabindex', '0');
+        elem.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
+        });
     }
 
     function renderSubjects(isBackAction = false) {
         showDashboardView();
         gridContainer.innerHTML = '';
-        gridContainer.className = "qp-grid";
-        
-        mainTitle.innerHTML = `स्मार्ट अभ्यास, <span style="color:#7FE3BE;">उत्कृष्ट परिणाम</span>`;
-        mainDesc.innerText = "विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त डिजिटल साथी।";
+        gridContainer.className = 'qp-grid';
+        mainTitle.innerHTML = 'स्मार्ट अभ्यास, <span style="color:var(--emerald-mint);">उत्कृष्ट परिणाम</span>';
+        mainDesc.innerText = 'विषयों की अध्यायवार तैयारी एवं रियल-टाइम क्विज़ प्रैक्टिस का सबसे सशक्त डिजिटल साथी।';
         quickStats.classList.remove('hidden');
         backBtn.classList.add('hidden');
         currentViewState = { stage: "subjects", subjectIndex: null };
-
-        if (!isBackAction) {
-            history.pushState({ stage: "subjects" }, "", "#subjects");
-        }
+        if (!isBackAction) history.pushState({ stage: "subjects" }, "", "#subjects");
 
         activeQuizData.forEach((sub, subIndex) => {
             const card = document.createElement('div');
-            card.className = "qp-card";
-            card.setAttribute('onclick', `handleSubjectClick(${subIndex})`);
-            
-            let countText = sub.sections ? `${sub.sections.length} सेक्शंस` : `${sub.chapters.length} चैप्टर्स`;
-
-            card.innerHTML = `
-                <div>
-                    <div class="qp-card-icon">${sub.icon}</div>
-                    <h3 style="margin-top: 12px;">${sub.subjectName}</h3>
-                    <p>${sub.description || ''}</p>
-                </div>
-                <div class="qp-card-foot">
-                    <span>${countText}</span>
-                    <span class="arrow">खोलें ➔</span>
-                </div>
-            `;
+            card.className = 'qp-card';
+            card.style.setProperty('--i', subIndex);
+            let countText = sub.sections ? sub.sections.length + ' सेक्शंस' : sub.chapters.length + ' चैप्टर्स';
+            card.innerHTML =
+                '<div>' +
+                  '<div class="qp-card-icon">' + (sub.icon || '📘') + '</div>' +
+                  '<h3>' + sub.subjectName + '</h3>' +
+                  '<p>' + (sub.description || '') + '</p>' +
+                '</div>' +
+                '<div class="qp-card-foot">' +
+                  '<span class="chip-count">' + countText + '</span>' +
+                  '<span class="arrow">खोलें ' + IC.chevron + '</span>' +
+                '</div>';
+            makeCard(card, () => handleSubjectClick(subIndex));
+            card.addEventListener('click', () => handleSubjectClick(subIndex));
             gridContainer.appendChild(card);
         });
     }
 
     function handleSubjectClick(subIndex) {
         const sub = activeQuizData[subIndex];
-        if (sub.sections) {
-            renderSections(subIndex);
-        } else {
-            renderChapters(sub.chapters, sub.subjectName, "subjects", subIndex);
-        }
+        if (sub.sections) renderSections(subIndex);
+        else renderChapters(sub.chapters, sub.subjectName, "subjects", subIndex);
     }
 
     function renderSections(subIndex, isBackAction = false) {
         showDashboardView();
         gridContainer.innerHTML = '';
-        gridContainer.className = "qp-grid";
-        
+        gridContainer.className = 'qp-grid';
         const currentSub = activeQuizData[subIndex];
-        mainTitle.innerHTML = `<span style="color:var(--emerald);">${currentSub.subjectName}</span> के मुख्य सेक्शंस`;
-        mainDesc.innerText = "अपनी तैयारी को आसान बनाने के लिए नीचे दिए गए सेक्शन में से चुनाव करें।";
+        mainTitle.innerHTML = '<span style="color:var(--emerald);">' + currentSub.subjectName + '</span> के मुख्य सेक्शंस';
+        mainDesc.innerText = 'अपनी तैयारी को आसान बनाने के लिए नीचे दिए गए सेक्शन में से चुनाव करें।';
         quickStats.classList.add('hidden');
         backBtn.classList.remove('hidden');
         currentViewState = { stage: "sections", subjectIndex: subIndex };
-
-        if (!isBackAction) {
-            history.pushState({ stage: "sections", subjectIndex: subIndex }, "", `#sections-${subIndex}`);
-        }
+        if (!isBackAction) history.pushState({ stage: "sections", subjectIndex: subIndex }, "", "#sections-" + subIndex);
 
         currentSub.sections.forEach((sec, secIndex) => {
             const card = document.createElement('div');
-            card.className = "qp-card";
-            card.setAttribute('onclick', `renderSectionChapters(${subIndex}, ${secIndex})`);
-            
-            card.innerHTML = `
-                <div>
-                    <div class="qp-card-icon">${sec.icon || '📁'}</div>
-                    <h3 style="margin-top: 12px;">${sec.sectionName}</h3>
-                    <p>विशेष महत्वपूर्ण प्रश्न संग्रह।</p>
-                </div>
-                <div class="qp-card-foot">
-                    <span>${sec.chapters.length} चैप्टर्स</span>
-                    <span class="arrow">देखें ➔</span>
-                </div>
-            `;
+            card.className = 'qp-card';
+            card.style.setProperty('--i', secIndex);
+            card.innerHTML =
+                '<div>' +
+                  '<div class="qp-card-icon">' + (sec.icon || '📁') + '</div>' +
+                  '<h3>' + sec.sectionName + '</h3>' +
+                  '<p>विशेष महत्वपूर्ण प्रश्न संग्रह।</p>' +
+                '</div>' +
+                '<div class="qp-card-foot">' +
+                  '<span class="chip-count">' + sec.chapters.length + ' चैप्टर्स</span>' +
+                  '<span class="arrow">देखें ' + IC.chevron + '</span>' +
+                '</div>';
+            makeCard(card, () => renderSectionChapters(subIndex, secIndex));
+            card.addEventListener('click', () => renderSectionChapters(subIndex, secIndex));
             gridContainer.appendChild(card);
         });
     }
@@ -1595,60 +1500,41 @@ function switchCourse(courseKey) {
         renderChapters(sec.chapters, sec.sectionName, "sections", subIndex, secIndex);
     }
 
-    function renderChapters(chaptersList, titleName, backToStage, subIndex = null, secIndex = null, isBackAction = false) {
+    function renderChapters(chaptersList, titleName, backToStage, subIndex, secIndex, isBackAction) {
         showDashboardView();
         gridContainer.innerHTML = '';
-        gridContainer.className = "qp-list";
-        
-        mainTitle.innerHTML = `<span style="color:var(--emerald);">${titleName}</span> - अध्यायवार क्विज़`;
-        mainDesc.innerText = "जिस अध्याय का टेस्ट देना चाहते हैं, उस पर क्लिक करके तुरंत टेस्ट शुरू करें।";
+        gridContainer.className = 'qp-list';
+        mainTitle.innerHTML = '<span style="color:var(--emerald);">' + titleName + '</span> — अध्यायवार क्विज़';
+        mainDesc.innerText = 'जिस अध्याय का टेस्ट देना चाहते हैं, उस पर क्लिक करके तुरंत टेस्ट शुरू करें।';
         quickStats.classList.add('hidden');
         backBtn.classList.remove('hidden');
-        
         currentViewState = { stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex };
-
-        if (!isBackAction) {
-            history.pushState({ stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex }, "", "#chapters");
-        }
+        if (!isBackAction) history.pushState({ stage: "chapters", backTo: backToStage, subjectIndex: subIndex, secIndex: secIndex }, "", "#chapters");
 
         chaptersList.forEach((chap, chapIndex) => {
-            const card = document.createElement('div');
-            card.className = "qp-list-item";
-            card.setAttribute('onclick', `runQuizFile('${chap.file}')`);
-            
-            card.innerHTML = `
-                <div class="qp-list-icon">${chapIndex + 1}</div>
-                <div class="qp-list-body">
-                    <div class="s">ऑनलाइन लाइव टेस्ट</div>
-                    <div class="t">${chap.name}</div>
-                </div>
-                <div style="color: var(--emerald); font-size: 18px; flex-shrink: 0;">▶</div>
-            `;
-            gridContainer.appendChild(card);
+            const item = document.createElement('button');
+            item.className = 'qp-list-item';
+            item.type = 'button';
+            item.style.setProperty('--i', chapIndex);
+            item.innerHTML =
+                '<div class="qp-list-icon">' + (chapIndex + 1) + '</div>' +
+                '<div class="qp-list-body">' +
+                  '<div class="s">ऑनलाइन लाइव टेस्ट</div>' +
+                  '<div class="t">' + chap.name + '</div>' +
+                '</div>' +
+                '<span class="qp-list-go">' + IC.play + '</span>';
+            item.addEventListener('click', () => runQuizFile("'" + chap.file + "'"));
+            gridContainer.appendChild(item);
         });
     }
 
     function runQuizFile(jsonRelativePath) {
         let targetUrl = "";
-
-        // फिक्स 2: स्मार्ट पाथ चेकिंग (COMMON/ डायरेक्टरी से सही फ़ाइल उठाना)
-        if (jsonRelativePath.startsWith("COMMON/")) {
-            targetUrl = `./data/${jsonRelativePath}`;
-        } else {
-            targetUrl = `./${currentBaseDir}${jsonRelativePath}`;
-        }
-        
+        if (jsonRelativePath.startsWith("COMMON/")) targetUrl = "./data/" + jsonRelativePath;
+        else targetUrl = "./" + currentBaseDir + jsonRelativePath;
         fetch(targetUrl, { method: 'HEAD' })
-        .then(response => {
-            if (response.ok) {
-                loadAndStartQuiz(targetUrl);
-            } else {
-                showDevModal();
-            }
-        })
-        .catch(() => {
-            showDevModal();
-        });
+            .then(response => { if (response.ok) loadAndStartQuiz(targetUrl); else showDevModal(); })
+            .catch(() => { showDevModal(); });
     }
 
     function showDevModal() { devModal.classList.remove('hidden'); }
@@ -1656,11 +1542,8 @@ function switchCourse(courseKey) {
 
     function handleNavigationBack() {
         if (currentViewState.stage === "chapters") {
-            if (currentViewState.backTo === "sections") {
-                renderSections(currentViewState.subjectIndex, true);
-            } else {
-                renderSubjects(true);
-            }
+            if (currentViewState.backTo === "sections") renderSections(currentViewState.subjectIndex, true);
+            else renderSubjects(true);
         } else if (currentViewState.stage === "sections" || !quizEngineView.classList.contains('hidden')) {
             renderSubjects(true);
         } else {
@@ -1668,20 +1551,15 @@ function switchCourse(courseKey) {
         }
     }
 
-    // ==========================================
-    // 🧠 QUIZ ENGINE CORE FUNCTIONS
-    // ==========================================
+    // ============ QUIZ ENGINE ============
     function loadAndStartQuiz(fullPath) {
         showQuizEngineView();
         backBtn.classList.remove('hidden');
-        appDiv.innerHTML = `
-            <div class="flex-1 flex flex-col items-center justify-center p-8 text-center" style="min-height: 420px;">
-                <div style="width: 44px; height: 44px; border: 4px solid var(--emerald-soft); border-top-color: var(--emerald); border-radius: 50%; margin-bottom: 16px; animation: spin 0.8s linear infinite;"></div>
-                <p style="color: var(--emerald); font-weight: 600; font-size: 13.5px;">क्विज़ प्रश्नपत्र लोड हो रहा है...</p>
-            </div>
-            <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
-        `;
-
+        appDiv.innerHTML =
+            '<div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px; text-align:center; min-height:420px;">' +
+                '<div class="spinner"></div>' +
+                '<p style="color:var(--emerald); font-weight:700; font-size:13.5px; margin-top:16px;">क्विज़ प्रश्नपत्र लोड हो रहा है...</p>' +
+            '</div>';
         fetch(fullPath)
             .then(res => res.json())
             .then(data => {
@@ -1689,11 +1567,10 @@ function switchCourse(courseKey) {
                 chapterMeta.subtitle = data.subtitle || "";
                 chapterMeta.description = data.description || "";
                 rawQuestions = data.questions || [];
-                
                 renderStartScreen();
             })
             .catch(err => {
-                appDiv.innerHTML = `<div class="p-8 text-center font-semibold" style="color:#DC2626;">त्रुटि: डेटा फ़ाइल लोड नहीं हो सकी!</div>`;
+                appDiv.innerHTML = '<div style="padding:40px; text-align:center; font-weight:600; color:var(--danger);">त्रुटि: डेटा फ़ाइल लोड नहीं हो सकी!</div>';
                 console.error("Data load error:", err);
             });
     }
@@ -1716,343 +1593,241 @@ function switchCourse(courseKey) {
     }
 
     function renderStartScreen() {
-        appDiv.innerHTML = `
-            <div class="flex-1 flex flex-col items-center justify-center p-8 text-center" style="min-height: 480px;">
-                <div style="width: 76px; height: 76px; background: var(--emerald-soft); color: var(--emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                </div>
-                <h1 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 10px; color: var(--ink); letter-spacing: -0.02em;">${chapterMeta.title}</h1>
-                <h2 style="font-size: 1.05rem; color: var(--emerald); font-weight: 600; margin-bottom: 14px;">${chapterMeta.subtitle}</h2>
-                <p style="color: var(--muted); margin-bottom: 28px; max-width: 480px; font-size: 0.92rem; line-height: 1.6;">${chapterMeta.description}</p>
-                <button onclick="startQuiz()" class="btn-start">क्विज़ प्रारंभ करें</button>
-            </div>
-        `;
+        appDiv.innerHTML =
+            '<div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 32px; text-align:center;">' +
+                '<div style="width:78px; height:78px; background:var(--emerald-soft); color:var(--emerald); border-radius:24px; display:flex; align-items:center; justify-content:center; margin-bottom:22px;">' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>' +
+                '</div>' +
+                '<h1 style="font-size:24px; font-weight:800; margin:0 0 8px; color:var(--ink); letter-spacing:-0.02em;">' + chapterMeta.title + '</h1>' +
+                (chapterMeta.subtitle ? '<h2 style="font-size:15px; color:var(--emerald); font-weight:700; margin:0 0 12px;">' + chapterMeta.subtitle + '</h2>' : '') +
+                '<p style="color:var(--muted); margin:0 0 28px; max-width:480px; font-size:14px; line-height:1.6;">' + chapterMeta.description + '</p>' +
+                '<button onclick="startQuiz()" class="btn-start">क्विज़ प्रारंभ करें</button>' +
+            '</div>';
     }
 
     function startQuiz() {
-        if(!rawQuestions || rawQuestions.length === 0) {
-            alert("कोई प्रश्न उपलब्ध नहीं है!");
-            return;
-        }
+        if (!rawQuestions || rawQuestions.length === 0) { alert("कोई प्रश्न उपलब्ध नहीं है!"); return; }
         questions = shuffleQuestionsAndOptions(rawQuestions);
         currentQuestion = 0;
         score = 0;
         questionStates = new Array(questions.length).fill('default');
         renderQuestion();
     }
+
 function renderQuestion() {
     answered = false;
     const q = questions[currentQuestion];
     const progress = ((currentQuestion) / questions.length) * 100;
-
-    // LocalStorage से लैंग्वेज प्रेफरेंस प्राप्त करें (डिफ़ॉल्ट: 'hi-pri')
     const langPref = localStorage.getItem('quiz_lang_pref') || 'hi-pri';
 
-    // 1. प्रश्न (Question) रेंडरिंग लॉजिक
     let questionTextHtml = '';
     if (typeof q.q === 'object' && q.q !== null) {
         let hiQ = q.q.hi || '';
         let enQ = q.q.en || '';
-
         if (langPref === 'hi-pri') {
-            questionTextHtml = `
-                <div class="space-y-1 mb-6">
-                    <h2 style="font-size: 1.35rem; font-weight: 800; line-height: 1.5; color: var(--ink);">${hiQ}</h2>
-                    <p style="font-size: 1rem; font-weight: 400; color: var(--muted); line-height: 1.4;">${enQ}</p>
-                </div>`;
+            questionTextHtml = '<div style="margin-bottom:6px;"><h2 class="q-text-hi">' + hiQ + '</h2><p class="q-text-en">' + enQ + '</p></div>';
         } else if (langPref === 'en-pri') {
-            questionTextHtml = `
-                <div class="space-y-1 mb-6">
-                    <h2 style="font-size: 1.35rem; font-weight: 800; line-height: 1.5; color: var(--ink);">${enQ}</h2>
-                    <p style="font-size: 1rem; font-weight: 400; color: var(--muted); line-height: 1.4;">${hiQ}</p>
-                </div>`;
+            questionTextHtml = '<div style="margin-bottom:6px;"><h2 class="q-text-hi">' + enQ + '</h2><p class="q-text-en">' + hiQ + '</p></div>';
         } else if (langPref === 'only-hi') {
-            questionTextHtml = `
-                <div class="mb-6">
-                    <h2 style="font-size: 1.35rem; font-weight: 800; line-height: 1.5; color: var(--ink);">${hiQ}</h2>
-                </div>`;
+            questionTextHtml = '<div style="margin-bottom:6px;"><h2 class="q-text-hi">' + hiQ + '</h2></div>';
         } else if (langPref === 'only-en') {
-            questionTextHtml = `
-                <div class="mb-6">
-                    <h2 style="font-size: 1.35rem; font-weight: 800; line-height: 1.5; color: var(--ink);">${enQ}</h2>
-                </div>`;
+            questionTextHtml = '<div style="margin-bottom:6px;"><h2 class="q-text-hi">' + enQ + '</h2></div>';
         }
     } else {
-        // सादा पुराना प्रश्न
-        questionTextHtml = `<h2 style="font-size: 1.35rem; font-weight: 600; margin-bottom: 24px; line-height: 1.5; color: var(--ink);">${q.q}</h2>`;
+        questionTextHtml = '<h2 class="q-text-hi" style="margin-bottom:24px;">' + q.q + '</h2>';
     }
 
-    // 2. विकल्पों (Options) की रेंडरिंग + कोष्ठक साफ करने का लॉजिक
+    const letters = ['A','B','C','D','E','F'];
     let optionsHtml = '';
     q.o.forEach((opt, index) => {
         let optionText = '';
-        
         if (typeof opt === 'object' && opt !== null) {
             let hiOpt = (opt.hi || '').replace(/\s*\([^)]*\)/g, '').trim();
             let enOpt = (opt.en || '').replace(/\s*\([^)]*\)/g, '').trim();
-
-            if (langPref === 'hi-pri') {
-                optionText = `${hiOpt} / ${enOpt}`;
-            } else if (langPref === 'en-pri') {
-                optionText = `${enOpt} / ${hiOpt}`;
-            } else if (langPref === 'only-hi') {
-                optionText = hiOpt;
-            } else if (langPref === 'only-en') {
-                optionText = enOpt;
-            }
+            if (langPref === 'hi-pri') optionText = hiOpt + ' / ' + enOpt;
+            else if (langPref === 'en-pri') optionText = enOpt + ' / ' + hiOpt;
+            else if (langPref === 'only-hi') optionText = hiOpt;
+            else if (langPref === 'only-en') optionText = enOpt;
         } else {
             optionText = String(opt).replace(/\s*\([^)]*\)/g, '').trim();
         }
-
-        optionsHtml += `
-            <button onclick="checkAnswer(${index}, this)" class="option-btn">
-                <span>${optionText}</span>
-                <span class="icon-container hidden"></span>
-            </button>
-        `;
+        optionsHtml +=
+            '<button onclick="checkAnswer(' + index + ', this)" class="option-btn fade-in" style="animation-delay:' + (index * 50) + 'ms;">' +
+                '<span class="option-badge">' + (letters[index] || (index+1)) + '</span>' +
+                '<span class="option-label">' + optionText + '</span>' +
+                '<span class="option-mark"></span>' +
+            '</button>';
     });
 
-    appDiv.innerHTML = `
-        <div class="quiz-header">
-            <div class="flex justify-between items-center" style="margin-bottom: 12px; padding-right: 50px;">
-                <span style="font-size: 0.85rem; font-weight: bold; color: var(--emerald); letter-spacing: 0.5px;">प्रश्न ${currentQuestion + 1} / ${questions.length}</span>
-                <span style="font-size: 0.85rem; font-weight: bold; color: var(--ink-2); background: var(--line-2); padding: 4px 14px; border-radius: 9999px;">स्कोर: ${score}</span>
-            </div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" style="width: ${progress}%"></div>
-            </div>
-            <div class="profile-icon" onclick="openOverview()" title="प्रश्नावली नेविगेशन">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6E6E73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            </div>
-        </div>
-
-        <div class="flex-1 overflow-y-auto flex flex-col" style="padding: 24px 28px;">
-            ${questionTextHtml}
-            <div id="options-container" class="flex-1 flex flex-col justify-center">
-                ${optionsHtml}
-            </div>
-        </div>
-
-        <div class="flex justify-between items-center" style="padding: 18px 28px; background: var(--bg); border-top: 1px solid var(--line); min-height: 76px;">
-            <div>
-                <button id="skip-btn" onclick="skipQuestion()" class="btn-action btn-skip">स्किप करें</button>
-            </div>
-            <button id="next-btn" onclick="nextQuestion()" class="hidden btn-action btn-next">
-                ${currentQuestion === questions.length - 1 ? 'परिणाम देखें' : 'अगला प्रश्न'}
-            </button>
-        </div>
-    `;
+    appDiv.innerHTML =
+        '<div class="quiz-header">' +
+            '<div class="quiz-topbar">' +
+                '<span class="q-counter">प्रश्न ' + (currentQuestion + 1) + ' / ' + questions.length + '</span>' +
+                '<span class="score-pill">स्कोर <b>' + score + '</b></span>' +
+            '</div>' +
+            '<div class="progress-bar-bg"><div class="progress-bar-fill" style="width:' + progress + '%"></div></div>' +
+            '<button class="icon-btn-sm" onclick="openOverview()" title="प्रश्नावली नेविगेशन" aria-label="प्रश्नावली ओवरव्यू">' + IC.grid + '</button>' +
+        '</div>' +
+        '<div class="quiz-body">' +
+            questionTextHtml +
+            '<div class="options-container">' + optionsHtml + '</div>' +
+        '</div>' +
+        '<div class="quiz-footer">' +
+            '<button id="skip-btn" onclick="skipQuestion()" class="btn-action btn-ghost">' + IC.skip + '<span>स्किप करें</span></button>' +
+            '<button id="next-btn" onclick="nextQuestion()" class="hidden btn-action btn-next">' +
+                '<span>' + (currentQuestion === questions.length - 1 ? 'परिणाम देखें' : 'अगला प्रश्न') + '</span>' + IC.arrowRight +
+            '</button>' +
+        '</div>';
 }
 
     function checkAnswer(selectedIndex, btnElement) {
         if (answered) return;
         answered = true;
-
         const q = questions[currentQuestion];
         const allBtns = document.querySelectorAll('.option-btn');
         const nextBtn = document.getElementById('next-btn');
         const skipBtn = document.getElementById('skip-btn');
-
-        if(skipBtn) skipBtn.classList.add('hidden');
+        if (skipBtn) skipBtn.classList.add('hidden');
 
         allBtns.forEach((btn, index) => {
             btn.classList.add('disabled-option');
             btn.disabled = true;
-            const iconContainer = btn.querySelector('.icon-container');
-            if(iconContainer) iconContainer.classList.remove('hidden');
-
+            const mark = btn.querySelector('.option-mark');
             if (index === q.a) {
                 btn.classList.add('correct');
                 btn.classList.remove('disabled-option');
-                if(iconContainer) iconContainer.innerHTML = `<svg style="color: #0A7B5A; width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+                if (mark) mark.innerHTML = IC.check;
             }
-            
             if (index === selectedIndex && selectedIndex !== q.a) {
                 btn.classList.add('wrong');
                 btn.classList.remove('disabled-option');
-                if(iconContainer) iconContainer.innerHTML = `<svg style="color: #DC2626; width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
-            } 
+                if (mark) mark.innerHTML = IC.cross;
+            }
         });
 
-        if (selectedIndex === q.a) {
-            score++;
-            questionStates[currentQuestion] = 'correct';
-        } else {
-            questionStates[currentQuestion] = 'wrong';
-        }
+        if (selectedIndex === q.a) { score++; questionStates[currentQuestion] = 'correct'; }
+        else { questionStates[currentQuestion] = 'wrong'; }
 
-        if(nextBtn) {
-            nextBtn.classList.remove('hidden');
-            nextBtn.classList.add('fade-in');
-        }
+        if (nextBtn) { nextBtn.classList.remove('hidden'); nextBtn.classList.add('fade-in'); }
     }
 
-    function skipQuestion() {
-        questionStates[currentQuestion] = 'skipped';
-        nextQuestion();
-    }
-
+    function skipQuestion() { questionStates[currentQuestion] = 'skipped'; nextQuestion(); }
     function nextQuestion() {
-        if (currentQuestion < questions.length - 1) {
-            currentQuestion++;
-            renderQuestion();
-        } else {
-            renderResultScreen();
-        }
+        if (currentQuestion < questions.length - 1) { currentQuestion++; renderQuestion(); }
+        else { renderResultScreen(); }
     }
+
 function openOverview() {
     let gridHtml = '';
-    for(let i = 0; i < questions.length; i++) {
+    for (let i = 0; i < questions.length; i++) {
         let stateClass = 'state-default';
-        if(questionStates[i] === 'correct') stateClass = 'state-correct';
-        if(questionStates[i] === 'wrong') stateClass = 'state-wrong';
-        if(questionStates[i] === 'skipped') stateClass = 'state-skipped';
-        
-        gridHtml += `<button onclick="jumpToQuestion(${i})" class="q-circle ${stateClass}">${i + 1}</button>`;
+        if (questionStates[i] === 'correct') stateClass = 'state-correct';
+        if (questionStates[i] === 'wrong') stateClass = 'state-wrong';
+        if (questionStates[i] === 'skipped') stateClass = 'state-skipped';
+        let cur = (i === currentQuestion) ? ' state-current' : '';
+        gridHtml += '<button onclick="jumpToQuestion(' + i + ')" class="q-circle ' + stateClass + cur + '">' + (i + 1) + '</button>';
     }
 
-    // जांचें कि वर्तमान प्रश्नपत्र द्विभाषी (Bilingual COMMON) है या नहीं
     const isBilingual = questions.length > 0 && typeof questions[0].q === 'object';
     const currentLang = localStorage.getItem('quiz_lang_pref') || 'hi-pri';
 
     let langSelectorHtml = '';
     if (isBilingual) {
-        langSelectorHtml = `
-            <div style="margin-bottom: 16px; padding: 12px; background: var(--emerald-soft); border-radius: 12px; border: 1px solid var(--line);" class="flex items-center justify-between">
-                <label style="font-size: 0.85rem; font-weight: bold; color: var(--emerald);">🌐 भाषा प्राथमिकता (Language):</label>
-                <select onchange="changeLanguagePreference(this.value)" style="background: #fff; color: var(--emerald); border: 1px solid var(--emerald); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; cursor: pointer;">
-                    <option value="hi-pri" ${currentLang === 'hi-pri' ? 'selected' : ''}>हिंदी प्राथमिकता (Hindi Priority)</option>
-                    <option value="en-pri" ${currentLang === 'en-pri' ? 'selected' : ''}>अंग्रेज़ी प्राथमिकता (English Priority)</option>
-                    <option value="only-hi" ${currentLang === 'only-hi' ? 'selected' : ''}>केवल हिंदी (Only Hindi)</option>
-                    <option value="only-en" ${currentLang === 'only-en' ? 'selected' : ''}>केवल अंग्रेज़ी (Only English)</option>
-                </select>
-            </div>
-        `;
+        langSelectorHtml =
+            '<div class="lang-card">' +
+                '<label>' + IC.globe + ' भाषा प्राथमिकता</label>' +
+                '<select onchange="changeLanguagePreference(this.value)" class="lang-select">' +
+                    '<option value="hi-pri" ' + (currentLang === 'hi-pri' ? 'selected' : '') + '>हिंदी प्राथमिकता</option>' +
+                    '<option value="en-pri" ' + (currentLang === 'en-pri' ? 'selected' : '') + '>अंग्रेज़ी प्राथमिकता</option>' +
+                    '<option value="only-hi" ' + (currentLang === 'only-hi' ? 'selected' : '') + '>केवल हिंदी</option>' +
+                    '<option value="only-en" ' + (currentLang === 'only-en' ? 'selected' : '') + '>केवल अंग्रेज़ी</option>' +
+                '</select>' +
+            '</div>';
     }
 
     const overviewDiv = document.createElement('div');
     overviewDiv.id = 'overview-overlay';
     overviewDiv.className = 'overview-panel';
-    overviewDiv.innerHTML = `
-        <h3 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 14px; text-align: center; color: var(--ink);">प्रश्नावली ओवरव्यू (कुल ${questions.length} प्रश्न)</h3>
-        ${langSelectorHtml}
-        <div class="grid-container">
-            ${gridHtml}
-        </div>
-        <div class="flex justify-center" style="padding-top: 16px; margin-top: auto; border-top: 1px solid var(--line);">
-            <button onclick="closeOverview()" class="btn-action btn-skip" style="margin: 0 8px;">वापस जाएँ</button>
-            <button onclick="submitQuizFromOverview()" class="btn-action btn-next" style="margin: 0 8px;">सबमिट करें</button>
-        </div>
-    `;
+    overviewDiv.innerHTML =
+        '<div class="overview-head">' +
+            '<h3>प्रश्नावली ओवरव्यू · कुल ' + questions.length + ' प्रश्न</h3>' +
+            '<button class="close-x" onclick="closeOverview()" aria-label="बंद करें">' + IC.xclose + '</button>' +
+        '</div>' +
+        '<div class="overview-legend">' +
+            '<span><span class="dot" style="background:var(--emerald);"></span>सही</span>' +
+            '<span><span class="dot" style="background:var(--danger);"></span>गलत</span>' +
+            '<span><span class="dot" style="background:#F59E0B;"></span>छोड़ा</span>' +
+            '<span><span class="dot" style="background:var(--line); border:1px solid var(--muted-2);"></span>शेष</span>' +
+        '</div>' +
+        langSelectorHtml +
+        '<div class="grid-container">' + gridHtml + '</div>' +
+        '<div class="overview-foot">' +
+            '<button onclick="closeOverview()" class="btn-action btn-ghost">वापस जाएँ</button>' +
+            '<button onclick="submitQuizFromOverview()" class="btn-action btn-next">सबमिट करें ' + IC.arrowRight + '</button>' +
+        '</div>';
     appDiv.appendChild(overviewDiv);
 }
 
-// भाषा बदलने और LocalStorage में सेव करने का फ़ंक्शन
 function changeLanguagePreference(newLang) {
     localStorage.setItem('quiz_lang_pref', newLang);
     closeOverview();
-    renderQuestion(); // नए लेआउट के साथ प्रश्न को पुनः रेंडर करें
+    renderQuestion();
 }
-
-    function closeOverview() {
-        const overlay = document.getElementById('overview-overlay');
-        if(overlay) overlay.remove();
-    }
-
-    function jumpToQuestion(index) {
-        currentQuestion = index;
-        closeOverview();
-        renderQuestion();
-    }
-
-    function submitQuizFromOverview() {
-        closeOverview();
-        renderResultScreen();
-    }
+    function closeOverview() { const o = document.getElementById('overview-overlay'); if (o) o.remove(); }
+    function jumpToQuestion(index) { currentQuestion = index; closeOverview(); renderQuestion(); }
+    function submitQuizFromOverview() { closeOverview(); renderResultScreen(); }
 
     function renderResultScreen() {
         const percentage = Math.round((score / questions.length) * 100);
         let message = "";
-        
-        if (percentage === 100) { message = "उत्कृष्ट! आपने इस अध्याय में पूरे अंक प्राप्त किए हैं!"; }
-        else if (percentage >= 80) { message = "शानदार प्रदर्शन! आपकी तैयारी बहुत अच्छी है।"; }
-        else if (percentage >= 50) { message = "अच्छा प्रयास! पाठ को एक बार और दोहराएँ।"; }
-        else { message = "अभ्यास जारी रखें! पाठ्यपुस्तक को ध्यान से पढ़ें और पुनः प्रयास करें।"; }
+        if (percentage === 100) message = "उत्कृष्ट! आपने इस अध्याय में पूरे अंक प्राप्त किए हैं!";
+        else if (percentage >= 80) message = "शानदार प्रदर्शन! आपकी तैयारी बहुत अच्छी है।";
+        else if (percentage >= 50) message = "अच्छा प्रयास! पाठ को एक बार और दोहराएँ।";
+        else message = "अभ्यास जारी रखें! पाठ्यपुस्तक को ध्यान से पढ़ें और पुनः प्रयास करें।";
 
-        const strokeDasharray = `${percentage}, 100`;
+        const strokeDasharray = percentage + ', 100';
         const colorClass = percentage >= 80 ? '#0A7B5A' : percentage >= 50 ? '#D97706' : '#DC2626';
 
-        let correctCount = 0;
-        let wrongCount = 0;
-        let skippedCount = 0;
-
+        let correctCount = 0, wrongCount = 0, skippedCount = 0;
         questionStates.forEach(st => {
-            if(st === 'correct') correctCount++;
-            else if(st === 'wrong') wrongCount++;
-            else if(st === 'skipped') skippedCount++;
+            if (st === 'correct') correctCount++;
+            else if (st === 'wrong') wrongCount++;
+            else if (st === 'skipped') skippedCount++;
         });
 
-        appDiv.innerHTML = `
-            <div class="flex-1 flex flex-col items-center justify-center p-8 text-center overflow-y-auto" style="padding: 32px;">
-                <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; color: var(--ink);">${chapterMeta.title}</h2>
-                <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 18px;">${chapterMeta.subtitle} (कुल प्रश्न: ${questions.length})</p>
-                
-                <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; color: var(--emerald);">क्विज़ पूर्ण हुई!</h3>
-
-                <div style="position: relative; width: 160px; height: 160px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center;">
-                    <svg viewBox="0 0 36 36" class="circular-chart" style="width: 100%; height: 100%;">
-                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                        <path class="circle" stroke="${colorClass}" stroke-dasharray="${strokeDasharray}" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                    </svg>
-                    <div style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <span style="font-size: 2rem; font-weight: 900; color: var(--ink);">${percentage}%</span>
-                    </div>
-                </div>
-
-                <div class="stats-box">
-                    <div class="flex justify-between items-center text-center">
-                        <div>
-                            <p style="font-size: 0.75rem; color: var(--muted); font-weight: bold; margin-bottom: 4px;">कुल प्रश्न</p>
-                            <p style="font-size: 1.3rem; font-weight: 800; color: var(--ink);">${questions.length}</p>
-                        </div>
-                        <div>
-                            <p style="font-size: 0.75rem; color: var(--muted); font-weight: bold; margin-bottom: 4px;">सही उत्तर</p>
-                            <p style="font-size: 1.3rem; font-weight: 800; color: var(--emerald);">${correctCount}</p>
-                        </div>
-                        <div>
-                            <p style="font-size: 0.75rem; color: var(--muted); font-weight: bold; margin-bottom: 4px;">गलत उत्तर</p>
-                            <p style="font-size: 1.3rem; font-weight: 800; color: #DC2626;">${wrongCount}</p>
-                        </div>
-                        <div>
-                            <p style="font-size: 0.75rem; color: var(--muted); font-weight: bold; margin-bottom: 4px;">छोड़े गए</p>
-                            <p style="font-size: 1.3rem; font-weight: 800; color: #D97706;">${skippedCount}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <p style="font-size: 0.95rem; color: var(--ink-2); margin-bottom: 26px; max-width: 420px; line-height: 1.5;">${message}</p>
-                
-                <div class="flex space-x-4">
-                    <button onclick="startQuiz()" class="btn-action" style="padding: 12px 28px; background: var(--emerald); color: #fff;">
-                        पुनः प्रयास करें
-                    </button>
-                    <button onclick="goHome()" class="btn-action" style="padding: 12px 28px; background: var(--line-2); color: var(--ink-2);">
-                        मुख्य पृष्ठ पर जाएँ
-                    </button>
-                </div>
-            </div>
-        `;
+        appDiv.innerHTML =
+            '<div class="result-wrap">' +
+                '<span class="result-eyebrow">क्विज़ पूर्ण हुई</span>' +
+                '<h2 class="result-title">' + chapterMeta.title + '</h2>' +
+                '<p class="result-sub">' + (chapterMeta.subtitle ? chapterMeta.subtitle + ' · ' : '') + 'कुल ' + questions.length + ' प्रश्न</p>' +
+                '<div class="donut">' +
+                    '<svg viewBox="0 0 36 36" class="circular-chart">' +
+                        '<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>' +
+                        '<path class="circle" stroke="' + colorClass + '" stroke-dasharray="' + strokeDasharray + '" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>' +
+                    '</svg>' +
+                    '<div class="donut-center"><span class="donut-pct">' + percentage + '%</span><span class="donut-label">स्कोर</span></div>' +
+                '</div>' +
+                '<div class="stats-grid">' +
+                    '<div class="stat-cell"><div class="num" style="color:var(--ink);">' + questions.length + '</div><div class="cap">कुल प्रश्न</div></div>' +
+                    '<div class="stat-cell"><div class="num" style="color:var(--emerald);">' + correctCount + '</div><div class="cap">सही</div></div>' +
+                    '<div class="stat-cell"><div class="num" style="color:var(--danger);">' + wrongCount + '</div><div class="cap">गलत</div></div>' +
+                    '<div class="stat-cell"><div class="num" style="color:var(--amber);">' + skippedCount + '</div><div class="cap">छोड़े</div></div>' +
+                '</div>' +
+                '<p class="result-msg">' + message + '</p>' +
+                '<div class="result-actions">' +
+                    '<button onclick="startQuiz()" class="btn-action btn-next">पुनः प्रयास करें ' + IC.arrowRight + '</button>' +
+                    '<button onclick="goHome()" class="btn-action btn-ghost">मुख्य पृष्ठ</button>' +
+                '</div>' +
+            '</div>';
     }
 
-    // Window Popstate Back Navigation
+    // Popstate back navigation
     window.addEventListener('popstate', function(event) {
         const state = event.state;
         if (state) {
-            if (state.stage === "subjects") {
-                renderSubjects(true);
-            } else if (state.stage === "sections") {
-                renderSections(state.subjectIndex, true);
-            } else if (state.stage === "chapters") {
+            if (state.stage === "subjects") renderSubjects(true);
+            else if (state.stage === "sections") renderSections(state.subjectIndex, true);
+            else if (state.stage === "chapters") {
                 if (state.backTo === "sections") {
                     const sec = activeQuizData[state.subjectIndex].sections[state.secIndex];
                     renderChapters(sec.chapters, sec.sectionName, "sections", state.subjectIndex, state.secIndex, true);
@@ -2061,10 +1836,9 @@ function changeLanguagePreference(newLang) {
                     renderChapters(sub.chapters, sub.subjectName, "subjects", state.subjectIndex, null, true);
                 }
             }
-        } else {
-            renderSubjects(true);
-        }
+        } else { renderSubjects(true); }
     });
+
     </script>
 </body>
 </html>
