@@ -12,11 +12,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Download PDF into data/BSEB/10th
         run: |
-          pip install --quiet gdown
           mkdir -p data/BSEB/10th
-          gdown --id 1WjfqpZhr6G3Fk4RtCIIbhctyniKdY4w3 -O data/BSEB/10th/history_notes.pdf
+          curl -sL --retry 3 -o data/BSEB/10th/history_notes.pdf "https://drive.google.com/uc?export=download&id=1WjfqpZhr6G3Fk4RtCIIbhctyniKdY4w3&confirm=t"
           ls -la data/BSEB/10th/history_notes.pdf
-          file data/BSEB/10th/history_notes.pdf
+          if head -c 4 data/BSEB/10th/history_notes.pdf | grep -q "%PDF"; then echo "VALID PDF"; else echo "NOT A PDF"; exit 1; fi
       - name: Commit and remove one-shot workflow
         run: |
           rm -f .github/workflows/add-history-notes.yml
