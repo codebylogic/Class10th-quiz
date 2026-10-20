@@ -640,7 +640,7 @@ const coursesData = {
                 {
                     subjectName: "HINDI (हिंदी - गोधूलि)",
                     icon: "📔",
-                    description: "कक्षा 10वीं बिहार बोर्ड हिंदी गद्यखंड एवं काव्यखंड।",
+                    description: "कक्षा 10वीं बिहार बोर्ड हिंदी गद्यखंड, काव्यखंड एवं वर्णिका।",
                     sections: [
                         {
                             sectionName: "गद्यखंड (PROSE)",
@@ -676,6 +676,17 @@ const coursesData = {
                                 { name: "पाठ 10 (अक्षर-ज्ञान)", file: "HINDI/POETRY/10.json" },
                                 { name: "पाठ 11 (लौटकर आऊँगा फिर)", file: "HINDI/POETRY/11.json" },
                                 { name: "पाठ 12 (मेरे बिना तुम प्रभु)", file: "HINDI/POETRY/12.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "वर्णिका (VARNIKA)",
+                            icon: "📘",
+                            chapters: [
+                                { name: "अध्याय 01 (दही वाली मंगम्मा)", file: "HINDI/VARNIKA/01.json" },
+                                { name: "अध्याय 02 (ढहते विश्वास)", file: "HINDI/VARNIKA/02.json" },
+                                { name: "अध्याय 03 (माँ)", file: "HINDI/VARNIKA/03.json" },
+                                { name: "अध्याय 04 (नगर)", file: "HINDI/VARNIKA/04.json" },
+                                { name: "अध्याय 05 (धरती कब तक घूमेगी)", file: "HINDI/VARNIKA/05.json" },
                             ]
                         }
                     ]
@@ -808,34 +819,22 @@ const coursesData = {
                     icon: "📜",
                     description: "कक्षा 10वीं बिहार बोर्ड संस्कृत - अध्यायवार वस्तुनिष्ठ प्रश्न संग्रह।",
                     chapters: [
-                        { name: "अध्याय 01 (मंगलम्)", file: "SANSKRIT/01.json" },
-                        { name: "अध्याय 02 (पाटलिपुत्रवैभवम्)", file: "SANSKRIT/02.json" },
-                        { name: "अध्याय 03 (अलसकथा)", file: "SANSKRIT/03.json" },
-                        { name: "अध्याय 04 (संस्कृतसाहित्ये लेखिकाः)", file: "SANSKRIT/04.json" },
-                        { name: "अध्याय 05 (भारतमहिमा)", file: "SANSKRIT/05.json" },
-                        { name: "अध्याय 06 (भारतीयसंस्काराः)", file: "SANSKRIT/06.json" },
-                        { name: "अध्याय 07 (नीतिश्लोकाः)", file: "SANSKRIT/07.json" },
-                        { name: "अध्याय 08 (कर्मवीरकथा)", file: "SANSKRIT/08.json" },
-                        { name: "अध्याय 09 (स्वामी दयानन्दः)", file: "SANSKRIT/09.json" },
-                        { name: "अध्याय 10 (मन्दाकिनीवर्णनम्)", file: "SANSKRIT/10.json" },
-                        { name: "अध्याय 11 (व्याघ्रपथिककथा)", file: "SANSKRIT/11.json" },
-                        { name: "अध्याय 12 (कर्णस्य दानवीरता)", file: "SANSKRIT/12.json" },
-                        { name: "अध्याय 13 (विश्वशान्तिः)", file: "SANSKRIT/13.json" },
-                        { name: "अध्याय 14 (शास्त्रकाराः)", file: "SANSKRIT/14.json" },
+                                { name: "अध्याय 01 (मंगलम्)", file: "SANSKRIT/01.json" },
+                                { name: "अध्याय 02 (पाटलिपुत्रवैभवम्)", file: "SANSKRIT/02.json" },
+                                { name: "अध्याय 03 (अलसकथा)", file: "SANSKRIT/03.json" },
+                                { name: "अध्याय 04 (संस्कृतसाहित्ये लेखिकाः)", file: "SANSKRIT/04.json" },
+                                { name: "अध्याय 05 (भारतमहिमा)", file: "SANSKRIT/05.json" },
+                                { name: "अध्याय 06 (भारतीयसंस्काराः)", file: "SANSKRIT/06.json" },
+                                { name: "अध्याय 07 (नीतिश्लोकाः)", file: "SANSKRIT/07.json" },
+                                { name: "अध्याय 08 (कर्मवीरकथा)", file: "SANSKRIT/08.json" },
+                                { name: "अध्याय 09 (स्वामी दयानन्दः)", file: "SANSKRIT/09.json" },
+                                { name: "अध्याय 10 (मन्दाकिनीवर्णनम्)", file: "SANSKRIT/10.json" },
+                                { name: "अध्याय 11 (व्याघ्रपथिककथा)", file: "SANSKRIT/11.json" },
+                                { name: "अध्याय 12 (कर्णस्य दानवीरता)", file: "SANSKRIT/12.json" },
+                                { name: "अध्याय 13 (विश्वशान्तिः)", file: "SANSKRIT/13.json" },
+                                { name: "अध्याय 14 (शास्त्रकाराः)", file: "SANSKRIT/14.json" },
                     ]
-                },
-                {
-                    subjectName: "HINDI (हिंदी - वर्णिका)",
-                    icon: "📘",
-                    description: "कक्षा 10वीं बिहार बोर्ड हिंदी वर्णिका - अध्यायवार वस्तुनिष्ठ प्रश्न संग्रह।",
-                    chapters: [
-                        { name: "अध्याय 01 (दही वाली मंगम्मा)", file: "HINDI_VARNIKA/01.json" },
-                        { name: "अध्याय 02 (ढहते विश्वास)", file: "HINDI_VARNIKA/02.json" },
-                        { name: "अध्याय 03 (माँ)", file: "HINDI_VARNIKA/03.json" },
-                        { name: "अध्याय 04 (नगर)", file: "HINDI_VARNIKA/04.json" },
-                        { name: "अध्याय 05 (धरती कब तक घूमेगी)", file: "HINDI_VARNIKA/05.json" },
-                    ]
-                },
+                }
             ]
         },
 
