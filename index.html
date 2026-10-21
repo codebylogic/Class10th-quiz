@@ -564,6 +564,11 @@ body {
                     <span>CBSE 9th</span>
                     <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
+                <div class="course-option" data-course="lucent" onclick="selectCourse('lucent')">
+                    <div class="chip" style="background:var(--amber)"></div>
+                    <span>LUCENT GK</span>
+                    <svg class="check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
             </div>
 
             <!-- Dark / Light Theme Toggle -->
@@ -1338,159 +1343,403 @@ const coursesData = {
                     ]
                 }
             ]
-        }
+        },
+
+        lucent: {
+            title: "📚 LUCENT GK — प्रतियोगी परीक्षा पोर्टल",
+            baseDir: "data/LUCENT/",
+            data: [
+                {
+                    subjectName: "इतिहास (HISTORY)",
+                    icon: "📜",
+                    description: "प्राचीन, मध्यकालीन, आधुनिक भारत एवं विश्व इतिहास।",
+                    sections: [
+                        {
+                            sectionName: "प्राचीन भारत (ANCIENT INDIA)",
+                            icon: "🏛️",
+                            chapters: [
+                                { name: "पाठ 01 (प्राचीन भारतीय इतिहास के स्रोत)", file: "HISTORY/ANCIENT_INDIA/01.json" },
+                                { name: "पाठ 02 (प्रागैतिहासिक काल)", file: "HISTORY/ANCIENT_INDIA/02.json" },
+                                { name: "पाठ 03 (सिन्धु सभ्यता)", file: "HISTORY/ANCIENT_INDIA/03.json" },
+                                { name: "पाठ 04 (वैदिक सभ्यता)", file: "HISTORY/ANCIENT_INDIA/04.json" },
+                                { name: "पाठ 05 (महाजनपदों का उदय)", file: "HISTORY/ANCIENT_INDIA/05.json" },
+                                { name: "पाठ 06 (जैन धर्म)", file: "HISTORY/ANCIENT_INDIA/06.json" },
+                                { name: "पाठ 07 (बौद्ध धर्म)", file: "HISTORY/ANCIENT_INDIA/07.json" },
+                                { name: "पाठ 08 (शैव धर्म)", file: "HISTORY/ANCIENT_INDIA/08.json" },
+                                { name: "पाठ 09 (वैष्णव धर्म)", file: "HISTORY/ANCIENT_INDIA/09.json" },
+                                { name: "पाठ 10 (इस्लाम धर्म)", file: "HISTORY/ANCIENT_INDIA/10.json" },
+                                { name: "पाठ 11 (ईसाई धर्म)", file: "HISTORY/ANCIENT_INDIA/11.json" },
+                                { name: "पाठ 12 (मगध राज्य का उत्कर्ष)", file: "HISTORY/ANCIENT_INDIA/12.json" },
+                                { name: "पाठ 13 (सिकन्दर)", file: "HISTORY/ANCIENT_INDIA/13.json" },
+                                { name: "पाठ 14 (मौर्य साम्राज्य)", file: "HISTORY/ANCIENT_INDIA/14.json" },
+                                { name: "पाठ 15 (ब्राह्मण साम्राज्य)", file: "HISTORY/ANCIENT_INDIA/15.json" },
+                                { name: "पाठ 16 (भारत के यवन राज)", file: "HISTORY/ANCIENT_INDIA/16.json" },
+                                { name: "पाठ 17 (शक)", file: "HISTORY/ANCIENT_INDIA/17.json" },
+                                { name: "पाठ 18 (कुषाण)", file: "HISTORY/ANCIENT_INDIA/18.json" },
+                                { name: "पाठ 19 (गुप्त साम्राज्य)", file: "HISTORY/ANCIENT_INDIA/19.json" },
+                                { name: "पाठ 20 (पुष्यभूति वंश)", file: "HISTORY/ANCIENT_INDIA/20.json" },
+                                { name: "पाठ 21 (दक्षिण भारत के प्रमुख राजवंश)", file: "HISTORY/ANCIENT_INDIA/21.json" },
+                                { name: "पाठ 22 (सीमावर्ती राजवंशों का अभ्युदय)", file: "HISTORY/ANCIENT_INDIA/22.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "मध्यकालीन भारत (MEDIEVAL INDIA)",
+                            icon: "🕌",
+                            chapters: [
+                                { name: "पाठ 01 (भारत पर अरबों का आक्रमण)", file: "HISTORY/MEDIEVAL_INDIA/01.json" },
+                                { name: "पाठ 02 (महमूद गजनवी)", file: "HISTORY/MEDIEVAL_INDIA/02.json" },
+                                { name: "पाठ 03 (मोहम्मद गोरी)", file: "HISTORY/MEDIEVAL_INDIA/03.json" },
+                                { name: "पाठ 04 (सल्तनत काल)", file: "HISTORY/MEDIEVAL_INDIA/04.json" },
+                                { name: "पाठ 05 (विजयनगर साम्राज्य)", file: "HISTORY/MEDIEVAL_INDIA/05.json" },
+                                { name: "पाठ 06 (बहमनी राज्य)", file: "HISTORY/MEDIEVAL_INDIA/06.json" },
+                                { name: "पाठ 07 (स्वतंत्र प्रांतीय राज्य)", file: "HISTORY/MEDIEVAL_INDIA/07.json" },
+                                { name: "पाठ 08 (सूफी आन्दोलन)", file: "HISTORY/MEDIEVAL_INDIA/08.json" },
+                                { name: "पाठ 09 (भक्ति आन्दोलन)", file: "HISTORY/MEDIEVAL_INDIA/09.json" },
+                                { name: "पाठ 10 (मुगल साम्राज्य)", file: "HISTORY/MEDIEVAL_INDIA/10.json" },
+                                { name: "पाठ 11 (मुगल शासन व्यवस्था)", file: "HISTORY/MEDIEVAL_INDIA/11.json" },
+                                { name: "पाठ 12 (मराठों का उत्कर्ष)", file: "HISTORY/MEDIEVAL_INDIA/12.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "आधुनिक भारत (MODERN INDIA)",
+                            icon: "⚔️",
+                            chapters: [
+                                { name: "पाठ 01 (उत्तरकालीन मुगल सम्राट)", file: "HISTORY/MODERN_HISTORY/01.json" },
+                                { name: "पाठ 02 (भारत में यूरोपीय व्यापारिक कंपनियों का आगमन)", file: "HISTORY/MODERN_HISTORY/02.json" },
+                                { name: "पाठ 03 (बंगाल पर अंग्रेजों का आधिपत्य)", file: "HISTORY/MODERN_HISTORY/03.json" },
+                                { name: "पाठ 04 (अंग्रेजों का मैसूर से संबंध)", file: "HISTORY/MODERN_HISTORY/04.json" },
+                                { name: "पाठ 05 (सिख एवं अंग्रेज)", file: "HISTORY/MODERN_HISTORY/05.json" },
+                                { name: "पाठ 06 (कंपनी के अधीन गवर्नर जनरल)", file: "HISTORY/MODERN_HISTORY/06.json" },
+                                { name: "पाठ 07 (1857 ईस्वी की महान क्रांति)", file: "HISTORY/MODERN_HISTORY/07.json" },
+                                { name: "पाठ 08 (अंग्रेजी शासन के दौरान हुए महत्वपूर्ण विद्रोह)", file: "HISTORY/MODERN_HISTORY/08.json" },
+                                { name: "पाठ 09 (भारत का स्वतंत्रता संघर्ष: महत्वपूर्ण तथ्य)", file: "HISTORY/MODERN_HISTORY/09.json" },
+                                { name: "पाठ 10 (भारतीय राष्ट्रीय आन्दोलन से संबंधित महत्वपूर्ण संगठन एवं संस्थाएँ)", file: "HISTORY/MODERN_HISTORY/10.json" },
+                                { name: "पाठ 11 (भारतीय राष्ट्रीय आन्दोलन से संबंधित महत्वपूर्ण तथ्य)", file: "HISTORY/MODERN_HISTORY/11.json" },
+                                { name: "पाठ 12 (भारत के महान शहीद)", file: "HISTORY/MODERN_HISTORY/12.json" },
+                                { name: "पाठ 13 (भारतीय स्वतंत्रता आन्दोलन के दौरान दिए गए प्रमुख वचन एवं नारे)", file: "HISTORY/MODERN_HISTORY/13.json" },
+                                { name: "पाठ 14 (स्वतंत्रता आन्दोलन से संबंधित प्रकाशित पत्र, पत्रिकाएँ एवं पुस्तकें)", file: "HISTORY/MODERN_HISTORY/14.json" },
+                                { name: "पाठ 15 (कांग्रेस अधिवेशन: कब और कहाँ)", file: "HISTORY/MODERN_HISTORY/15.json" },
+                                { name: "पाठ 16 (भारत की ऐतिहासिक लड़ाइयाँ)", file: "HISTORY/MODERN_HISTORY/16.json" },
+                                { name: "पाठ 17 (प्रमुख राजवंश, संस्थापक तथा राजधानी)", file: "HISTORY/MODERN_HISTORY/17.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "विश्व इतिहास (WORLD HISTORY)",
+                            icon: "🌍",
+                            chapters: [
+                                { name: "पाठ 01 (पुनर्जागरण)", file: "HISTORY/WORLD/01.json" },
+                                { name: "पाठ 02 (अमेरिका का स्वतंत्रता संग्राम)", file: "HISTORY/WORLD/02.json" },
+                                { name: "पाठ 03 (फ्रांस की राज्यक्रांति)", file: "HISTORY/WORLD/03.json" },
+                                { name: "पाठ 04 (इटली का एकीकरण)", file: "HISTORY/WORLD/04.json" },
+                                { name: "पाठ 05 (जर्मनी का एकीकरण)", file: "HISTORY/WORLD/05.json" },
+                                { name: "पाठ 06 (रूसी क्रांति)", file: "HISTORY/WORLD/06.json" },
+                                { name: "पाठ 07 (औद्योगिक क्रांति)", file: "HISTORY/WORLD/07.json" },
+                                { name: "पाठ 08 (इंग्लैंड में क्रांति)", file: "HISTORY/WORLD/08.json" },
+                                { name: "पाठ 09 (प्रथम विश्व युद्ध)", file: "HISTORY/WORLD/09.json" },
+                                { name: "पाठ 10 (चीनी क्रांति)", file: "HISTORY/WORLD/10.json" },
+                                { name: "पाठ 11 (तुर्की-इटली में फासिस्टों का उदय)", file: "HISTORY/WORLD/11.json" },
+                                { name: "पाठ 12 (जर्मनी में नाजीवाद का उदय)", file: "HISTORY/WORLD/12.json" },
+                                { name: "पाठ 13 (जापानी साम्राज्यवाद)", file: "HISTORY/WORLD/13.json" },
+                                { name: "पाठ 14 (द्वितीय विश्व युद्ध)", file: "HISTORY/WORLD/14.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "भूगोल (GEOGRAPHY)",
+                    icon: "🗺️",
+                    description: "विश्व का भूगोल एवं भारत का भूगोल।",
+                    sections: [
+                        {
+                            sectionName: "विश्व का भूगोल (WORLD GEOGRAPHY)",
+                            icon: "🌏",
+                            chapters: [
+                                { name: "पाठ 01 (ब्रह्माण्ड)", file: "GEOGRAPHY/WORLD/01.json" },
+                                { name: "पाठ 02 (सौर मंडल)", file: "GEOGRAPHY/WORLD/02.json" },
+                                { name: "पाठ 03 (पृथ्वी और उसका सौरैर्थिक संबंध)", file: "GEOGRAPHY/WORLD/03.json" },
+                                { name: "पाठ 04 (पृथ्वी की संरचना)", file: "GEOGRAPHY/WORLD/04.json" },
+                                { name: "पाठ 05 (महाद्वीप)", file: "GEOGRAPHY/WORLD/05.json" },
+                                { name: "पाठ 06 (जलमंडल)", file: "GEOGRAPHY/WORLD/06.json" },
+                                { name: "पाठ 07 (महासागरीय जलधाराएँ)", file: "GEOGRAPHY/WORLD/07.json" },
+                                { name: "पाठ 08 (वायुमंडल)", file: "GEOGRAPHY/WORLD/08.json" },
+                                { name: "पाठ 09 (विश्व की प्रमुख फसलें एवं उनके उत्पादक देश)", file: "GEOGRAPHY/WORLD/09.json" },
+                                { name: "पाठ 10 (विश्व के प्रमुख खनिज उत्पादक देश)", file: "GEOGRAPHY/WORLD/10.json" },
+                                { name: "पाठ 11 (विश्व की प्रमुख वनस्पतियाँ)", file: "GEOGRAPHY/WORLD/11.json" },
+                                { name: "पाठ 12 (विश्व की प्रमुख जनजातियाँ)", file: "GEOGRAPHY/WORLD/12.json" },
+                                { name: "पाठ 13 (विश्व के प्रमुख भौगोलिक उपनाम)", file: "GEOGRAPHY/WORLD/13.json" },
+                                { name: "पाठ 14 (विश्व के प्रसिद्ध स्थान)", file: "GEOGRAPHY/WORLD/14.json" },
+                                { name: "पाठ 15 (विश्व की प्रमुख भौगोलिक खोजें)", file: "GEOGRAPHY/WORLD/15.json" },
+                                { name: "पाठ 16 (विश्व के विनिर्माण उद्योग)", file: "GEOGRAPHY/WORLD/16.json" },
+                                { name: "पाठ 17 (विश्व के महासागर)", file: "GEOGRAPHY/WORLD/17.json" },
+                                { name: "पाठ 18 (विश्व की प्रमुख नहरें)", file: "GEOGRAPHY/WORLD/18.json" },
+                                { name: "पाठ 19 (विश्व की प्रमुख जलसंधियाँ)", file: "GEOGRAPHY/WORLD/19.json" },
+                                { name: "पाठ 20 (विश्व के प्रमुख जलडमरूमध्य)", file: "GEOGRAPHY/WORLD/20.json" },
+                                { name: "पाठ 21 (विश्व की प्रमुख नदियाँ)", file: "GEOGRAPHY/WORLD/21.json" },
+                                { name: "पाठ 22 (नदियों के किनारे बसे विश्व के प्रमुख नगर)", file: "GEOGRAPHY/WORLD/22.json" },
+                                { name: "पाठ 23 (विश्व के प्रमुख जलप्रपात)", file: "GEOGRAPHY/WORLD/23.json" },
+                                { name: "पाठ 24 (विश्व की प्रमुख झीलें)", file: "GEOGRAPHY/WORLD/24.json" },
+                                { name: "पाठ 25 (विश्व के प्रमुख पर्वत शिखर)", file: "GEOGRAPHY/WORLD/25.json" },
+                                { name: "पाठ 26 (विश्व के प्रमुख द्वीप)", file: "GEOGRAPHY/WORLD/26.json" },
+                                { name: "पाठ 27 (विश्व के प्रमुख पठार)", file: "GEOGRAPHY/WORLD/27.json" },
+                                { name: "पाठ 28 (विश्व के प्रमुख रेगिस्तान)", file: "GEOGRAPHY/WORLD/28.json" },
+                                { name: "पाठ 29 (विश्व के प्रमुख देशों की राजधानी एवं मुद्रा)", file: "GEOGRAPHY/WORLD/29.json" },
+                                { name: "पाठ 30 (भू-आवेष्टित देश)", file: "GEOGRAPHY/WORLD/30.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "भारत का भूगोल (INDIAN GEOGRAPHY)",
+                            icon: "🇮🇳",
+                            chapters: [
+                                { name: "पाठ 01 (सामान्य जानकारी (भारत))", file: "GEOGRAPHY/INDIAN/01.json" },
+                                { name: "पाठ 02 (भारत का भौतिक स्वरूप)", file: "GEOGRAPHY/INDIAN/02.json" },
+                                { name: "पाठ 03 (भारत की नदियाँ)", file: "GEOGRAPHY/INDIAN/03.json" },
+                                { name: "पाठ 04 (भारत की प्रमुख झीलें)", file: "GEOGRAPHY/INDIAN/04.json" },
+                                { name: "पाठ 05 (भारत के प्रमुख जल-प्रपात)", file: "GEOGRAPHY/INDIAN/05.json" },
+                                { name: "पाठ 06 (भारत की जलवायु)", file: "GEOGRAPHY/INDIAN/06.json" },
+                                { name: "पाठ 07 (भारत की मिट्टी)", file: "GEOGRAPHY/INDIAN/07.json" },
+                                { name: "पाठ 08 (भारत में कृषि)", file: "GEOGRAPHY/INDIAN/08.json" },
+                                { name: "पाठ 09 (भारत में सिंचाई)", file: "GEOGRAPHY/INDIAN/09.json" },
+                                { name: "पाठ 10 (भारत के खनिज)", file: "GEOGRAPHY/INDIAN/10.json" },
+                                { name: "पाठ 11 (भारत के उद्योग)", file: "GEOGRAPHY/INDIAN/11.json" },
+                                { name: "पाठ 12 (भारत में परिवहन)", file: "GEOGRAPHY/INDIAN/12.json" },
+                                { name: "पाठ 13 (भारत की जनगणना-2001)", file: "GEOGRAPHY/INDIAN/13.json" },
+                                { name: "पाठ 14 (भारत की प्रमुख बहु-उद्देशीय नदीघाटी परियोजनाएँ)", file: "GEOGRAPHY/INDIAN/14.json" },
+                                { name: "पाठ 15 (नदियों के किनारे बसे प्रमुख नगर (भारत))", file: "GEOGRAPHY/INDIAN/15.json" },
+                                { name: "पाठ 16 (भारत के पर्वतीय नगर)", file: "GEOGRAPHY/INDIAN/16.json" },
+                                { name: "पाठ 17 (भारत के प्रमुख वन्यजीव अभयारण्य)", file: "GEOGRAPHY/INDIAN/17.json" },
+                                { name: "पाठ 18 (प्रमुख भौगोलिक उपनाम (भारत))", file: "GEOGRAPHY/INDIAN/18.json" },
+                                { name: "पाठ 19 (भारतीय राज्यों एवं केन्द्र-शासित प्रदेशों की राजधानी)", file: "GEOGRAPHY/INDIAN/19.json" },
+                                { name: "पाठ 20 (भारतीय जनजातियाँ)", file: "GEOGRAPHY/INDIAN/20.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "भारतीय संविधान (INDIAN CONSTITUTION)",
+                    icon: "⚖️",
+                    description: "संविधान, शासन व्यवस्था, संसद, न्यायपालिका एवं पंचायती राज।",
+                    chapters: [
+                        { name: "पाठ 01 (भारतीय संविधान के विकास का संक्षिप्त इतिहास)", file: "INDIAN_CONSTITUTION/01.json" },
+                        { name: "पाठ 02 (भारतीय संविधान सभा)", file: "INDIAN_CONSTITUTION/02.json" },
+                        { name: "पाठ 03 (भारतीय संविधान के विदेशी स्रोत)", file: "INDIAN_CONSTITUTION/03.json" },
+                        { name: "पाठ 04 (भारतीय संविधान की अनुसूची)", file: "INDIAN_CONSTITUTION/04.json" },
+                        { name: "पाठ 05 (संघ और उसका राज्य क्षेत्र)", file: "INDIAN_CONSTITUTION/05.json" },
+                        { name: "पाठ 06 (देशी रियासतों का भारत में विलयन)", file: "INDIAN_CONSTITUTION/06.json" },
+                        { name: "पाठ 07 (राज्यों का पुनर्गठन)", file: "INDIAN_CONSTITUTION/07.json" },
+                        { name: "पाठ 08 (भारतीय संविधान के प्रमुख भाग)", file: "INDIAN_CONSTITUTION/08.json" },
+                        { name: "पाठ 09 (भारतीय नागरिकता)", file: "INDIAN_CONSTITUTION/09.json" },
+                        { name: "पाठ 10 (मूल अधिकार)", file: "INDIAN_CONSTITUTION/10.json" },
+                        { name: "पाठ 11 (राज्य के नीति निर्देशक सिद्धान्त)", file: "INDIAN_CONSTITUTION/11.json" },
+                        { name: "पाठ 12 (मौलिक कर्तव्य)", file: "INDIAN_CONSTITUTION/12.json" },
+                        { name: "पाठ 13 (राष्ट्रपति)", file: "INDIAN_CONSTITUTION/13.json" },
+                        { name: "पाठ 14 (उपराष्ट्रपति)", file: "INDIAN_CONSTITUTION/14.json" },
+                        { name: "पाठ 15 (प्रधानमंत्री एवं मंत्रिपरिषद)", file: "INDIAN_CONSTITUTION/15.json" },
+                        { name: "पाठ 16 (संघीय संसद)", file: "INDIAN_CONSTITUTION/16.json" },
+                        { name: "पाठ 17 (भारत की संचित निधि)", file: "INDIAN_CONSTITUTION/17.json" },
+                        { name: "पाठ 18 (महान्यायवादी)", file: "INDIAN_CONSTITUTION/18.json" },
+                        { name: "पाठ 19 (नियंत्रक एवं महालेखा परीक्षक)", file: "INDIAN_CONSTITUTION/19.json" },
+                        { name: "पाठ 20 (न्यायपालिका)", file: "INDIAN_CONSTITUTION/20.json" },
+                        { name: "पाठ 21 (राज्य की कार्यपालिका)", file: "INDIAN_CONSTITUTION/21.json" },
+                        { name: "पाठ 22 (भारतीय राजव्यवस्था में वरीयता अनुक्रम)", file: "INDIAN_CONSTITUTION/22.json" },
+                        { name: "पाठ 23 (केन्द्र-राज्य संबंध)", file: "INDIAN_CONSTITUTION/23.json" },
+                        { name: "पाठ 24 (अन्तर्रराज्य परिषद)", file: "INDIAN_CONSTITUTION/24.json" },
+                        { name: "पाठ 25 (वित्त आयोग)", file: "INDIAN_CONSTITUTION/25.json" },
+                        { name: "पाठ 26 (योजना आयोग)", file: "INDIAN_CONSTITUTION/26.json" },
+                        { name: "पाठ 27 (राष्ट्रीय विकास परिषद)", file: "INDIAN_CONSTITUTION/27.json" },
+                        { name: "पाठ 28 (लोक सेवा आयोग)", file: "INDIAN_CONSTITUTION/28.json" },
+                        { name: "पाठ 29 (निर्वाचन आयोग)", file: "INDIAN_CONSTITUTION/29.json" },
+                        { name: "पाठ 30 (राजभाषा)", file: "INDIAN_CONSTITUTION/30.json" },
+                        { name: "पाठ 31 (आपात उपबंध)", file: "INDIAN_CONSTITUTION/31.json" },
+                        { name: "पाठ 32 (शपथ एवं त्याग पत्र)", file: "INDIAN_CONSTITUTION/32.json" },
+                        { name: "पाठ 33 (भारत के राष्ट्रीय चिह्न)", file: "INDIAN_CONSTITUTION/33.json" },
+                        { name: "पाठ 34 (संसद की वित्तीय समितियाँ)", file: "INDIAN_CONSTITUTION/34.json" },
+                        { name: "पाठ 35 (पंचायती राज)", file: "INDIAN_CONSTITUTION/35.json" },
+                        { name: "पाठ 36 (महत्वपूर्ण शब्दावली)", file: "INDIAN_CONSTITUTION/36.json" },
+                        { name: "पाठ 37 (संविधान के कुछ महत्वपूर्ण अनुच्छेद)", file: "INDIAN_CONSTITUTION/37.json" },
+                        { name: "पाठ 38 (संविधान में किए गए प्रमुख संशोधन)", file: "INDIAN_CONSTITUTION/38.json" }
+                    ]
+                },
+                {
+                    subjectName: "भारतीय अर्थव्यवस्था (INDIAN ECONOMY)",
+                    icon: "💰",
+                    description: "राष्ट्रीय आय, आर्थिक आयोजन, कृषि, उद्योग एवं व्यापार।",
+                    chapters: [
+                        { name: "पाठ 01 (राष्ट्रीय आय)", file: "INDIAN_ECONOMICS/01.json" },
+                        { name: "पाठ 02 (आर्थिक आयोजन)", file: "INDIAN_ECONOMICS/02.json" },
+                        { name: "पाठ 03 (नई आर्थिक नीति)", file: "INDIAN_ECONOMICS/03.json" },
+                        { name: "पाठ 04 (भारतीय वित्त व्यवस्था)", file: "INDIAN_ECONOMICS/04.json" },
+                        { name: "पाठ 05 (कृषि)", file: "INDIAN_ECONOMICS/05.json" },
+                        { name: "पाठ 06 (उद्योग)", file: "INDIAN_ECONOMICS/06.json" },
+                        { name: "पाठ 07 (व्यापार)", file: "INDIAN_ECONOMICS/07.json" },
+                        { name: "पाठ 08 (आर्थिक शब्दावली और विविध तथ्य)", file: "INDIAN_ECONOMICS/08.json" }
+                    ]
+                },
+                {
+                    subjectName: "विज्ञान (SCIENCE)",
+                    icon: "🔬",
+                    description: "भौतिक विज्ञान, रसायन विज्ञान एवं जीव विज्ञान।",
+                    sections: [
+                        {
+                            sectionName: "भौतिक विज्ञान (PHYSICS)",
+                            icon: "⚛️",
+                            chapters: [
+                                { name: "पाठ 01 (मात्रक)", file: "SCIENCE/PHYSICS/01.json" },
+                                { name: "पाठ 02 (गति)", file: "SCIENCE/PHYSICS/02.json" },
+                                { name: "पाठ 03 (कार्य, ऊर्जा एवं शक्ति)", file: "SCIENCE/PHYSICS/03.json" },
+                                { name: "पाठ 04 (गुरुत्वाकर्षण)", file: "SCIENCE/PHYSICS/04.json" },
+                                { name: "पाठ 05 (दाब)", file: "SCIENCE/PHYSICS/05.json" },
+                                { name: "पाठ 06 (प्लवन)", file: "SCIENCE/PHYSICS/06.json" },
+                                { name: "पाठ 07 (पृष्ठ तनाव)", file: "SCIENCE/PHYSICS/07.json" },
+                                { name: "पाठ 08 (श्यानता)", file: "SCIENCE/PHYSICS/08.json" },
+                                { name: "पाठ 09 (प्रत्यास्थता)", file: "SCIENCE/PHYSICS/09.json" },
+                                { name: "पाठ 10 (सरल आवर्त गति)", file: "SCIENCE/PHYSICS/10.json" },
+                                { name: "पाठ 11 (तरंग)", file: "SCIENCE/PHYSICS/11.json" },
+                                { name: "पाठ 12 (ध्वनि तरंग)", file: "SCIENCE/PHYSICS/12.json" },
+                                { name: "पाठ 13 (ऊष्मा)", file: "SCIENCE/PHYSICS/13.json" },
+                                { name: "पाठ 14 (प्रकाश)", file: "SCIENCE/PHYSICS/14.json" },
+                                { name: "पाठ 15 (स्थिर विद्युत)", file: "SCIENCE/PHYSICS/15.json" },
+                                { name: "पाठ 16 (विद्युत धारा)", file: "SCIENCE/PHYSICS/16.json" },
+                                { name: "पाठ 17 (चुम्बकत्व)", file: "SCIENCE/PHYSICS/17.json" },
+                                { name: "पाठ 18 (परमाणु भौतिकी)", file: "SCIENCE/PHYSICS/18.json" },
+                                { name: "पाठ 19 (रेडियोसक्रियता)", file: "SCIENCE/PHYSICS/19.json" },
+                                { name: "पाठ 20 (नाभिकीय विखंडन तथा संलयन)", file: "SCIENCE/PHYSICS/20.json" },
+                                { name: "पाठ 21 (ब्रह्मांड)", file: "SCIENCE/PHYSICS/21.json" },
+                                { name: "पाठ 22 (वैज्ञानिक उपकरण)", file: "SCIENCE/PHYSICS/22.json" },
+                                { name: "पाठ 23 (भौतिकी संबंधी महत्वपूर्ण खोज)", file: "SCIENCE/PHYSICS/23.json" },
+                                { name: "पाठ 24 (मात्रकों का एक पद्धति से दूसरी पद्धति में परिवर्तन)", file: "SCIENCE/PHYSICS/24.json" },
+                                { name: "पाठ 25 (माप-तौल के विभिन्न मात्रक)", file: "SCIENCE/PHYSICS/25.json" },
+                                { name: "पाठ 26 (विभिन्न यंत्रों एवं उपकरणों के आविष्कारक)", file: "SCIENCE/PHYSICS/26.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "रसायन विज्ञान (CHEMISTRY)",
+                            icon: "🧪",
+                            chapters: [
+                                { name: "पाठ 01 (पदार्थ एवं उसकी प्रकृति)", file: "SCIENCE/CHEMISTRY/01.json" },
+                                { name: "पाठ 02 (परमाणु संरचना)", file: "SCIENCE/CHEMISTRY/02.json" },
+                                { name: "पाठ 03 (गैसों का आचरण)", file: "SCIENCE/CHEMISTRY/03.json" },
+                                { name: "पाठ 04 (तत्वों का आवर्ती वर्गीकरण)", file: "SCIENCE/CHEMISTRY/04.json" },
+                                { name: "पाठ 05 (रासायनिक बंधन)", file: "SCIENCE/CHEMISTRY/05.json" },
+                                { name: "पाठ 06 (ऑक्सीकरण एवं अवकरण)", file: "SCIENCE/CHEMISTRY/06.json" },
+                                { name: "पाठ 07 (अम्ल, भस्म एवं लवण)", file: "SCIENCE/CHEMISTRY/07.json" },
+                                { name: "पाठ 08 (विलयन)", file: "SCIENCE/CHEMISTRY/08.json" },
+                                { name: "पाठ 09 (कार्बन एवं उसके यौगिक)", file: "SCIENCE/CHEMISTRY/09.json" },
+                                { name: "पाठ 10 (ईंधन)", file: "SCIENCE/CHEMISTRY/10.json" },
+                                { name: "पाठ 11 (धातुएँ)", file: "SCIENCE/CHEMISTRY/11.json" },
+                                { name: "पाठ 12 (अधातुएँ)", file: "SCIENCE/CHEMISTRY/12.json" },
+                                { name: "पाठ 13 (मिश्रधातु)", file: "SCIENCE/CHEMISTRY/13.json" },
+                                { name: "पाठ 14 (मानव निर्मित पदार्थ)", file: "SCIENCE/CHEMISTRY/14.json" },
+                                { name: "पाठ 15 (औषधि एवं रसायन)", file: "SCIENCE/CHEMISTRY/15.json" },
+                                { name: "पाठ 16 (उत्प्रेरण)", file: "SCIENCE/CHEMISTRY/16.json" }
+                            ]
+                        },
+                        {
+                            sectionName: "जीव विज्ञान (BIOLOGY)",
+                            icon: "🧬",
+                            chapters: [
+                                { name: "पाठ 01 (जीवधारियों का वर्गीकरण)", file: "SCIENCE/BIOLOGY/01.json" },
+                                { name: "पाठ 02 (कोशिका विज्ञान)", file: "SCIENCE/BIOLOGY/02.json" },
+                                { name: "पाठ 03 (जैव-विकास)", file: "SCIENCE/BIOLOGY/03.json" },
+                                { name: "पाठ 04 (आनुवंशिकी)", file: "SCIENCE/BIOLOGY/04.json" },
+                                { name: "पाठ 05 (वनस्पति विज्ञान)", file: "SCIENCE/BIOLOGY/05.json" },
+                                { name: "पाठ 06 (प्राणी विज्ञान)", file: "SCIENCE/BIOLOGY/06.json" },
+                                { name: "पाठ 07 (मानव शरीर के तंत्र)", file: "SCIENCE/BIOLOGY/07.json" },
+                                { name: "पाठ 08 (पोषक पदार्थ)", file: "SCIENCE/BIOLOGY/08.json" },
+                                { name: "पाठ 09 (पोषण)", file: "SCIENCE/BIOLOGY/09.json" },
+                                { name: "पाठ 10 (मानव रोग)", file: "SCIENCE/BIOLOGY/10.json" },
+                                { name: "पाठ 11 (चिकित्सा संबंधी आविष्कार)", file: "SCIENCE/BIOLOGY/11.json" },
+                                { name: "पाठ 12 (प्रमुख चिकित्सा उपकरण)", file: "SCIENCE/BIOLOGY/12.json" },
+                                { name: "पाठ 13 (जन्तु विज्ञान की विभिन्न शाखाओं के जनक)", file: "SCIENCE/BIOLOGY/13.json" },
+                                { name: "पाठ 14 (अवास्तविक मछलियाँ)", file: "SCIENCE/BIOLOGY/14.json" },
+                                { name: "पाठ 15 (वास्तविक मछलियाँ)", file: "SCIENCE/BIOLOGY/15.json" },
+                                { name: "पाठ 16 (विचित्रताएँ)", file: "SCIENCE/BIOLOGY/16.json" },
+                                { name: "पाठ 17 (मानव शरीर के महत्वपूर्ण तथ्य)", file: "SCIENCE/BIOLOGY/17.json" },
+                                { name: "पाठ 18 (विज्ञान की कुछ प्रमुख शाखाएँ)", file: "SCIENCE/BIOLOGY/18.json" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    subjectName: "खेल-कूद (SPORTS)",
+                    icon: "🏅",
+                    description: "ओलम्पिक, एशियाई एवं राष्ट्रमंडल खेल, पुरस्कार एवं संस्थाएँ।",
+                    chapters: [
+                        { name: "पाठ 01 (ओलम्पिक खेल)", file: "SPORTS/01.json" },
+                        { name: "पाठ 02 (राष्ट्रमंडल खेल)", file: "SPORTS/02.json" },
+                        { name: "पाठ 03 (एशियाई खेल)", file: "SPORTS/03.json" },
+                        { name: "पाठ 04 (कुछ प्रमुख खेल एवं उससे संबंधित जानकारी)", file: "SPORTS/04.json" },
+                        { name: "पाठ 05 (विभिन्न खेल तथा उनसे सम्बद्ध प्रमुख कप एवं ट्रॉफियाँ)", file: "SPORTS/05.json" },
+                        { name: "पाठ 06 (प्रमुख खेलों में एक पक्ष के खिलाड़ियों की संख्या)", file: "SPORTS/06.json" },
+                        { name: "पाठ 07 (प्रमुख देशों के राष्ट्रीय खेल)", file: "SPORTS/07.json" },
+                        { name: "पाठ 08 (प्रसिद्ध खेल-मैदान तथा उनसे सम्बन्धित खेल)", file: "SPORTS/08.json" },
+                        { name: "पाठ 09 (विभिन्न खेलों के खेल-परिसर)", file: "SPORTS/09.json" },
+                        { name: "पाठ 10 (खेलों से संबंधित पुरस्कार)", file: "SPORTS/10.json" },
+                        { name: "पाठ 11 (भारत की प्रमुख खेल संस्थाएँ)", file: "SPORTS/11.json" }
+                    ]
+                },
+                {
+                    subjectName: "विविध (MISCELLANEOUS)",
+                    icon: "📚",
+                    description: "भारत एवं विश्व में प्रथम, राष्ट्रीय चिह्न, पुरस्कार, विरासत स्थल आदि।",
+                    chapters: [
+                        { name: "पाठ 01 (भारत में प्रथम (महिला))", file: "VIVIDH/01.json" },
+                        { name: "पाठ 02 (भारत में प्रथम (पुरुष))", file: "VIVIDH/02.json" },
+                        { name: "पाठ 03 (भारत में प्रथम (अन्य))", file: "VIVIDH/03.json" },
+                        { name: "पाठ 04 (भारत में सर्वाधिक बड़ा, लम्बा एवं ऊँचा)", file: "VIVIDH/04.json" },
+                        { name: "पाठ 05 (विश्व में प्रथम)", file: "VIVIDH/05.json" },
+                        { name: "पाठ 06 (विश्व में सर्वाधिक बड़ा, छोटा, लम्बा एवं ऊँचा)", file: "VIVIDH/06.json" },
+                        { name: "पाठ 07 (प्रमुख देशों के राष्ट्रीय चिह्न)", file: "VIVIDH/07.json" },
+                        { name: "पाठ 08 (अन्तर्राष्ट्रीय सीमाएँ)", file: "VIVIDH/08.json" },
+                        { name: "पाठ 09 (प्रमुख देशों के राष्ट्रीय स्मारक)", file: "VIVIDH/09.json" },
+                        { name: "पाठ 10 (मानचित्र की रेखाएँ)", file: "VIVIDH/10.json" },
+                        { name: "पाठ 11 (प्रमुख देशों की समाचार एजेंसियाँ)", file: "VIVIDH/11.json" },
+                        { name: "पाठ 12 (प्रमुख देशों के सरकारी दस्तावेज)", file: "VIVIDH/12.json" },
+                        { name: "पाठ 13 (विभिन्न देशों के राजनीतिक दल)", file: "VIVIDH/13.json" },
+                        { name: "पाठ 14 (प्रमुख चिह्न तथा प्रतीक)", file: "VIVIDH/14.json" },
+                        { name: "पाठ 15 (प्रमुख देशों के राष्ट्रीय पशु/पक्षी)", file: "VIVIDH/15.json" },
+                        { name: "पाठ 16 (विश्व की अंतर्राष्ट्रीय विमान सेवाएँ)", file: "VIVIDH/16.json" },
+                        { name: "पाठ 17 (विश्व के प्रमुख समाचारपत्र एवं प्रकाशन-स्थल)", file: "VIVIDH/17.json" },
+                        { name: "पाठ 18 (विश्व की प्रमुख गुप्तचर संस्थाएँ)", file: "VIVIDH/18.json" },
+                        { name: "पाठ 19 (विभिन्न देशों की संसद)", file: "VIVIDH/19.json" },
+                        { name: "पाठ 20 (संयुक्त राष्ट्र संघ)", file: "VIVIDH/20.json" },
+                        { name: "पाठ 21 (विश्व के कुछ अन्य प्रमुख संगठन)", file: "VIVIDH/21.json" },
+                        { name: "पाठ 22 (विश्व के प्रमुख संगठन और उनके मुख्यालय)", file: "VIVIDH/22.json" },
+                        { name: "पाठ 23 (समकालीन संयुक्त राष्ट्र अन्तर्राष्ट्रीय वर्ष)", file: "VIVIDH/23.json" },
+                        { name: "पाठ 24 (समकालीन संयुक्त राष्ट्र अन्तर्राष्ट्रीय दशक)", file: "VIVIDH/24.json" },
+                        { name: "पाठ 25 (महत्वपूर्ण राष्ट्रीय एवं अन्तर्राष्ट्रीय दिवस)", file: "VIVIDH/25.json" },
+                        { name: "पाठ 26 (भारत के प्रमुख पर्यटन स्थल)", file: "VIVIDH/26.json" },
+                        { name: "पाठ 27 (भारत के विश्व विरासत स्थल)", file: "VIVIDH/27.json" },
+                        { name: "पाठ 28 (भारत की प्रतिरक्षा)", file: "VIVIDH/28.json" },
+                        { name: "पाठ 29 (भारत के सैनिक प्रशिक्षण संस्थान)", file: "VIVIDH/29.json" },
+                        { name: "पाठ 30 (भारत की आन्तरिक सुरक्षा व्यवस्था)", file: "VIVIDH/30.json" },
+                        { name: "पाठ 31 (प्रमुख राज्यों की स्थापना दिवस)", file: "VIVIDH/31.json" },
+                        { name: "पाठ 32 (भारत के प्रमुख शोध-संस्थान)", file: "VIVIDH/32.json" },
+                        { name: "पाठ 33 (भारत के प्रमुख वाद्ययंत्र और उनके वादक)", file: "VIVIDH/33.json" },
+                        { name: "पाठ 34 (प्रमुख शास्त्रीय नृत्य एवं उसके कलाकार)", file: "VIVIDH/34.json" },
+                        { name: "पाठ 35 (भारत के सांस्कृतिक संस्थान एवं स्थापना वर्ष)", file: "VIVIDH/35.json" },
+                        { name: "पाठ 36 (समाधि-स्थल)", file: "VIVIDH/36.json" },
+                        { name: "पाठ 37 (राज्यों से संबंधित लोकनृत्य)", file: "VIVIDH/37.json" },
+                        { name: "पाठ 38 (प्रमुख व्यक्तियों के लोकप्रिय उपनाम)", file: "VIVIDH/38.json" },
+                        { name: "पाठ 39 (प्रमुख व्यक्तियों से सम्बन्धित स्थान)", file: "VIVIDH/39.json" },
+                        { name: "पाठ 40 (प्रमुख पुरस्कार एवं सम्मान)", file: "VIVIDH/40.json" },
+                        { name: "पाठ 41 (राष्ट्रीय पुरस्कार)", file: "VIVIDH/41.json" },
+                        { name: "पाठ 42 (दादा साहेब फाल्के पुरस्कार पाने वाले व्यक्ति)", file: "VIVIDH/42.json" },
+                        { name: "पाठ 43 ('भारत रत्न' से सम्मानित व्यक्ति)", file: "VIVIDH/43.json" },
+                        { name: "पाठ 44 (ज्ञानपीठ पुरस्कार से सम्मानित साहित्यकार)", file: "VIVIDH/44.json" },
+                        { name: "पाठ 45 (महान कार्यों से संबंधित व्यक्ति)", file: "VIVIDH/45.json" },
+                        { name: "पाठ 46 (प्रमुख लेखक एवं उनकी पुस्तक)", file: "VIVIDH/46.json" },
+                        { name: "पाठ 47 (शब्द संक्षेप)", file: "VIVIDH/47.json" }
+                    ]
+                },
+            ]
+        },
     }
 
     const commonMasterSubject = {
-    subjectName: "📚 COMMON (सामान्य ज्ञान एवं व्याकरण)",
+    subjectName: "📚 COMMON (व्याकरण एवं GRAMMAR)",
     icon: "🌐",
-    description: "सभी कक्षाओं एवं प्रतियोगी परीक्षाओं हेतु सामान्य ज्ञान, सामान्य अध्ययन और व्याकरण।",
+    description: "सभी कक्षाओं हेतु हिंदी एवं अंग्रेज़ी व्याकरण का अध्यायवार अभ्यास।",
     sections: [
-        // ==========================================
-        // SECTION 1: GENERAL KNOWLEDGE (GK)
-        // ==========================================
-        {
-            sectionName: "GK - HISTORY (इतिहास)",
-            icon: "📜",
-            chapters: [
-                { name: "पाठ 01 (सिंधु घाटी सभ्यता / Indus Valley Civilization)", file: "COMMON/GK/HISTORY/01.json" },
-                { name: "पाठ 02 (वैदिक संस्कृति एवं सभ्यता / Vedic Culture)", file: "COMMON/GK/HISTORY/02.json" },
-                { name: "पाठ 03 (महाजनपद काल, बौद्ध एवं जैन धर्म / Mahajanapadas, Buddhism & Jainism)", file: "COMMON/GK/HISTORY/03.json" },
-                { name: "पाठ 04 (मौर्य साम्राज्य और गुप्त साम्राज्य / Mauryan & Gupta Empire)", file: "COMMON/GK/HISTORY/04.json" },
-                { name: "पाठ 05 (दक्षिण भारत के प्रमुख राजवंश / South Indian Dynasties)", file: "COMMON/GK/HISTORY/05.json" },
-                { name: "पाठ 06 (दिल्ली सल्तनत / Delhi Sultanate)", file: "COMMON/GK/HISTORY/06.json" },
-                { name: "पाठ 07 (मुगल साम्राज्य और मराठा साम्राज्य / Mughal & Maratha Empire)", file: "COMMON/GK/HISTORY/07.json" },
-                { name: "पाठ 08 (भारत में यूरोपीय कंपनियों का आगमन / Arrival of European Companies)", file: "COMMON/GK/HISTORY/08.json" },
-                { name: "पाठ 09 (1857 की क्रांति / Revolt of 1857)", file: "COMMON/GK/HISTORY/09.json" },
-                { name: "पाठ 10 (सामाजिक और धार्मिक सुधार आंदोलन / Socio-Religious Reform Movements)", file: "COMMON/GK/HISTORY/10.json" },
-                { name: "पाठ 11 (भारतीय राष्ट्रीय कांग्रेस और प्रमुख अधिवेशन / INC & Important Sessions)", file: "COMMON/GK/HISTORY/11.json" },
-                { name: "पाठ 12 (स्वतंत्रता संग्राम और प्रमुख आंदोलन / Freedom Movement)", file: "COMMON/GK/HISTORY/12.json" },
-                { name: "पाठ 13 (भारत का विभाजन और स्वतंत्रता / Partition and Independence)", file: "COMMON/GK/HISTORY/13.json" }
-            ]
-        },
-        {
-            sectionName: "GK - GEOGRAPHY (भूगोल)",
-            icon: "🗺️",
-            chapters: [
-                { name: "पाठ 01 (सौरमंडल, पृथ्वी की गति और अक्षांश-देशांतर / Solar System & Earth Movements)", file: "COMMON/GK/GEOGRAPHY/01.json" },
-                { name: "पाठ 02 (पृथ्वी की आंतरिक संरचना, भूकंप और ज्वालामुखी / Earth Interior, Volcanoes & Earthquakes)", file: "COMMON/GK/GEOGRAPHY/02.json" },
-                { name: "पाठ 03 (वायुमंडल की संरचना और दाबांतर / Atmosphere & Pressure)", file: "COMMON/GK/GEOGRAPHY/03.json" },
-                { name: "पाठ 04 (महाद्वीप, महासागर और जलधाराएँ / Continents, Oceans & Currents)", file: "COMMON/GK/GEOGRAPHY/04.json" },
-                { name: "पाठ 05 (भारत की भौतिक बनावट / Physical Features of India)", file: "COMMON/GK/GEOGRAPHY/05.json" },
-                { name: "पाठ 06 (भारत की नदियाँ, झीलें और जलप्रपात / Rivers, Lakes & Waterfalls)", file: "COMMON/GK/GEOGRAPHY/06.json" },
-                { name: "पाठ 07 (भारत की जलवायु और मृदा के प्रकार / Climate & Soil Types of India)", file: "COMMON/GK/GEOGRAPHY/07.json" },
-                { name: "पाठ 08 (कृषि, सिंचाई और प्रमुख फसलें / Agriculture & Major Crops)", file: "COMMON/GK/GEOGRAPHY/08.json" },
-                { name: "पाठ 09 (खनिज संसाधन, ऊर्जा और उद्योग / Minerals, Energy & Industries)", file: "COMMON/GK/GEOGRAPHY/09.json" },
-                { name: "पाठ 10 (राष्ट्रीय उद्यान और अभयारण्य / National Parks & Wildlife Sanctuaries)", file: "COMMON/GK/GEOGRAPHY/10.json" },
-                { name: "पाठ 11 (जनगणना और जनसंख्या वितरण / Census & Population Distribution)", file: "COMMON/GK/GEOGRAPHY/11.json" }
-            ]
-        },
-        {
-            sectionName: "GK - POLITY (भारतीय राजव्यवस्था)",
-            icon: "⚖️",
-            chapters: [
-                { name: "पाठ 01 (संविधान का निर्माण और सभा / Making of Constitution)", file: "COMMON/GK/POLITY/01.json" },
-                { name: "पाठ 02 (प्रस्तावना और प्रमुख स्रोत / Preamble & Sources of Constitution)", file: "COMMON/GK/POLITY/02.json" },
-                { name: "पाठ 03 (अनुसूचियाँ और भाग / Schedules & Parts)", file: "COMMON/GK/POLITY/03.json" },
-                { name: "पाठ 04 (नागरिकता / Citizenship)", file: "COMMON/GK/POLITY/04.json" },
-                { name: "पाठ 05 (मौलिक अधिकार और कर्तव्य / Fundamental Rights & Duties)", file: "COMMON/GK/POLITY/05.json" },
-                { name: "पाठ 06 (राज्य के नीति निदेशक तत्व / DPSP)", file: "COMMON/GK/POLITY/06.json" },
-                { name: "पाठ 07 (राष्ट्रपति, उपराष्ट्रपति और प्रधानमंत्री / President, VP & Prime Minister)", file: "COMMON/GK/POLITY/07.json" },
-                { name: "पाठ 08 (संसद - लोकसभा और राज्यसभा / Parliament - Lok Sabha & Rajya Sabha)", file: "COMMON/GK/POLITY/08.json" },
-                { name: "पाठ 09 (सर्वोच्च न्यायालय और उच्च न्यायालय / Supreme Court & High Court)", file: "COMMON/GK/POLITY/09.json" },
-                { name: "पाठ 10 (राज्यपाल और मुख्यमंत्री / Governor & Chief Minister)", file: "COMMON/GK/POLITY/10.json" },
-                { name: "पाठ 11 (पंचायती राज और स्थानीय स्वशासन / Panchayati Raj)", file: "COMMON/GK/POLITY/11.json" },
-                { name: "पाठ 12 (निर्वाचन आयोग, UPSC और CAG / Constitutional Bodies)", file: "COMMON/GK/POLITY/12.json" },
-                { name: "पाठ 13 (प्रमुख संवैधानिक संशोधन / Important Constitutional Amendments)", file: "COMMON/GK/POLITY/13.json" }
-            ]
-        },
-        {
-            sectionName: "GK - ECONOMICS (अर्थशास्त्र)",
-            icon: "💰",
-            chapters: [
-                { name: "पाठ 01 (अर्थशास्त्र के प्रकार और क्षेत्र / Types and Sectors of Economy)", file: "COMMON/GK/ECONOMICS/01.json" },
-                { name: "पाठ 02 (राष्ट्रीय आय, GDP, GNP / National Income, GDP & GNP)", file: "COMMON/GK/ECONOMICS/02.json" },
-                { name: "पाठ 03 (मुद्रास्फीति और मंदी / Inflation & Recession)", file: "COMMON/GK/ECONOMICS/03.json" },
-                { name: "पाठ 04 (भारतीय बैंकिंग प्रणाली और RBI / Indian Banking & RBI)", file: "COMMON/GK/ECONOMICS/04.json" },
-                { name: "पाठ 05 (कर प्रणाली एवं GST / Tax System & GST)", file: "COMMON/GK/ECONOMICS/05.json" },
-                { name: "पाठ 06 (बजट और वित्तीय प्रणाली / Budget & Financial System)", file: "COMMON/GK/ECONOMICS/06.json" },
-                { name: "पाठ 07 (निर्धनता, बेरोजगारी और योजनाएँ / Poverty, Unemployment & Schemes)", file: "COMMON/GK/ECONOMICS/07.json" },
-                { name: "पाठ 08 (पंचवर्षीय योजनाएँ और नीति आयोग / Five Year Plans & NITI Aayog)", file: "COMMON/GK/ECONOMICS/08.json" },
-                { name: "पाठ 09 (अंतर्राष्ट्रीय आर्थिक संगठन / International Economic Organizations)", file: "COMMON/GK/ECONOMICS/09.json" }
-            ]
-        },
-        {
-            sectionName: "GK - PHYSICS (भौतिक विज्ञान)",
-            icon: "⚡",
-            chapters: [
-                { name: "पाठ 01 (मात्रक और मापन / Units and Measurements)", file: "COMMON/GK/PHYSICS/01.json" },
-                { name: "पाठ 02 (गति, बल और न्यूटन के नियम / Motion, Force & Laws of Motion)", file: "COMMON/GK/PHYSICS/02.json" },
-                { name: "पाठ 03 (कार्य, ऊर्जा और शक्ति / Work, Energy & Power)", file: "COMMON/GK/PHYSICS/03.json" },
-                { name: "पाठ 04 (गुरुत्वाकर्षण / Gravitation)", file: "COMMON/GK/PHYSICS/04.json" },
-                { name: "पाठ 05 (द्रव के गुण / Properties of Matter & Fluids)", file: "COMMON/GK/PHYSICS/05.json" },
-                { name: "पाठ 06 (तरंगें और ध्वनि / Waves and Sound)", file: "COMMON/GK/PHYSICS/06.json" },
-                { name: "पाठ 07 (ऊष्मा और ताप / Heat and Temperature)", file: "COMMON/GK/PHYSICS/07.json" },
-                { name: "पाठ 08 (प्रकाश - परावर्तन, अपवर्तन / Light - Reflection & Refraction)", file: "COMMON/GK/PHYSICS/08.json" },
-                { name: "पाठ 09 (विद्युत और चुंबकत्व / Electricity & Magnetism)", file: "COMMON/GK/PHYSICS/09.json" },
-                { name: "पाठ 10 (आधुनिक भौतिकी और परमाणु / Modern Physics & Atomic Structure)", file: "COMMON/GK/PHYSICS/10.json" }
-            ]
-        },
-        {
-            sectionName: "GK - CHEMISTRY (रसायन विज्ञान)",
-            icon: "⚗️",
-            chapters: [
-                { name: "पाठ 01 (पदार्थ की अवस्थाएँ और वर्गीकरण / States & Classification of Matter)", file: "COMMON/GK/CHEMISTRY/01.json" },
-                { name: "पाठ 02 (परमाणु संरचना और रासायनिक बंध / Atomic Structure & Chemical Bonding)", file: "COMMON/GK/CHEMISTRY/02.json" },
-                { name: "पाठ 03 (तत्वों का आवर्त वर्गीकरण / Periodic Classification of Elements)", file: "COMMON/GK/CHEMISTRY/03.json" },
-                { name: "पाठ 04 (अम्ल, क्षार और लवण / Acids, Bases & Salts)", file: "COMMON/GK/CHEMISTRY/04.json" },
-                { name: "पाठ 05 (धातु, अधातु और उपधातु / Metals, Non-metals & Metalloids)", file: "COMMON/GK/CHEMISTRY/05.json" },
-                { name: "पाठ 06 (कार्बन और उसके यौगिक / Carbon & Its Compounds)", file: "COMMON/GK/CHEMISTRY/06.json" },
-                { name: "पाठ 07 (ईंधन और विस्फोटक पदार्थ / Fuels & Explosives)", file: "COMMON/GK/CHEMISTRY/07.json" },
-                { name: "पाठ 08 (दैनिक जीवन में रसायन / Chemistry in Everyday Life)", file: "COMMON/GK/CHEMISTRY/08.json" }
-            ]
-        },
-        {
-            sectionName: "GK - BIOLOGY (जीव विज्ञान)",
-            icon: "🧬",
-            chapters: [
-                { name: "पाठ 01 (कोशिका - संरचना और कार्य / Cell - Structure & Function)", file: "COMMON/GK/BIOLOGY/01.json" },
-                { name: "पाठ 02 (ऊतक / Tissues)", file: "COMMON/GK/BIOLOGY/02.json" },
-                { name: "पाठ 03 (मानव शरीर तंत्र / Human Organ Systems)", file: "COMMON/GK/BIOLOGY/03.json" },
-                { name: "पाठ 04 (पोषक तत्व / Nutrients - Vitamins, Proteins, Fats)", file: "COMMON/GK/BIOLOGY/04.json" },
-                { name: "पाठ 05 (मानव रोग, कारण और बचाव / Human Diseases, Causes & Cure)", file: "COMMON/GK/BIOLOGY/05.json" },
-                { name: "पाठ 06 (पादप कार्यिकी / Plant Physiology)", file: "COMMON/GK/BIOLOGY/06.json" },
-                { name: "पाठ 07 (पारिस्थितिकी और पर्यावरण / Ecology & Environment)", file: "COMMON/GK/BIOLOGY/07.json" }
-            ]
-        },
-        {
-            sectionName: "GK - STATIC GK (स्टैटिक जीके)",
-            icon: "🏛️",
-            chapters: [
-                { name: "पाठ 01 (भारत और विश्व में प्रथम / First in India & World)", file: "COMMON/GK/STATIC_GK/01.json" },
-                { name: "पाठ 02 (लोक और शास्त्रीय नृत्य / Folk & Classical Dances)", file: "COMMON/GK/STATIC_GK/02.json" },
-                { name: "पाठ 03 (प्रमुख त्योहार और मेले / Major Festivals & Fairs)", file: "COMMON/GK/STATIC_GK/03.json" },
-                { name: "पाठ 04 (प्रसिद्ध मंदिर, धरोहर और स्मारक / Famous Temples & Monuments)", file: "COMMON/GK/STATIC_GK/04.json" },
-                { name: "पाठ 05 (महत्वपूर्ण राष्ट्रीय व अंतर्राष्ट्रीय दिवस / Important Days)", file: "COMMON/GK/STATIC_GK/05.json" },
-                { name: "पाठ 06 (प्रमुख पुस्तकें और लेखक / Famous Books & Authors)", file: "COMMON/GK/STATIC_GK/06.json" },
-                { name: "पाठ 07 (अंतर्राष्ट्रीय संगठन और मुख्यालय / International Organizations & HQ)", file: "COMMON/GK/STATIC_GK/07.json" },
-                { name: "पाठ 08 (खेलकूद - कप, ट्रॉफियाँ, शब्दावली / Sports - Cups & Terms)", file: "COMMON/GK/STATIC_GK/08.json" },
-                { name: "पाठ 09 (भारत के राष्ट्रीय प्रतीक / National Symbols of India)", file: "COMMON/GK/STATIC_GK/09.json" },
-                { name: "पाठ 10 (प्रमुख पुरस्कार और सम्मान / Major Awards & Honors)", file: "COMMON/GK/STATIC_GK/10.json" }
-            ]
-        },
-        {
-            sectionName: "GK - CURRENT AFFAIRS (समसामयिकी)",
-            icon: "📰",
-            chapters: [
-                { name: "पाठ 01 (राष्ट्रीय और अंतर्राष्ट्रीय घटनाक्रम / National & International Events)", file: "COMMON/GK/CURRENT_AFFAIRS/01.json" },
-                { name: "पाठ 02 (प्रमुख नियुक्तियाँ और निधन / Appointments & Obituaries)", file: "COMMON/GK/CURRENT_AFFAIRS/02.json" },
-                { name: "पाठ 03 (खेल समाचार और विजेता / Sports News & Winners)", file: "COMMON/GK/CURRENT_AFFAIRS/03.json" },
-                { name: "पाठ 04 (सैन्य अभ्यास और सुरक्षा / Military Exercises & Security)", file: "COMMON/GK/CURRENT_AFFAIRS/04.json" },
-                { name: "पाठ 05 (विज्ञान एवं प्रौद्योगिकी, अंतरिक्ष / Science, Tech & Space)", file: "COMMON/GK/CURRENT_AFFAIRS/05.json" },
-                { name: "पाठ 06 (सरकारी योजनाएँ / Government Schemes)", file: "COMMON/GK/CURRENT_AFFAIRS/06.json" }
-            ]
-        },
-
         // ==========================================
         // SECTION 2: GRAMMAR (व्याकरण)
         // ==========================================
@@ -1584,7 +1833,7 @@ const coursesData = {
         coursePill.classList.remove('open');
         courseDropdown.classList.remove('open');
         // Update label
-        const labels = {bseb10:'BSEB 10th', bseb11:'BSEB 11th', bseb9:'BSEB 9th', cbse10:'CBSE 10th', cbse9:'CBSE 9th'};
+        const labels = {bseb10:'BSEB 10th', bseb11:'BSEB 11th', bseb9:'BSEB 9th', cbse10:'CBSE 10th', cbse9:'CBSE 9th', lucent:'LUCENT GK'};
         courseLabel.innerText = labels[courseKey] || courseKey;
         // Update active states
         document.querySelectorAll('.course-option').forEach(opt => {
@@ -1604,7 +1853,7 @@ const coursesData = {
         if (!coursesData[courseKey]) return;
         currentCourseKey = courseKey;
         let currentData = JSON.parse(JSON.stringify(coursesData[courseKey].data));
-        const hasCommon = currentData.some(sub => sub.subjectName && sub.subjectName.includes("COMMON (सामान्य ज्ञान एवं व्याकरण)"));
+        const hasCommon = currentData.some(sub => sub.subjectName && sub.subjectName.includes("COMMON ("));
         if (!hasCommon) { currentData.push(commonMasterSubject); }
         activeQuizData = currentData;
         currentBaseDir = coursesData[courseKey].baseDir;
@@ -1704,7 +1953,8 @@ const coursesData = {
             // Determine icon class
             let iconClass = 'science';
             let sn = (sub.subjectName || '').toUpperCase();
-            if (sn.includes('HINDI')) iconClass = 'hindi';
+            if (typeof currentCourseKey !== 'undefined' && currentCourseKey === 'lucent') iconClass = 'common';
+            else if (sn.includes('HINDI')) iconClass = 'hindi';
             else if (sn.includes('SOCIAL')) iconClass = 'social';
             else if (sn.includes('ENGLISH')) iconClass = 'english';
             else if (sn.includes('MATH')) iconClass = 'math';
