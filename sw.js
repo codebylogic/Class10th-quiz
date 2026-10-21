@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bseb-quiz-v2'; // वर्ज़न अपडेट करें
+const CACHE_NAME = 'bseb-quiz-v3'; // वर्ज़न अपडेट करें
 const BASE_PATH = '/Class10th-quiz';
 const OFFLINE_URL = `${BASE_PATH}/offline.html`;
 
@@ -6,6 +6,8 @@ const ASSETS_TO_CACHE = [
   `${BASE_PATH}/`,
   `${BASE_PATH}/index.html`,
   `${BASE_PATH}/quiz.html`,
+  `${BASE_PATH}/app.html`,
+  `${BASE_PATH}/assets/app/icon.png`,
   `${BASE_PATH}/style.css`,
   `${BASE_PATH}/script.js`,
   `${BASE_PATH}/manifest.json`,

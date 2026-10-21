@@ -456,6 +456,48 @@ body {
   .stat-tiles { flex-wrap: wrap; }
   .stat-tile { flex: 1 1 calc(50% - 10px); }
 }
+
+/* ============================================================
+   ANDROID APP PROMO CARD  (links to ./app.html)
+   ============================================================ */
+.app-promo {
+  display: flex; align-items: center; gap: 13px; padding: 14px; margin: 0 0 18px;
+  border-radius: var(--r-lg); border: 1px solid rgba(99, 102, 241, 0.32);
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(16,185,129,0.10));
+  box-shadow: var(--shadow-elevated), var(--inner-glow); position: relative; overflow: hidden;
+  transition: transform .15s var(--ease), border-color .2s var(--ease);
+}
+.app-promo::after {
+  content: ""; position: absolute; top: -46px; right: -30px; width: 150px; height: 150px;
+  background: radial-gradient(circle, rgba(99,102,241,0.35) 0%, transparent 70%); pointer-events: none;
+}
+.app-promo:active { transform: scale(.985); border-color: var(--glass-border-bright); }
+.app-promo-icon {
+  width: 52px; height: 52px; border-radius: 15px; flex-shrink: 0;
+  border: 1px solid var(--glass-border-bright); background: #0d1120; object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,.45); position: relative; z-index: 1;
+}
+.app-promo-body { flex: 1; min-width: 0; position: relative; z-index: 1; }
+.app-promo-tag {
+  font-size: 0.66rem; font-weight: 800; letter-spacing: 0.07em;
+  color: var(--indigo-2); text-transform: uppercase;
+}
+.app-promo-title {
+  font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 0.98rem;
+  margin-top: 2px; color: var(--text-primary);
+}
+.app-promo-sub {
+  font-size: 0.73rem; color: var(--text-secondary); margin-top: 2px;
+  max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.app-promo-cta {
+  flex-shrink: 0; font-size: 0.78rem; font-weight: 800; padding: 9px 14px;
+  border-radius: var(--r-pill); color: #04140d; white-space: nowrap;
+  background: linear-gradient(135deg, var(--emerald), #059669);
+  box-shadow: 0 6px 18px -4px var(--emerald-glow); position: relative; z-index: 1;
+}
+@media (max-width: 430px) { .app-promo-sub { display: none; } .app-promo-cta { padding: 9px 12px; } }
+
 </style>
 </head>
 
@@ -583,6 +625,17 @@ body {
             <span class="icon">🎯</span> मॉक टेस्ट
         </div>
     </div>
+
+    <!-- ANDROID APP PROMO CARD -->
+    <a class="app-promo" href="./app.html" aria-label="Android ऐप डाउनलोड करें">
+        <img class="app-promo-icon" src="./assets/app/icon.png" alt="Smart Quiz Portal ऐप">
+        <div class="app-promo-body">
+            <div class="app-promo-tag">📱 Android ऐप</div>
+            <div class="app-promo-title">Smart Quiz Portal ऐप डाउनलोड करें</div>
+            <div class="app-promo-sub">100% ऑफलाइन · 596 अध्याय · 40,000+ प्रश्न · मुफ़्त</div>
+        </div>
+        <span class="app-promo-cta">इंस्टॉल</span>
+    </a>
 
     <div class="section-head">
         <div>
